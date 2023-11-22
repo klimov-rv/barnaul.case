@@ -1,0 +1,14 @@
+div.load-more-items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 250px;
+    margin: 80px auto 0;
+    box-sizing: border-box;
+    text-align: center;
+    cursor: pointer;
+}
+div.load-more-items svg {
+    margin-left: 10px;
+}

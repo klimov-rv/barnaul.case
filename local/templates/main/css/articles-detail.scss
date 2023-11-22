@@ -1,0 +1,122 @@
+@import 'variables';
+
+.x3-article {
+  max-width: 1100px;
+  margin: 30px auto;
+}
+.x3-article-date {
+  max-width: 1100px;
+  margin: 30px auto;
+  font-size: 20px;
+  line-height: 30px;
+  color: $colorSecondary;
+}
+.page-title {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-size: 38px;
+  line-height: 50px;
+}
+.x3-article__text {
+  margin-top: 25px;
+  font-size: 20px;
+  line-height: 30px;
+}
+.x3-article__text p {
+  margin: 20px 0 30px;
+}
+
+.x3-article__photos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+  margin-bottom: 50px;
+}
+.x3-article__photos._show {
+  max-height: 800px !important;
+}
+.x3-article__photos._show + .x3-article__photos-more svg {
+  transform: rotate(180deg);
+}
+.x3-article__photos + .x3-article__photos-more svg {
+  transition: transform 0.2s;
+}
+.x3-article__photos a {
+  font-size: 0;
+}
+.x3-article__photos img {
+  border-radius: $borderRadius;
+}
+
+.x3-article__photos-more {
+  text-align: center;
+}
+.x3-article__photos-more a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 155px;
+  min-width: 155px;
+  margin: 0 auto;
+}
+.x3-article__photos-more svg {
+  margin-left: 10px;
+}
+
+.x3-article__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  padding-bottom: 60px;
+}
+.x3-article__bottom .x3-btn svg {
+  stroke: #fff;
+  margin-right: 10px;
+}
+.x3-article__share {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  line-height: 27px;
+  color: $colorSecondary;
+}
+.ya-share2 {
+  margin-left: 7px;
+}
+
+@media(max-width: 980px) {
+  .page-title {
+    font-size: 36px;
+    line-height: 48px;
+  }
+}
+@media (max-width: 680px) {
+  .x3-article__photos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .x3-article__photos {
+    margin-bottom: 20px;
+  }
+  .x3-article__bottom {
+    display: block;
+  }
+  .x3-article__share {
+    margin-top: 25px;
+  }
+}
+@media(max-width: 480px) {
+  .x3-article__photos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .page-title {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .x3-article__bottom {
+    margin-top: 80px;
+  }
+}

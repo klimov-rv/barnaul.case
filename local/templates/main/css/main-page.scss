@@ -1,0 +1,122 @@
+@import 'variables';
+
+.x3-card-main {
+  background: url("#{$templatePath}/images/cart_info_bg.jpg") #fff no-repeat top left;
+}
+
+.x3-card-info {
+  padding-bottom: 170px;
+  .x3-card-info__wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 100px;
+  }
+  .x3-card-info__text {
+    width: 47%;
+    padding-bottom: 30px;
+    h2 {
+      margin: 0 0 20px;
+      font: normal 50px/66px $secondaryFont;
+      margin-bottom: 30px;
+    }
+    p {
+      margin: 15px 0;
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+  .x3-card-info__links {
+    a {
+      display: inline-block;
+      margin-bottom: 27px;
+      font: normal 22px/28px $secondaryFont;
+      color: $colorPrimary;
+    }
+    svg {
+      margin-left: 15px;
+      fill: $colorPrimary;
+      stroke: $colorPrimary
+    }
+  }
+  .x3-card-info__nums {
+    width: 46%;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 1460px) {
+  .x3-card-info {
+    padding-bottom: 100px;
+  }
+
+  .x3-card-info .x3-card-info__wrap {
+    padding-top: 50px;
+  }
+  .x3-card-info .x3-card-info__text {
+    padding-bottom: 50px;
+  }
+  .x3-card-info .x3-card-info__links {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .x3-card-info .x3-card-info__text,
+  .x3-card-info .x3-card-info__nums {
+    width: 100%;
+  }
+}
+
+@media (max-width: 980px) {
+  .x3-card-main {
+    margin-top: -80px;
+    padding-top: 80px;
+    background-position: 15% 0;
+  }
+  .x3-card-info .x3-card-info__text h2 {
+    font-size: 36px;
+    line-height: 48px;
+  }
+}
+
+@media (max-width: 480px) {
+  .x3-card-info {
+    padding-bottom: 40px;
+    margin-bottom: 0;
+  }
+  .x3-card-info .x3-card-info__wrap {
+    padding-top: 5px;
+  }
+  .x3-card-info .x3-card-info__text {
+    padding-bottom: 0;
+  }
+  .x3-card-info .x3-card-info__text h2 {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .x3-card-info .x3-card-info__text p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .x3-card-info .x3-card-info__links {
+    margin-top: 20px;
+  }
+  .x3-card-info .x3-card-info__links a {
+    display: flex;
+    margin-bottom: 7px;
+    align-items: center;
+    font-size: 18px;
+    line-height: 23px;
+  }
+  .x3-card-info .x3-card-info__links span {
+    display: inline-block;
+    max-width: 200px;
+  }
+  .x3-card-info .x3-card-info__links svg {
+    margin-left: 5px;
+  }
+}
+
+

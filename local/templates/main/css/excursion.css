@@ -1,0 +1,56 @@
+.x3-excursions {
+  margin-top: 40px;
+}
+
+.x3-excursions__item {
+  display: flex;
+  margin-bottom: 40px;
+  padding: 30px;
+}
+
+.x3-excursions__item:nth-child(even) {
+  background: #f6f6de;
+}
+
+.x3-excursions__img {
+  min-width: 350px;
+  height: auto;
+  margin-right: 40px;
+  margin-bottom: 15px;
+}
+
+.x3-excursions__img img {
+  border-radius: 10px;
+}
+
+.x3-excursions__title {
+  font-size: 30px;
+  line-height: normal;
+}
+
+.x3-excursions__preview {
+  margin-top: 25px;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .x3-excursions__item {
+    display: block;
+    margin-bottom: 60px;
+  }
+  .x3-excursions__img {
+    min-width: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+  .x3-excursions__img img {
+    max-width: 100%;
+  }
+  .x3-excursions__title {
+    margin-top: 15px;
+    font-size: 24px;
+    text-align: center;
+  }
+}
+
+/*# sourceMappingURL=excursion.css.map */

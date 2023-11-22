@@ -1,0 +1,21 @@
+.x3-breadcrumb {
+  margin-bottom: 25px;
+}
+
+.x3-breadcrumb__item {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 21px;
+  color: #E08F40;
+}
+
+.x3-breadcrumb__item a {
+  color: #333;
+}
+
+.x3-breadcrumb__sep {
+  margin: 0 12px;
+  color: #333;
+}
+
+/*# sourceMappingURL=breadcrumbs.css.map */

@@ -1,0 +1,36 @@
+.anim-slideUp {
+  transform: translate(0, 120%);
+  opacity: 0.5;
+  transition: all 1s ease 0s;
+}
+.anim-slideDown {
+  transform: translate(0, -80%);
+  opacity: 0.5;
+  transition: all 1s ease 0s;
+}
+.anim-slideRight {
+  transform: translate(20%, 0);
+  opacity: 0.5;
+  transition: all 1s ease 0s;
+}
+.anim-slideLeft {
+  transform: translate(-20%, 0);
+  opacity: 0.5;
+  transition: all 1s ease 0s;
+}
+
+.anim-custom1 > div:before {
+  transition: height 2s;
+}
+.anim-custom1._active > div:before {
+  height: 42px !important;
+}
+
+
+.anim-slideUp._active,
+.anim-slideDown._active,
+.anim-slideRight._active,
+.anim-slideLeft._active{
+  transform: translate(0, 0);
+  opacity: 1;
+}

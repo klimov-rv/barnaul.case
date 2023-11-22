@@ -1,0 +1,39 @@
+.x3-sec-filter {
+  margin-bottom: 45px;
+}
+
+.x3-sec-filter ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.x3-sec-filter li {
+  display: inline-block;
+  margin-bottom: 4px;
+  vertical-align: bottom;
+}
+
+.x3-sec-filter a {
+  display: flex;
+  align-items: center;
+  height: 37px;
+  padding: 0 20px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333;
+  border-radius: 20px;
+  border: solid 1px rgba(115, 115, 115, 0.3);
+  background: #fff;
+}
+
+.x3-sec-filter a._active {
+  background: #DBDBDB;
+}
+
+.x3-sec-filter img {
+  height: 23px;
+  margin-right: 10px;
+}
+
+/*# sourceMappingURL=sections-filter.css.map */
