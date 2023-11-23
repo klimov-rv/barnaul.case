@@ -1,4 +1,4 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
@@ -12,10 +12,10 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<?$ElementID = $APPLICATION->IncludeComponent(
+<? $ElementID = $APPLICATION->IncludeComponent(
 	"bitrix:news.detail",
 	"",
-	Array(
+	array(
 		"DISPLAY_DATE" => $arParams["DISPLAY_DATE"],
 		"DISPLAY_NAME" => $arParams["DISPLAY_NAME"],
 		"DISPLAY_PICTURE" => $arParams["DISPLAY_PICTURE"],
@@ -24,8 +24,8 @@ $this->setFrameMode(true);
 		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
 		"FIELD_CODE" => $arParams["DETAIL_FIELD_CODE"],
 		"PROPERTY_CODE" => $arParams["DETAIL_PROPERTY_CODE"],
-		"DETAIL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["detail"],
-		"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+		"DETAIL_URL" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["detail"],
+		"SECTION_URL" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["section"],
 		"META_KEYWORDS" => $arParams["META_KEYWORDS"],
 		"META_DESCRIPTION" => $arParams["META_DESCRIPTION"],
 		"BROWSER_TITLE" => $arParams["BROWSER_TITLE"],
@@ -56,7 +56,7 @@ $this->setFrameMode(true);
 		"ELEMENT_CODE" => $arResult["VARIABLES"]["ELEMENT_CODE"],
 		"SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],
 		"SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
-		"IBLOCK_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["news"],
+		"IBLOCK_URL" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["news"],
 		"USE_SHARE" => $arParams["USE_SHARE"],
 		"SHARE_HIDE" => $arParams["SHARE_HIDE"],
 		"SHARE_TEMPLATE" => $arParams["SHARE_TEMPLATE"],
@@ -65,28 +65,33 @@ $this->setFrameMode(true);
 		"SHARE_SHORTEN_URL_KEY" => $arParams["SHARE_SHORTEN_URL_KEY"],
 		"ADD_ELEMENT_CHAIN" => (isset($arParams["ADD_ELEMENT_CHAIN"]) ? $arParams["ADD_ELEMENT_CHAIN"] : ''),
 		'STRICT_SECTION_CHECK' => (isset($arParams['STRICT_SECTION_CHECK']) ? $arParams['STRICT_SECTION_CHECK'] : ''),
-        "OBJECTS_TYPE" => $arParams["OBJECTS_TYPE"],
+		"OBJECTS_TYPE" => $arParams["OBJECTS_TYPE"],
 	),
 	$component
-);?>
+); ?>
 
 <?
-
-
-$rsSections = CIBlockSection::GetList(array(),array('IBLOCK_ID' => IBLOCK_ID_OBJECTS, '=CODE' => $arResult["VARIABLES"]["SECTION_CODE"]), array("ID"));
-if ($arSection = $rsSections->Fetch())
-{
+// бэкграунд секции
+$rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => IBLOCK_ID_OBJECTS, '=CODE' => $arResult["VARIABLES"]["SECTION_CODE"]), array("ID"));
+if ($arSection = $rsSections->Fetch()) {
 	$arSections = CIBlockSection::GetNavChain(false, $arSection["ID"], ['ID'], true);
 }
 
-if(count($arSections)>1){
-	if($arSections[0]["ID"]==1)
-		$sectionImg = "/upload/bg/eat.png";
-	elseif($arSections[0]["ID"]==2)
-		$sectionImg = "/upload/bg/stay.png";
-	elseif($arSections[0]["ID"]==3)
-		$sectionImg = "/upload/bg/visit.png";
+if (count($arSections) > 1) {
+	if ($arSections[0]["ID"] == 1)
+		$bgImg = "/upload/bg/eat.png";
+	elseif ($arSections[0]["ID"] == 2)
+		$bgImg = "/upload/bg/stay.png";
+	elseif ($arSections[0]["ID"] == 3)
+		$bgImg = "/upload/bg/visit.png";
 }
 
-$APPLICATION->SetPageProperty("BG", $sectionImg);
+// перезаписываем бэкграундом исторического объекта
+
+if ($arResult['VARIABLES']['ELEMENT_CODE'] === 'univermag-torgovogo-doma-d-n-sukhova-synovya')
+	$bgImg = "/upload/historical_line/detail_bg/univermag-torgovogo-doma-d-n-sukhova-synovya.png";
+elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'u123')
+	$bgImg = "/upload/historical_line/detail_bg/u123.png";
+
+$APPLICATION->SetPageProperty("BG", $bgImg);
 ?>
