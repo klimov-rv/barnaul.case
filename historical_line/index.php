@@ -3,7 +3,6 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Историческая линия");
 $APPLICATION->AddChainItem("Объекты", "/objects/where_visit/");
 $APPLICATION->AddChainItem("Историческая линия");
-Bitrix\Main\Page\Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/app.min.js");
 
 ?>
 

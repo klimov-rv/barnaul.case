@@ -161,28 +161,33 @@
             </div>
         </header>
         <div class="site-content  <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?>">
-            <? if ($APPLICATION->GetCurPage(false) !== '/') : ?>
+            <? 
+                
+console_log($APPLICATION);
+
+                if ($APPLICATION->GetCurPage(false) !== '/') : ?>
                 <? if (
                     ($APPLICATION->GetCurPage(false) == '/objects/where_visit/istoricheskaya-liniya/') ||
                     ($APPLICATION->GetCurPage(false) == '/about-barnaul/main_event/')
                 ) : { ?>
 
-                    <div class="container">
-                        <? $APPLICATION->IncludeComponent(
-                            "bitrix:breadcrumb",
-                            "breadcrumbs",
-                            array(
-                                "PATH" => "",
-                                "SITE_ID" => "s1",
-                                "START_FROM" => "0"
-                            )
-                        ); ?>
-                        <? $APPLICATION->ShowViewContent('article-date'); ?>
-                        <h1 class="page-title"><? $APPLICATION->ShowTitle(false) ?></h1>
-                    </div>
+                        <div class="container">
+                            <? $APPLICATION->IncludeComponent(
+                                "bitrix:breadcrumb",
+                                "breadcrumbs",
+                                array(
+                                    "PATH" => "",
+                                    "SITE_ID" => "s1",
+                                    "START_FROM" => "0"
+                                )
+                            ); ?>
+                            <? $APPLICATION->ShowViewContent('article-date'); ?>
+                            <h1 class="page-title"><? $APPLICATION->ShowTitle(false) ?></h1>
+                        </div>
 
-                <?
-                } else:?>
+                    <?
+                    }
+                else : ?>
                     <div class="container">
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:breadcrumb",
@@ -196,5 +201,30 @@
                         <? $APPLICATION->ShowViewContent('article-date'); ?>
                         <h1 class="page-title"><? $APPLICATION->ShowTitle(false) ?></h1>
                         <div class="site-content-wrap">
-                <? endif; ?>
-            <? endif; ?>
+                        <? endif; ?>
+
+                        <!-- на всех страницах кроме главной -->
+                        <? Bitrix\Main\Page\Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/app.min.js"); ?>
+
+                        <!-- bubble -->
+                        <div class="bubble_card bubble_card__container">
+                            <button class="bubble_card__close">
+                                <svg aria-hidden="true" width="15" height="15">
+                                    <use xlink:href="#close-svg"></use>
+                                </svg>
+                            </button>
+                            <div class="bubble_card__wrap">
+                                <div class="bubble_card__card">
+                                    <img src="/upload/cart_guest.png" alt="Карта гостя">
+                                </div>
+                            </div>
+                            <div class="bubble_card__right">
+                                <div class="bubble_card__question">Что такое карта гостя?</div>
+                                <div class="bubble_card__btn">
+                                    <a href="#" class="bubble_card__btn_a">Узнать</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end of bubble -->
+
+                    <? endif; ?>
