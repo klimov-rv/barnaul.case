@@ -162,8 +162,7 @@
         </header>
         <div class="site-content  <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?>">
             <? 
-                
-console_log($APPLICATION);
+                 
 
                 if ($APPLICATION->GetCurPage(false) !== '/') : ?>
                 <? if (
@@ -188,7 +187,7 @@ console_log($APPLICATION);
                     <?
                     }
                 else : ?>
-                    <div class="container">
+                    <div class="container <? $APPLICATION->ShowProperty("page_template") ?>">
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:breadcrumb",
                             "breadcrumbs",

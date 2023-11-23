@@ -88,10 +88,17 @@ if (count($arSections) > 1) {
 
 // перезаписываем бэкграундом исторического объекта
 
-if ($arResult['VARIABLES']['ELEMENT_CODE'] === 'univermag-torgovogo-doma-d-n-sukhova-synovya')
-	$bgImg = "/upload/historical_line/detail_bg/univermag-torgovogo-doma-d-n-sukhova-synovya.png";
-elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'u123')
-	$bgImg = "/upload/historical_line/detail_bg/u123.png";
+if ($arResult['VARIABLES']['ELEMENT_CODE'] === 'univermag-torgovogo-doma-d-n-sukhova-synovya') { 
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '1'); 
+}
+elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'u123') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history_obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '2');
 
+}
 $APPLICATION->SetPageProperty("BG", $bgImg);
+
 ?>
