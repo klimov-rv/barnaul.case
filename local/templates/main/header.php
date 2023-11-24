@@ -220,7 +220,7 @@
                             <div class="bubble_card__right">
                                 <div class="bubble_card__question">Что такое карта гостя?</div>
                                 <div class="bubble_card__btn">
-                                    <a href="#" class="bubble_card__btn_a">Узнать</a>
+                                    <a href="/#card-info" class="bubble_card__btn_a">Узнать</a>
                                 </div>
                             </div>
                         </div>
