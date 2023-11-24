@@ -3,15 +3,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="45">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-6-1"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
-                    150 лет
                 </div>
                 <span class="fastfact-text">
-                    назад было построено это здание
+                    Здесь хранилась казна Барнаульского сереброплавильного завода
                 </span>
             </div>
         </div>
@@ -20,14 +19,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-6-2"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Сейчас здесь расположен ресторан и магазин
+                    Ежегодно отсюда караваны с серебром отправлялись в Санкт-Петербург 
+
                 </span>
             </div>
         </div>
@@ -36,14 +36,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="41" height="37">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-6-3"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                Музыкальных инструментов здесь никогда не было  
                 </span>
             </div>
         </div>
@@ -52,14 +52,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-6-4"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                Памятник архитектуры федерального значения  
                 </span>
             </div>
         </div>
