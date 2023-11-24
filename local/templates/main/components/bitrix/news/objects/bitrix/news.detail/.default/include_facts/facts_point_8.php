@@ -18,7 +18,7 @@
     <div class="cell-5 cell-11-md fastfacts__item">
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
-                <svg aria-hidden="true" width="37" height="44">
+                <svg aria-hidden="true" width="45" height="45">
                     <use xlink:href="#hist-obj-8-2"></use>
                 </svg>
             </span>
@@ -52,7 +52,7 @@
     <div class="cell-5 cell-11-md fastfacts__item">
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
-                <svg aria-hidden="true" width="37" height="44">
+                <svg aria-hidden="true" width="45" height="45">
                     <use xlink:href="#hist-obj-8-4"></use>
                 </svg>
             </span>

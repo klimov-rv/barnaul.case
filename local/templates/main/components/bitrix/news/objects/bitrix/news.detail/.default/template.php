@@ -133,18 +133,23 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                                 <span class="page-hero-description">
                                     <?= $arResult["PREVIEW_TEXT"] ?>
                                 </span>
-                                <? $APPLICATION->IncludeFile($templateFolder . '/include_facts/facts_point_1.php');
-                                // $APPLICATION->IncludeFile($templateFolder . '/include_facts/fact1-1.php', Array( "settings" => $settingsList )); ?> 
+                                <? $APPLICATION->IncludeFile($templateFolder . '/include_facts/facts_point_' . $historical_obj_id . '.php');
+                                // $APPLICATION->IncludeFile($templateFolder . '/include_facts/fact1-1.php', Array( "settings" => $settingsList )); 
+                                ?>
                             </div>
                         </div>
-                        <address>
-                            <svg aria-hidden="true" width="13" height="19">
-                                <use xlink:href="#icon-geo"></use>
-                            </svg>
-                            <span class="page-hero-address">
-                                г.Барнаул, ул. Мало-Тобольская, 36
-                            </span><br />
-                        </address>
+
+                        <? if (!empty($arResult["DISPLAY_PROPERTIES"]["ADDRESS"]["VALUE"])) : ?>
+                            <address>
+                                <svg aria-hidden="true" width="13" height="19">
+                                    <use xlink:href="#icon-geo"></use>
+                                </svg>
+                                <span class="page-hero-address">
+                                    <?= $arResult["DISPLAY_PROPERTIES"]["ADDRESS"]["VALUE"] ?>
+                                </span><br />
+                            </address>
+                        <? endif; ?>
+
                     </div>
                     <div class="hero__body_right push-1 cell-4 push-0-lg cell-5-md cell-12-s">
                         <div class="page-hero-block">
