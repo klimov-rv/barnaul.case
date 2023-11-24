@@ -86,18 +86,88 @@ if (count($arSections) > 1) {
 		$bgImg = "/upload/bg/visit.png";
 }
 
-// перезаписываем бэкграундом исторического объекта
+// перезаписываем бэкграунд исторического объекта и определяем класс шаблона страницы для шапки 
 
-if ($arResult['VARIABLES']['ELEMENT_CODE'] === 'univermag-torgovogo-doma-d-n-sukhova-synovya') { 
+if ($arResult['VARIABLES']['ELEMENT_CODE'] === 'univermag-torgovogo-doma-d-n-sukhova-synovya') {
 	$bgImg = "none";
 	$APPLICATION->SetPageProperty("page_template", 'history-obj');
-	$APPLICATION->SetPageProperty("history_obj_id", '1'); 
-}
-elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'u123') {
+	$APPLICATION->SetPageProperty("history_obj_id", '1');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'nagornyy-park') {
 	$bgImg = "none";
-	$APPLICATION->SetPageProperty("page_template", 'history_obj');
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
 	$APPLICATION->SetPageProperty("history_obj_id", '2');
-
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'dispetcherskiy-punkt-tramvaev-ploshchad-svobody') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '3');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'aptekarskiy-sad') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '4');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'narodnyy-dom') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '5');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'zdanie-instrumentalnogo-magazina') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '6');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'zdanie-kantselyarii-kolyvano-voskresenskogo-zavoda') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '7');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'kompleks-sooruzheniy-serebroplavilnogo-zavoda') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '8');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'demidovskaya-ploshchad') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '9');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'zdanie-chertyezhnoy') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '10');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'zdanie-gornoy-laboratorii') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '11');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'zdanie-apteki') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '12');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'upravlenie-altayskogo-okruga') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '13');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'sobornaya-ploshchad') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '14');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'ulitsa-pushkina') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '15');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'teatr-kukol-skazka-i-kontsertnyy-zal-sibir') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '16');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'skver-imeni-pushkina') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '17');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'prospekt-lenina') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '18');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'ulitsa-lva-tolstogo') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '19');
+} elseif ($arResult['VARIABLES']['ELEMENT_CODE'] === 'ulitsa-malo-tobolskaya') {
+	$bgImg = "none";
+	$APPLICATION->SetPageProperty("page_template", 'history-obj');
+	$APPLICATION->SetPageProperty("history_obj_id", '20');
 }
 $APPLICATION->SetPageProperty("BG", $bgImg);
 

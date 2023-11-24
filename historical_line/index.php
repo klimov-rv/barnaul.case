@@ -7,52 +7,54 @@ $APPLICATION->AddChainItem("Историческая линия");
 ?>
 
 <div class="trip__stripe">
-    <div class="container row">
-        <div class="cell-4 trip__stage">
-            <div class="big_font">2 км</div>
-            <div class="small_font">
-                протяженность кольцевого маршрута
+    <div class="container">
+        <div class="row">
+            <div class="cell-4 trip__stage">
+                <div class="big_font">2 км</div>
+                <div class="small_font">
+                    протяженность кольцевого маршрута
+                </div>
+                <div class="trip-stage-icon">
+                    <!-- <svg aria-hidden="true" width="48" height="48"> -->
+                    <svg aria-hidden="true" width="100%" height="100%">
+                        <use xlink:href="#stage1-trip"></use>
+                    </svg>
+                </div>
+                <div class="trip__stage-divider">
+                    <svg aria-hidden="true" width="64" height="120">
+                        <use xlink:href="#stage-divider"></use>
+                    </svg>
+                </div>
             </div>
-            <div class="trip-stage-icon">
-                <!-- <svg aria-hidden="true" width="48" height="48"> -->
-                <svg aria-hidden="true" width="100%" height="100%">
-                    <use xlink:href="#stage1-trip"></use>
-                </svg>
+            <div class="cell-4 trip__stage">
+                <div class="big_font">1 часа <div class="big_font_subtext">около</div>
+                </div>
+                <div class="small_font">
+                    продолжительность экскурсий с аудиогидом
+                </div>
+                <div class="trip-stage-icon">
+                    <!-- <svg aria-hidden="true" width="55" height="55"> -->
+                    <svg aria-hidden="true" width="100%" height="100%">
+                        <use xlink:href="#stage2-trip"></use>
+                    </svg>
+                </div>
+                <div class="trip__stage-divider">
+                    <svg aria-hidden="true" width="64" height="120">
+                        <use xlink:href="#stage-divider"></use>
+                    </svg>
+                </div>
             </div>
-            <div class="trip__stage-divider">
-                <svg aria-hidden="true" width="64" height="120">
-                    <use xlink:href="#stage-divider"></use>
-                </svg>
-            </div>
-        </div>
-        <div class="cell-4 trip__stage">
-            <div class="big_font">1 часа <div class="big_font_subtext">около</div>
-            </div>
-            <div class="small_font">
-                продолжительность экскурсий с аудиогидом
-            </div>
-            <div class="trip-stage-icon">
-                <!-- <svg aria-hidden="true" width="55" height="55"> -->
-                <svg aria-hidden="true" width="100%" height="100%">
-                    <use xlink:href="#stage2-trip"></use>
-                </svg>
-            </div>
-            <div class="trip__stage-divider">
-                <svg aria-hidden="true" width="64" height="120">
-                    <use xlink:href="#stage-divider"></use>
-                </svg>
-            </div>
-        </div>
-        <div class="cell-4 trip__stage">
-            <div class="big_font">20</div>
-            <div class="small_font">
-                информационных конструкций с QR-кодом
-            </div>
-            <div class="trip-stage-icon">
-                <!-- <svg aria-hidden="true" width="48" height="48"> -->
-                <svg aria-hidden="true" width="100%" height="100%">
-                    <use xlink:href="#stage3-trip"></use>
-                </svg>
+            <div class="cell-4 trip__stage">
+                <div class="big_font">20</div>
+                <div class="small_font">
+                    информационных конструкций с QR-кодом
+                </div>
+                <div class="trip-stage-icon">
+                    <!-- <svg aria-hidden="true" width="48" height="48"> -->
+                    <svg aria-hidden="true" width="100%" height="100%">
+                        <use xlink:href="#stage3-trip"></use>
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
