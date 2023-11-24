@@ -3,15 +3,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="45">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-8-1"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
-                    150 лет
                 </div>
                 <span class="fastfact-text">
-                    назад было построено это здание
+                    Самая длинная плотина в России того времени
                 </span>
             </div>
         </div>
@@ -20,14 +19,16 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-8-2"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
+                    90%
                 </div>
                 <span class="fastfact-text">
-                    Сейчас здесь расположен ресторан и магазин
+                    всего российского серебра выплавляли из алтайских рул
+
                 </span>
             </div>
         </div>
@@ -36,14 +37,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="41" height="37">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-8-3"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                Памятник архитектуры федерального значения 
                 </span>
             </div>
         </div>
@@ -52,14 +53,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-8-4"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                Единственный в России сохранившийся комплекс по выплавке серебра 18-19 веков. 
                 </span>
             </div>
         </div>

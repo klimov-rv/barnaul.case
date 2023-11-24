@@ -3,15 +3,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="45">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-7-1"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
-                    150 лет
                 </div>
                 <span class="fastfact-text">
-                    назад было построено это здание
+                    Первое каменное двухэтажное здание города
+
                 </span>
             </div>
         </div>
@@ -20,14 +20,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-7-2"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Сейчас здесь расположен ресторан и магазин
+                    Здесь работал изобретатель первой в России паросиловой установки и первого в мире двухцилиндрового парового двигателя Иван Иванович Ползунов
                 </span>
             </div>
         </div>
@@ -36,14 +36,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="41" height="37">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-7-3"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    Колокол на башне здания сигнализировал о начале и окончании работ на сереброплавильном заводе
                 </span>
             </div>
         </div>
@@ -52,14 +52,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-7-4"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    Памятник архитектуры федерального значения
                 </span>
             </div>
         </div>

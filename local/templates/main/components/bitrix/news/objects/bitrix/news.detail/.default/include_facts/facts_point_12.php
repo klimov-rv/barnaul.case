@@ -3,15 +3,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="45">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-12-1"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
-                    150 лет
                 </div>
                 <span class="fastfact-text">
-                    назад было построено это здание
+                    Одно из первых кирпичных зданий Барнаула
+
                 </span>
             </div>
         </div>
@@ -20,14 +20,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-12-2"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Сейчас здесь расположен ресторан и магазин
+                    Через аптеку шло снабжение госпиталей округа медикаментами, медицинскими инструментами и книгами для врачей
+
                 </span>
             </div>
         </div>
@@ -36,14 +37,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="41" height="37">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-12-3"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    Здесь изготавливали лекарства на базе лесных растений, которые выращивались напротив, в аптекарском огороде
                 </span>
             </div>
         </div>
@@ -52,14 +53,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-12-4"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    Памятник архитектуры федерального значения.
                 </span>
             </div>
         </div>
