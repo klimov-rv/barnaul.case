@@ -1,11 +1,11 @@
-$(function(){
+$(function () {
     // Magnific popup на дополнительные изображения
-    $('.x3-object__photos').each(function() {
+    $('.x3-object__photos').each(function () {
         $(this).magnificPopup({
             delegate: 'a',
             type: 'image',
             gallery: {
-                enabled:true
+                enabled: true
             }
         });
     });
@@ -17,7 +17,7 @@ $(function(){
         autoplay: {
             delay: 5000,
         },
-        loop:true,
+        loop: true,
         pagination: {
             el: ".x3-slider__pagination",
             clickable: true,
@@ -29,9 +29,9 @@ $(function(){
     });
 
     objectSwiper.on('slideChange', function (e) {
-        $(".x3-slider__active").text( PrependZeros(e.realIndex + 1, 2) );
-        $(".x3-slider__count").text( PrependZeros(e.slides.length - 2, 2) );
-        $(".x3-slider__total").text( PrependZeros(e.slides.length - 2, 2) );
+        $(".x3-slider__active").text(PrependZeros(e.realIndex + 1, 2));
+        $(".x3-slider__count").text(PrependZeros(e.slides.length - 2, 2));
+        $(".x3-slider__total").text(PrependZeros(e.slides.length - 2, 2));
     });
 
     // Добавление ведущего нуля
@@ -42,7 +42,7 @@ $(function(){
         }
         else {
             var spl = str.split(seperator || ' ')
-            for (var i = 0 ; i < spl.length; i++) {
+            for (var i = 0; i < spl.length; i++) {
                 if (Number(spl[i]) && spl[i].length < len) {
                     spl[i] = PrependZeros(spl[i], len)
                 }
@@ -66,3 +66,45 @@ $(function(){
     });*/
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    $('.popup-with-zoom-anim').click(function () {
+        if ($('.gallery-slider').length > 0) {
+
+            var setPagination = function (e) {
+                var activeSlide = e.realIndex + 1;
+                var totlaSlides = e.el.querySelectorAll('.swiper-slide').length;
+                $(".swiper-active-slide").text(activeSlide);
+                $(".swiper-count-slides").text(totlaSlides);
+                $(".swiper-count-total").text(totlaSlides);
+            }
+
+            var gallerySwiper = new Swiper(".gallery-slider", {
+                speed: 1000,
+                lazy: true,
+                slidesPerView: "auto",
+                spaceBetween: 30,
+                loop: false,
+                scrollbar: {
+                    el: '.gallery-slider .swiper-scrollbar',
+                },
+                pagination: {
+                    el: '.gallery-slider .swiper-fractions',
+                    type: 'fraction',
+                },
+                navigation: {
+                    nextEl: '.gallery-slider .swiper-button-next',
+                    prevEl: '.gallery-slider .swiper-button-prev',
+                },
+                on: {
+                    init: function () {
+                        setPagination(this);
+                    },
+                }, 
+            });
+
+            gallerySwiper.on('slideChange', function () {
+                setPagination(this);
+            }); 
+        }
+    });
+});
