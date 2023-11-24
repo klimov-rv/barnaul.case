@@ -23,11 +23,11 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
         $arFilter = array("IBLOCK_ID" => 4, "PROPERTY_IS_HISTORICAL_LINE_OBJECT_VALUE" => 'Да', "ACTIVE" => "Y");
         $res = CIBlockElement::GetList(array(), $arFilter, false, array(), $arSelect);
 
+        $cntPrev = $historical_obj_id - 1;
+        $cntNext = $historical_obj_id + 1;
         while ($ob = $res->GetNextElement()) {
             $arFields = $ob->GetFields();
 
-            $cntNext = $historical_obj_id + 1;
-            $cntPrev = $historical_obj_id - 1;
 
             if (intval($arFields["PROPERTY_HISTORICAL_LINE_ID_VALUE"]) === $cntNext) {
                 $linkNext = $arFields["DETAIL_PAGE_URL"];
@@ -37,6 +37,10 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                 $titlePrev = $arFields["NAME"];
             }
         }
+
+        console_log($arResult);
+
+
 
 ?>
 
@@ -105,100 +109,32 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                         </div>
                     </div>
                 </div>
-                <a href="<?= $linkNext ?>" class="hero__headline_btn btn_next">
-                    <div class="hero__headline_btn__wrapper">
-                        <span>
-                            <?= $titleNext ?>
-                        </span>
-                        <svg aria-hidden="true" width="16" height="12">
-                            <use xlink:href="#arrow-right"></use>
-                        </svg>
-                    </div>
-                </a>
+                <? if ($linkNext) : ?>
+                    <a href="<?= $linkNext ?>" class="hero__headline_btn btn_next">
+                        <div class="hero__headline_btn__wrapper">
+                            <span>
+                                <?= $titleNext ?>
+                            </span>
+                            <svg aria-hidden="true" width="16" height="12">
+                                <use xlink:href="#arrow-right"></use>
+                            </svg>
+                        </div>
+                    </a>
+                <? endif; ?>
             </div>
             <div class="container">
                 <div class="row hero__body">
                     <div class="hero__body_left push-1 cell-6 cell-6-lg cell-7-md push-0-md cell-12-s">
                         <h1 class="page-title">
-                            Универмаг торгового дома «Д.Н. Сухова сыновья»
+                            <? $APPLICATION->ShowTitle(false) ?>
                         </h1>
                         <div class="row">
                             <div class="cell-10 cell-12-s">
                                 <span class="page-hero-description">
-                                    Барнаул в конце 19 века стал крупным купеческим центром Сибири. История города того времени
-                                    связана с
-                                    фамилиями наиболее успешных купцов и предпринимателей.
-                                    К их числу можно отнести династию Суховых. Суховы владели большой частью городской недвижимости,
-                                    им
-                                    принадлежали кирпичный, кожевенный и свечной заводы.
+                                    <?= $arResult["PREVIEW_TEXT"] ?>
                                 </span>
-                                <div class="page-hero-fastfacts row">
-                                    <div class="cell-5 cell-11-md fastfacts__item">
-                                        <div class="fastfacts__item_wrap">
-                                            <span class="fastfacts__icon">
-                                                <svg aria-hidden="true" width="37" height="45">
-                                                    <use xlink:href="#icon-facts-watch"></use>
-                                                </svg>
-                                            </span>
-                                            <div class="fastfact-info">
-                                                <div class="fastfact-title">
-                                                    150 лет
-                                                </div>
-                                                <span class="fastfact-text">
-                                                    назад было построено это здание
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-5 cell-11-md fastfacts__item">
-                                        <div class="fastfacts__item_wrap">
-                                            <span class="fastfacts__icon">
-                                                <svg aria-hidden="true" width="37" height="44">
-                                                    <use xlink:href="#icon-facts-geo"></use>
-                                                </svg>
-                                            </span>
-                                            <div class="fastfact-info">
-                                                <div class="fastfact-title">
-                                                </div>
-                                                <span class="fastfact-text">
-                                                    Сейчас здесь расположен ресторан и магазин
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-5 cell-11-md fastfacts__item">
-                                        <div class="fastfacts__item_wrap">
-                                            <span class="fastfacts__icon">
-                                                <svg aria-hidden="true" width="41" height="37">
-                                                    <use xlink:href="#icon-facts-number3"></use>
-                                                </svg>
-                                            </span>
-                                            <div class="fastfact-info">
-                                                <div class="fastfact-title">
-                                                </div>
-                                                <span class="fastfact-text">
-                                                    Еще один очень важный факт об обекте
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="cell-5 cell-11-md fastfacts__item">
-                                        <div class="fastfacts__item_wrap">
-                                            <span class="fastfacts__icon">
-                                                <svg aria-hidden="true" width="37" height="44">
-                                                    <use xlink:href="#icon-facts-number4"></use>
-                                                </svg>
-                                            </span>
-                                            <div class="fastfact-info">
-                                                <div class="fastfact-title">
-                                                </div>
-                                                <span class="fastfact-text">
-                                                    Еще один очень важный факт об обекте
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <? $APPLICATION->IncludeFile($templateFolder . '/include_facts/facts_point_1.php');
+                                // $APPLICATION->IncludeFile($templateFolder . '/include_facts/fact1-1.php', Array( "settings" => $settingsList )); ?> 
                             </div>
                         </div>
                         <address>
@@ -233,6 +169,49 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                 </div>
             </div>
         </div>
+
+
+        <div id="hero-gallery" class="hero-modal modal-container zoom-anim-dialog mfp-hide">
+            <div class="row">
+                <div class="cell-12 hero-gallery__popup">
+                    <h2 class="gallery-title">
+                        <? $APPLICATION->ShowTitle(false) ?>
+                    </h2>
+                    <div class="swiper gallery-slider">
+                        <div class="swiper-wrapper">
+                            <? foreach ($arResult["BANNERS"] as $key => $arItem) : ?>
+                                <div class=" swiper-slide">
+                                    <img loading="lazy" src="<?= $arItem["IMG948"]["src"] ?>" alt="">
+                                </div>
+                            <? endforeach; ?>
+                        </div>
+                        <div class="swiper-controls">
+                            <div class="swiper-fractions">
+                                <div class="swiper-active-slide"></div>
+                                <div class="swiper-count-slides"></div>
+                            </div>
+                            <div class="swiper-scrollbar-holder">
+                                <div class="swiper-scrollbar"></div>
+                            </div>
+                            <div class="swiper-count-total"></div>
+                            <div class="swiper-arrows">
+                                <div class="swiper-button-prev">
+                                    <svg aria-hidden="true" width="15" height="26">
+                                        <use xlink:href="#slider-prev-svg"></use>
+                                    </svg>
+                                </div>
+                                <div class="swiper-button-next">
+                                    <svg aria-hidden="true" width="15" height="26">
+                                        <use xlink:href="#slider-next-svg"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
     <?
     }
