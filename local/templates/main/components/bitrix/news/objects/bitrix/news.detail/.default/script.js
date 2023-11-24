@@ -70,41 +70,60 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.popup-with-zoom-anim').click(function () {
         if ($('.gallery-slider').length > 0) {
 
-            var setPagination = function (e) {
-                var activeSlide = e.realIndex + 1;
-                var totlaSlides = e.el.querySelectorAll('.swiper-slide').length;
-                $(".swiper-active-slide").text(activeSlide);
-                $(".swiper-count-slides").text(totlaSlides);
-                $(".swiper-count-total").text(totlaSlides);
+            // фикс инициализации по клику на magnific 
+            // TODO: проверить может легче инитить попап иначе, что бы свайпер был готов до открытия попапа
+
+            function lazyInitSwiper() {
+                var setPagination = function (e) {
+                    var activeSlide = e.realIndex + 1;
+                    var totlaSlides = e.el.querySelectorAll('.swiper-slide').length;
+                    $(".swiper-active-slide").text(activeSlide);
+                    $(".swiper-count-slides").text(totlaSlides);
+                    $(".swiper-count-total").text(totlaSlides);
+                }
+
+                var gallerySwiper = new Swiper(".gallery-slider", {
+                    init: false,
+                    speed: 1000,
+                    lazy: true,
+                    slidesPerView: "auto",
+                    spaceBetween: 30,
+                    loop: false,
+                    scrollbar: {
+                        el: '.gallery-slider .swiper-scrollbar',
+                    },
+                    pagination: {
+                        el: '.gallery-slider .swiper-fractions',
+                        type: 'fraction',
+                    },
+                    navigation: {
+                        nextEl: '.gallery-slider .swiper-button-next',
+                        prevEl: '.gallery-slider .swiper-button-prev',
+                    },
+                    on: {
+                        init: function () {
+                            setPagination(this);
+                        },
+                    },
+                });
+
+                gallerySwiper.on('slideChange', function () {
+                    setPagination(this);
+                });
+
+                function waitSwiper() {
+                    gallerySwiper.init();
+                    gallerySwiper.pagination.update();
+                    if (!gallerySwiper.$el[0].classList.contains("showin")) {
+                        gallerySwiper.$el[0].classList.add('showin');
+                    }
+                }
+
+                setTimeout(waitSwiper, 150);
+
             }
 
-            var gallerySwiper = new Swiper(".gallery-slider", {
-                speed: 1000,
-                lazy: true,
-                slidesPerView: "auto",
-                spaceBetween: 30,
-                loop: false,
-                scrollbar: {
-                    el: '.gallery-slider .swiper-scrollbar',
-                },
-                pagination: {
-                    el: '.gallery-slider .swiper-fractions',
-                    type: 'fraction',
-                },
-                navigation: {
-                    nextEl: '.gallery-slider .swiper-button-next',
-                    prevEl: '.gallery-slider .swiper-button-prev',
-                },
-                on: {
-                    init: function () {
-                        setPagination(this);
-                    },
-                }, 
-            });
-
-            gallerySwiper.on('slideChange', function () {
-                setPagination(this);
-            }); 
+            setTimeout(lazyInitSwiper, 150);
         }
     });
 });
