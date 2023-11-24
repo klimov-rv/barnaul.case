@@ -213,7 +213,7 @@ $arrFilterTop = array(
 ); ?>
 
 <div class="x3-card-main">
-    <div class="x3-card-info">
+    <div class="x3-card-info" id='card-info'>
         <div class="container">
             <div class="x3-card-info__wrap">
                 <div class="x3-card-info__text">
