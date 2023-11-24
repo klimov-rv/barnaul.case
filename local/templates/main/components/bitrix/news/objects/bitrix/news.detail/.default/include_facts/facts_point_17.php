@@ -3,15 +3,16 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="45">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-17-1"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
-                    150 лет
+                    В 20 веке
                 </div>
                 <span class="fastfact-text">
-                    назад было построено это здание
+                    здесь располагался «Пассаж Смирнова» - самый большой торговый объект Барнаула того времени.
+
                 </span>
             </div>
         </div>
@@ -20,14 +21,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-17-2"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
+                    В 1999
                 </div>
                 <span class="fastfact-text">
-                    Сейчас здесь расположен ресторан и магазин
+                    году открыли памятник Пушкину в двухсотлетнюю годовщину поэта
                 </span>
             </div>
         </div>
@@ -36,14 +38,14 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="41" height="37">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-17-3"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    Расположена одна из шести ваз Колыванского камнерезного завода, которые можно найти на улицах города
                 </span>
             </div>
         </div>
@@ -52,14 +54,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-17-4"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    Существует легенда: если потереть один ботинок и ступни поэта, то любовь станет крепче, а если хочешь встретить свою любовь – потереть нужно оба ботинка
+
                 </span>
             </div>
         </div>

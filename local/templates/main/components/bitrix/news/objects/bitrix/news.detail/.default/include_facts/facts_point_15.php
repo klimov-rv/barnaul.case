@@ -3,15 +3,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="45">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-15-1"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
-                    150 лет
                 </div>
                 <span class="fastfact-text">
-                    назад было построено это здание
+                    На этой улице жил изобретатель Иван Иванович Ползунов
+
                 </span>
             </div>
         </div>
@@ -20,14 +20,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-15-2"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Сейчас здесь расположен ресторан и магазин
+                    Были открыты первые электротеатры в Барнауле
+
                 </span>
             </div>
         </div>
@@ -36,30 +37,15 @@
         <div class="fastfacts__item_wrap">
             <span class="fastfacts__icon">
                 <svg aria-hidden="true" width="41" height="37">
-                    <use xlink:href="#hist-obj-1-1"></use>
+                    <use xlink:href="#hist-obj-15-3"></use>
                 </svg>
             </span>
             <div class="fastfact-info">
                 <div class="fastfact-title">
                 </div>
                 <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="cell-5 cell-11-md fastfacts__item">
-        <div class="fastfacts__item_wrap">
-            <span class="fastfacts__icon">
-                <svg aria-hidden="true" width="37" height="44">
-                    <use xlink:href="#hist-obj-1-1"></use>
-                </svg>
-            </span>
-            <div class="fastfact-info">
-                <div class="fastfact-title">
-                </div>
-                <span class="fastfact-text">
-                    Еще один очень важный факт об обекте
+                    После переименования улицы в честь писателя, местные жители называли ее «Пушкет».
+
                 </span>
             </div>
         </div>
