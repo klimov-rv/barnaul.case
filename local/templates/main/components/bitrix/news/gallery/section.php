@@ -1,4 +1,4 @@
-<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) die();
 /** @var array $arParams */
 /** @var array $arResult */
 /** @global CMain $APPLICATION */
@@ -11,58 +11,17 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-
-$rsSections = CIBlockSection::GetList(array(),array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID'=>$arResult["VARIABLES"]["SECTION_ID"]));
-if ($arSection = $rsSections->GetNext()) {
-	$sectionName = $arSection['NAME'];
-	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
-}
 ?>
-
-<?if($arParams["POPULAR"]!="y" && $arParams["OBJECTS_TYPE"] !="type2"):?>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section.list",
-	"sections_filter",
-	array(
-		"ADD_SECTIONS_CHAIN" => "N",
-		"CACHE_FILTER" => "N",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "N",
-		"COMPONENT_TEMPLATE" => "sections_filter",
-		"COUNT_ELEMENTS" => "Y",
-		"COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
-		"FILTER_NAME" => $arParams["FILTER_NAME"],
-		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-		"SECTION_CODE" => "",
-		"SECTION_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"SECTION_ID" => $parentSection,
-		"SECTION_URL" => "",
-		"SECTION_USER_FIELDS" => array(
-			0 => "UF_ICONMAP",
-			1 => "",
-		),
-		"SHOW_PARENT_NAME" => "Y",
-		"TOP_DEPTH" => "2",
-		"VIEW_MODE" => "LINE"
-	),
-	false
-);?>
-<?endif;?>
-
+ 
 <?
 global $arrFilterObj;
-$arrFilterObj = Array("SECTION_ID" => Array($arResult["VARIABLES"]["SECTION_ID"]), "INCLUDE_SUBSECTIONS"=>"Y");
+$arrFilterObj = array("SECTION_ID" => array($arResult["VARIABLES"]["SECTION_ID"]), "INCLUDE_SUBSECTIONS" => "Y");
 ?>
 
-<?$APPLICATION->IncludeComponent(
+<? $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"",
-	Array(
+	array(
 		"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
 		"NEWS_COUNT" => $arParams["NEWS_COUNT"],
@@ -72,9 +31,9 @@ $arrFilterObj = Array("SECTION_ID" => Array($arResult["VARIABLES"]["SECTION_ID"]
 		"SORT_ORDER2" => $arParams["SORT_ORDER2"],
 		"FIELD_CODE" => $arParams["LIST_FIELD_CODE"],
 		"PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],
-		"DETAIL_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["detail"],
-		"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
-		"IBLOCK_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["news"],
+		"DETAIL_URL" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["detail"],
+		"SECTION_URL" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["section"],
+		"IBLOCK_URL" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["news"],
 		"DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
 		"SET_TITLE" => $arParams["SET_TITLE"],
 		"SET_LAST_MODIFIED" => $arParams["SET_LAST_MODIFIED"],
@@ -109,21 +68,7 @@ $arrFilterObj = Array("SECTION_ID" => Array($arResult["VARIABLES"]["SECTION_ID"]
 		"FILTER_NAME" => "arrFilterObj",
 		"HIDE_LINK_WHEN_NO_DETAIL" => $arParams["HIDE_LINK_WHEN_NO_DETAIL"],
 		"CHECK_DATES" => $arParams["CHECK_DATES"],
-		"SECTION_NAME" => $sectionName,
 	),
 	$component
 );
-?>
-
-<?
-$arSections = CIBlockSection::GetNavChain(false, $arResult["VARIABLES"]["SECTION_ID"], ['ID', 'NAME', 'DEPTH_LEVEL'], true);
-
-if($arSections[0]["ID"]==1)
-	$sectionImg = "/upload/bg/eat.png";
-elseif($arSections[0]["ID"]==2)
-	$sectionImg = "/upload/bg/stay.png";
-elseif($arSections[0]["ID"]==3)
-	$sectionImg = "/upload/bg/visit.png";
-
-$APPLICATION->SetPageProperty("BG", $sectionImg);
-?>
+?> 
