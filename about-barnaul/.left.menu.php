@@ -8,6 +8,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Главное событие в городе", 
+		"/about-barnaul/main_event/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Интересный Барнаул", 
 		"/about-barnaul/interesnoe-o-gorode/", 
 		Array(), 
