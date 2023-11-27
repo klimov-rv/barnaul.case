@@ -160,7 +160,7 @@
 
             </div>
         </header>
-        <div class="site-content  <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?>">
+        <div class="site-content  <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?> <? $APPLICATION->ShowProperty("page_template") ?>">
             <? 
                  
 
@@ -187,7 +187,7 @@
                     <?
                     }
                 else : ?>
-                    <div class="container <? $APPLICATION->ShowProperty("page_template") ?>">
+                    <div class="container">
                         <? $APPLICATION->IncludeComponent(
                             "bitrix:breadcrumb",
                             "breadcrumbs",

@@ -1,9 +1,16 @@
 <?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Экскурсии");
-?><?$APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"excursions", 
+
+
+global $ekskursiiFilter;
+$ekskursiiFilter = array(
+	"SECTION_ID" => 36 //ekskursii
+);
+
+$APPLICATION->IncludeComponent(
+	"bitrix:news.list",
+	"excursions",
 	array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
@@ -28,12 +35,12 @@ $APPLICATION->SetTitle("Экскурсии");
 			0 => "",
 			1 => "",
 		),
-		"FILTER_NAME" => "",
+		"FILTER_NAME" => "ekskursiiFilter",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "9",
 		"IBLOCK_TYPE" => "data",
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
-		"INCLUDE_SUBSECTIONS" => "Y",
+		"INCLUDE_SUBSECTIONS" => "N",
 		"MESSAGE_404" => "",
 		"NEWS_COUNT" => "20",
 		"PAGER_BASE_LINK_ENABLE" => "N",
@@ -71,4 +78,7 @@ $APPLICATION->SetTitle("Экскурсии");
 		"USE_SHARE" => "N"
 	),
 	false
-);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+); ?>
+
+
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
