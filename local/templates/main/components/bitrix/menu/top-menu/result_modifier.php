@@ -17,8 +17,7 @@ while ($arSect = $rsSect->GetNext()) {
         "SELECTED" => ($arSect["SECTION_PAGE_URL"] == $APPLICATION->GetCurPage()) ? true : false,
     );
 }
-$arResult = array_merge($arMenuSec, $arResult);
-console_log($arResult);
+$arResult = array_merge($arMenuSec, $arResult); 
 foreach ($arResult as &$arItem) {
     if ($arItem["LINK"] == "/marshruty/")
         $arItem["LINK"] = "/ekskursii/";
