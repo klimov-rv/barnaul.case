@@ -11,8 +11,7 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-\Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/objects-list.css"));
-console_log($arResult);
+\Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/objects-list.css")); 
 ?>
 <div class="objects-list items-list">
     <? foreach ($arResult["ITEMS"] as $arItem) : ?>

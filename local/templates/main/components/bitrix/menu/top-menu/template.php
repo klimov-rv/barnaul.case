@@ -29,8 +29,7 @@
                         <?= str_repeat("</ul></li>", ($previousLevel - $arItem["DEPTH_LEVEL"])); ?>
                     <? endif ?>
 
-                    <? if ($arItem["IS_PARENT"]) : ?>
-                        <? console_log($arItem) ?>
+                    <? if ($arItem["IS_PARENT"]) : ?> 
                         <? if ($arItem["DEPTH_LEVEL"] == 1) : ?>
 
                             <li <? if ($arItem["SELECTED"]) : ?> class="item-selected" <? endif ?>>

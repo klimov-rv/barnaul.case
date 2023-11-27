@@ -19,7 +19,6 @@ $historical_obj_id = intval($arResult["PROPERTIES"]["HISTORICAL_LINE_ID"]["VALUE
 $legend = $arResult["PROPERTIES"]["LEGEND"]["VALUE"]["TEXT"];
 $coefficient = 5 * $historical_obj_id;
 $coefficient2 = $coefficient + 3;
-console_log($coefficient);
 
 if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
