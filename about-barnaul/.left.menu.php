@@ -15,6 +15,13 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
+		"Календарь событий", 
+		"/about-barnaul/events_calendar/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
 		"Интересный Барнаул", 
 		"/about-barnaul/interesnoe-o-gorode/", 
 		Array(), 
