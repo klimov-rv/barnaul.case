@@ -44,7 +44,7 @@ $this->setFrameMode(true);
                                     </span>
                                 <?elseif(!empty($arItem["PROPERTIES"]["PARTNER"]["VALUE"])):?>
                                     <span class="x3-b-slide__partner">
-                                        <svg aria-hidden="true" width="104" height="108">
+                                        <svg aria-hidden="true" width="104" height="99">
                                             <use xlink:href="#partner-icon-svg"></use>
                                         </svg>
                                     </span>
