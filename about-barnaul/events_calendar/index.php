@@ -1,6 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
-$APPLICATION->SetTitle("Календарь событий"); 
+$APPLICATION->SetTitle("Календарь событий");
 
 
 $all_events = [];
@@ -14,6 +14,27 @@ $types_events = [
 	'146' => 	['event_title' => 'Концерты', 	'event_tag' => 'concerts', 		'btn_title' => 'Концерты', 		'btn_filter' => 'event-concerts',],
 	'147' => 	['event_title' => 'Спорт', 		'event_tag' => 'sport', 		'btn_title' => 'Спорт', 		'btn_filter' => 'event-sport',],
 ];
+
+$now = new DateTime();
+$currentMonth = date('m');
+$currentYear = date('Y');
+$DateFrom = "01." . $currentMonth . "." . $currentYear;
+$DateTo = "31." . $currentMonth . "." . $currentYear;
+$order = ['SORT' => 'ASC'];
+$filter = [
+	"ACTIVE" => "Y",
+	"IBLOCK_ID" => 5,
+	">=DATE_ACTIVE_FROM" => ConvertDateTime($DateFrom, "DD.MM.YYYY") . " 00:00:00",
+	"<=DATE_ACTIVE_FROM" => ConvertDateTime($DateTo, "DD.MM.YYYY") . " 23:59:59",
+];
+
+$rows = CIBlockElement::GetList($order, $filter);
+
+while ($row = $rows->fetch()) {
+	$row['PROPERTIES'] = [];
+	$all_events[$row['ID']] = &$row;
+	unset($row);
+}
 
 ?>
 
@@ -85,55 +106,9 @@ $types_events = [
 		</div>
 		<div class="cell-8 cell-6-lg cell-12-sm">
 			<div class="event-list grid">
-
-				<a class="event-list__item event-item popup-with-zoom-anim event-competitions event-of-the-month row" href="#event-dialog">
-					<div class="starred-event">
-						<svg class="starred-event__star" aria-hidden="true" width="100%" height="100%">
-							<use xlink:href="#starred-icon"></use>
-						</svg>
-						<span class="starred-event__text">Главное событие месяца</span>
-					</div>
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time"> </span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Конкурсы</span>
-							<span class="event-item__title"> Национальный фотоконкурс</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-
 				<?
-				$currentMonth = date('m');
-				$currentYear = date('Y');
-				$DateFrom = "01." . $currentMonth . "." . $currentYear;
-				$DateTo = "31." . $currentMonth . "." . $currentYear;
-				$order = ['SORT' => 'ASC'];
-				$filter = [
-					"ACTIVE" => "Y",
-					"IBLOCK_ID" => 5,
-					">=DATE_ACTIVE_FROM" => ConvertDateTime($DateFrom, "DD.MM.YYYY") . " 00:00:00",
-					"<=DATE_ACTIVE_FROM" => ConvertDateTime($DateTo, "DD.MM.YYYY") . " 23:59:59",
-				];
-				$rows = CIBlockElement::GetList($order, $filter);
-				while ($row = $rows->fetch()) {
-					$row['PROPERTIES'] = [];
-					$all_events[$row['ID']] = &$row;
-					unset($row);
-				}
+
+
 				CIBlockElement::GetPropertyValuesArray($all_events, $filter['IBLOCK_ID'], $filter);
 
 				unset($rows, $filter, $order);
@@ -143,16 +118,20 @@ $types_events = [
 					<?
 					$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
 
-					$now = new DateTime();
 					$interval = $now->diff(new DateTime($arEvent['DATE_ACTIVE_FROM']));
-					console_log($interval->d);
-
-
-					$ev_time = FormatDate("X", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']) + CTimeZone::GetOffset());
-					$ev_date = $arEvent['DATE_ACTIVE_FROM'];
+					if ($interval->d > 1) {
+						$ev_time = FormatDate("H:i", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
+						if ($ev_time === '00:00') {
+							$ev_time = '';
+						}
+						$ev_date = FormatDate("d F", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
+					} else {
+						$ev_time = '';
+						$ev_date = FormatDate("X", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']) + CTimeZone::GetOffset());
+					};
 					?>
-					<!-- VALUE_ENUM_ID :  "144" -->
 					<a class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> row" href="#event-dialog">
+
 						<div class="cell-3 cell-12-m">
 							<div class="event-item__date_wrap">
 								<span class="event-item__time"><?= $ev_time ?></span>
@@ -174,6 +153,17 @@ $types_events = [
 								</div>
 							</div>
 						</div>
+						<?
+						//= $arEvent['ID'] 
+						?>
+						<? if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) : ?>
+							<div class="starred-event">
+								<svg class="starred-event__star" aria-hidden="true" width="100%" height="100%">
+									<use xlink:href="#starred-icon"></use>
+								</svg>
+								<span class="starred-event__text">Главное событие месяца</span>
+							</div>
+						<? endif; ?>
 					</a>
 
 				<? endforeach; ?>
@@ -363,7 +353,7 @@ $types_events = [
 		"AJAX_OPTION_ADDITIONAL" => "",
 		"AJAX_OPTION_HISTORY" => "N",
 		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y", 
+		"AJAX_OPTION_STYLE" => "Y",
 		"CACHE_FILTER" => "N",
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "36000000",
@@ -374,7 +364,7 @@ $types_events = [
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",
 		"DETAIL_FIELD_CODE" => array(0 => "", 1 => "",),
 		"DETAIL_PAGER_SHOW_ALL" => "Y",
-		"DETAIL_PAGER_TEMPLATE" => "", 
+		"DETAIL_PAGER_TEMPLATE" => "",
 		"DETAIL_PROPERTY_CODE" => array(0 => "", 1 => "",),
 		"DETAIL_SET_CANONICAL_URL" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
@@ -396,11 +386,11 @@ $types_events = [
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
 		"PAGER_SHOW_ALL" => "N",
 		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => "more", 
+		"PAGER_TEMPLATE" => "more",
 		"PREVIEW_TRUNCATE_LEN" => "",
 		"SEF_MODE" => "N",
 		"SET_LAST_MODIFIED" => "N",
-		"SET_STATUS_404" => "N", 
+		"SET_STATUS_404" => "N",
 		"SHOW_404" => "N",
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_BY2" => "SORT",

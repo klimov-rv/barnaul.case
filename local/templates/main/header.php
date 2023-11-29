@@ -110,7 +110,7 @@
     endif;
     ?>
 
-    <div <? if ($APPLICATION->GetCurPage(false) != '/check-guestcard/') : ?>style="background-image: url('<? $APPLICATION->ShowProperty("BG") ?>')" <? endif; ?> class="site-wrap <?= $wrap_class ?>" id="page">
+    <div <? if ($APPLICATION->GetCurPage(false) != '/check-guestcard/') : ?>style="background-image: url('<? $APPLICATION->ShowProperty("BG") ?>');background-position: top right;" <? endif; ?> class="site-wrap <?= $wrap_class ?>" id="page">
         <header class="site-header <? if ($APPLICATION->GetCurPage(false) == '/') : ?>header-main<? endif; ?>">
             <div class="container">
                 <div class="x3-header">
