@@ -1,6 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Историческая линия");
+$APPLICATION->SetPageProperty("page_template", "is-container-fix is-page-historical-line");
 $APPLICATION->AddChainItem("Объекты", "/objects/where_visit/");
 $APPLICATION->AddChainItem("Историческая линия");
 

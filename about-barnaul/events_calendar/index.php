@@ -1,7 +1,7 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Календарь событий");
-
+$APPLICATION->SetPageProperty("page_template", "is-container-fix is-page-calendar-events");
 
 $all_events = [];
 $types_events = [
@@ -36,6 +36,17 @@ while ($row = $rows->fetch()) {
 	unset($row);
 }
 
+CIBlockElement::GetPropertyValuesArray($all_events, $filter['IBLOCK_ID'], $filter);
+
+unset($rows, $filter, $order);
+
+foreach ($all_events as $key => $arEvent) :
+	if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) :
+		$main_event['name'] = $arEvent['NAME'];
+		$main_event['preview_pic'] = CFile::ResizeImageGet($arEvent['PREVIEW_PICTURE'], array('width' => 190, 'height' => 130), BX_RESIZE_IMAGE_EXACT);
+	endif;
+endforeach;
+console_log($main_event['preview_pic']);
 ?>
 
 <section class="container">
@@ -84,7 +95,7 @@ while ($row = $rows->fetch()) {
 				<div class="row widget__grid">
 					<div class="cell-5 hide-sm">
 						<div class="widget__img">
-							<img src="/img/small__img1.jpg" alt="">
+							<img src="<?= $main_event['preview_pic']['src'] ?>" alt="">
 							<div class="widget__img_text">
 								событие месяца
 							</div>
@@ -92,7 +103,7 @@ while ($row = $rows->fetch()) {
 					</div>
 					<div class="cell-7 cell-12-sm widget__info">
 						<div class="widget__title hide-sm">
-							Поздравляем с днём туризма!
+							<?= $main_event['name'] ?>
 						</div>
 						<button class="btn-main widget__btn">
 							<span>Главные события месяца</span>
@@ -106,13 +117,6 @@ while ($row = $rows->fetch()) {
 		</div>
 		<div class="cell-8 cell-6-lg cell-12-sm">
 			<div class="event-list grid">
-				<?
-
-
-				CIBlockElement::GetPropertyValuesArray($all_events, $filter['IBLOCK_ID'], $filter);
-
-				unset($rows, $filter, $order);
-				?>
 
 				<? foreach ($all_events as $key => $arEvent) : ?>
 					<?

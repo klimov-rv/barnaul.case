@@ -1,5 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+$APPLICATION->SetPageProperty("page_template", "is-container-fix is-page-main-event");
 $APPLICATION->SetTitle("Главное событие в городе");
 ?>
 <article class="main_event">
