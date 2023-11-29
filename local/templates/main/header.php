@@ -161,13 +161,14 @@
             </div>
         </header>
         <div class="site-content  <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?> <? $APPLICATION->ShowProperty("page_template") ?>">
-            <? 
-                 
+            <?
 
-                if ($APPLICATION->GetCurPage(false) !== '/') : ?>
+
+            if ($APPLICATION->GetCurPage(false) !== '/') : ?>
                 <? if (
                     ($APPLICATION->GetCurPage(false) == '/objects/where_visit/istoricheskaya-liniya/') ||
-                    ($APPLICATION->GetCurPage(false) == '/about-barnaul/main_event/')
+                    ($APPLICATION->GetCurPage(false) == '/about-barnaul/main_event/') ||
+                    ($APPLICATION->GetCurPage(false) == '/about-barnaul/events_calendar/')
                 ) : { ?>
 
                         <div class="container">
