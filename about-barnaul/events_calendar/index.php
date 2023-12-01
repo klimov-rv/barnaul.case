@@ -3,7 +3,8 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Календарь событий");
 $APPLICATION->SetPageProperty("page_template", "is-container-fix is-page-calendar-events");
 
-$all_events = [];
+$arr_all_events = [];
+$arr_month_events = [];
 $types_events = [
 	'' => 		['event_title' => '', 			'event_tag' => 'all', 			'btn_title' => 'Все события', 	'btn_filter' => '*',],
 	'141' => 	['event_title' => 'Праздники', 	'event_tag' => 'holidays', 		'btn_title' => 'Праздники', 	'btn_filter' => 'event-holidays',],
@@ -16,6 +17,7 @@ $types_events = [
 ];
 
 $calendar_events = [];
+$main_event = [];
 
 $now = new DateTime();
 $currentMonth = date('m');
@@ -26,26 +28,40 @@ $order = ['SORT' => 'ASC'];
 $filter = [
 	"ACTIVE" => "Y",
 	"IBLOCK_ID" => 5,
-	">=DATE_ACTIVE_FROM" => ConvertDateTime($DateFrom, "DD.MM.YYYY") . " 00:00:00",
-	"<=DATE_ACTIVE_FROM" => ConvertDateTime($DateTo, "DD.MM.YYYY") . " 23:59:59",
 ];
 
 $rows = CIBlockElement::GetList($order, $filter);
 
 while ($row = $rows->fetch()) {
 	$row['PROPERTIES'] = [];
-	$all_events[$row['ID']] = &$row;
+	$arr_all_events[$row['ID']] = &$row;
 	unset($row);
 }
 
-CIBlockElement::GetPropertyValuesArray($all_events, $filter['IBLOCK_ID'], $filter);
+CIBlockElement::GetPropertyValuesArray($arr_all_events, $filter['IBLOCK_ID'], $filter);
 
-console_log($all_events);
 
-unset($rows, $filter, $order);
+$filter = [
+	"ACTIVE" => "Y",
+	"IBLOCK_ID" => 5,
+	">=DATE_ACTIVE_FROM" => ConvertDateTime($DateFrom, "DD.MM.YYYY") . " 00:00:00",
+	"<=DATE_ACTIVE_FROM" => ConvertDateTime($DateTo, "DD.MM.YYYY") . " 23:59:59",
+];
 
-if (!empty($all_events)) :
-	foreach ($all_events as $key => $arEvent) :
+
+$rows = CIBlockElement::GetList($order, $filter);
+
+while ($row = $rows->fetch()) {
+	$row['PROPERTIES'] = [];
+	$arr_month_events[$row['ID']] = &$row;
+	unset($row);
+}
+
+CIBlockElement::GetPropertyValuesArray($arr_month_events, $filter['IBLOCK_ID'], $filter);
+
+
+if (!empty($arr_all_events)) :
+	foreach ($arr_all_events as $key => $arEvent) :
 		if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) :
 			$main_event['name'] = $arEvent['NAME'];
 			$main_event['preview_pic'] = CFile::ResizeImageGet($arEvent['PREVIEW_PICTURE'], array('width' => 190, 'height' => 130), BX_RESIZE_IMAGE_EXACT);
@@ -60,6 +76,18 @@ if (!empty($all_events)) :
 		);
 	endforeach;
 endif;
+
+$rows = CIBlockElement::GetList($order, $filter);
+
+while ($row = $rows->fetch()) {
+	$row['PROPERTIES'] = [];
+	$arr_all_events[$row['ID']] = &$row;
+	unset($row);
+}
+
+CIBlockElement::GetPropertyValuesArray($arr_all_events, $filter['IBLOCK_ID'], $filter);
+
+unset($rows, $filter, $order);
 ?>
 
 <section class="container">
@@ -104,34 +132,38 @@ endif;
 					<!-- <div class="clndr-today-button">Today</div> -->
 				</script>
 			</div>
-			<div class="widget widget__main-event">
-				<div class="row widget__grid">
-					<div class="cell-5 hide-sm">
-						<div class="widget__img">
-							<img src="<?= $main_event['preview_pic']['src'] ?>" alt="">
-							<div class="widget__img_text">
-								событие месяца
+			<div class="widget_wrap">
+				<? if (!empty($main_event)) { ?>
+					<div class="widget widget__main-event">
+						<div class="row widget__grid">
+							<div class="cell-5 hide-sm">
+								<div class="widget__img">
+									<img src="<?= $main_event['preview_pic']['src'] ?>" alt="">
+									<div class="widget__img_text">
+										событие месяца
+									</div>
+								</div>
+							</div>
+							<div class="cell-7 cell-12-sm widget__info">
+								<div class="widget__title hide-sm">
+									<?= $main_event['name'] ?>
+								</div>
+								<button class="btn-main widget__btn">
+									<span>Главные события месяца</span>
+									<svg aria-hidden="true" width="16" height="12">
+										<use xlink:href="#arrow-right2"></use>
+									</svg>
+								</button>
 							</div>
 						</div>
 					</div>
-					<div class="cell-7 cell-12-sm widget__info">
-						<div class="widget__title hide-sm">
-							<?= $main_event['name'] ?>
-						</div>
-						<button class="btn-main widget__btn">
-							<span>Главные события месяца</span>
-							<svg aria-hidden="true" width="16" height="12">
-								<use xlink:href="#arrow-right2"></use>
-							</svg>
-						</button>
-					</div>
-				</div>
+				<? } ?>
 			</div>
 		</div>
 		<div class="cell-8 cell-6-lg cell-12-sm">
 			<div class="event-list grid">
-				<? if (!empty($all_events)) {
-					foreach ($all_events as $key => $arEvent) : ?>
+				<? if (!empty($arr_month_events)) {
+					foreach ($arr_month_events as $key => $arEvent) : ?>
 						<?
 						$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
 
@@ -266,7 +298,7 @@ endif;
 	// filter-isotope 
 	$.getScript("/about-barnaul/events_calendar/ajax/filter.js");
 
-	function getEventsMonth(from, to, monthID) {
+	function updateEventsMonth(from, to, monthID) {
 
 		$.ajax({
 			type: 'POST',
@@ -274,14 +306,33 @@ endif;
 			url: '/about-barnaul/events_calendar/ajax/getMonthEvents.php',
 			data: 'DateFrom=' + from + '&DateTo=' + to,
 			beforeSend: function() {
+				$(window).trigger('ajax-load-trigger');
 				$('.event-list').html('Загрузка...');
-				$('.event-list').isotope('destroy')
+				if (location.hash !== '') {
+					removeHash();
+				}
 			},
 			success: function(response) {
 				$('.event-list').html(response);
-				console.log(response);
-
 				$.getScript("/about-barnaul/events_calendar/ajax/filter.js");
+				return response;
+			}
+		})
+	}
+	// TODO тут нужен только monthID + можно облегчить запрос
+	function updateMainEvent(from, to) {
+
+		$.ajax({
+			type: 'POST',
+			dataType: 'html',
+			url: '/about-barnaul/events_calendar/ajax/getMainEvent.php',
+			data: 'DateFrom=' + from + '&DateTo=' + to,
+			beforeSend: function() {
+				$('.widget_wrap').html('Загрузка...');
+			},
+			success: function(response) {
+				$('.widget_wrap').html(response);
+				console.log(response);
 				return response;
 			}
 		})
@@ -291,15 +342,8 @@ endif;
 	if ($('#calendar').length > 0) {
 
 		moment.locale('ru');
-		var thisMonth = moment().format('YYYY-MM');
-		var backMonth = moment().add(1, 'M');
 
 		var currMonthNum = moment().month();
-
-		// $DateFrom = "01." . $currentMonth . "." . $currentYear;
-		// $DateTo = "31." . $currentMonth . "." . $currentYear;
-
-		// Events to load into calendar
 
 		var events_data = '<?php echo json_encode($calendar_events); ?>';
 		var js_events_data = JSON.parse(events_data);
@@ -323,7 +367,8 @@ endif;
 					var DateFrom = '01.' + moment().month(nexrMonth).format("MM.YYYY");
 					var DateTo = '31.' + moment().month(nexrMonth).format("MM.YYYY");
 
-					getEventsMonth(DateFrom, DateTo);
+					updateEventsMonth(DateFrom, DateTo);
+					updateMainEvent(DateFrom, DateTo);
 
 					currMonthNum = nexrMonth;
 				},
@@ -334,7 +379,8 @@ endif;
 					var DateFrom = '01.' + moment().month(prevMonth).format("MM.YYYY");
 					var DateTo = '31.' + moment().month(prevMonth).format("MM.YYYY");
 
-					getEventsMonth(DateFrom, DateTo);
+					updateEventsMonth(DateFrom, DateTo);
+					updateMainEvent(DateFrom, DateTo);
 
 					currMonthNum = prevMonth;
 				},

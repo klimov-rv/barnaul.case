@@ -35,7 +35,6 @@ if (CModule::IncludeModule("iblock")) {
 		unset($rows, $filter, $order);
 	}
 	if (!empty($all_events)) {
-		$APPLICATION->IncludeFile('/about-barnaul/events_calendar/ajax/include_event_types.php');
 		foreach ($all_events as $key => $arEvent) :
 
 			$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
