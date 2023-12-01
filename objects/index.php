@@ -7,7 +7,7 @@ $APPLICATION->SetTitle("Объекты");
 
 <?$APPLICATION->IncludeComponent(
 	"bitrix:news", 
-	"objects", 
+	"", 
 	array(
 		"ADD_ELEMENT_CHAIN" => "Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
@@ -79,7 +79,7 @@ $APPLICATION->SetTitle("Объекты");
 			5 => "SALE",
 			6 => "GIFT",
 			7 => "STARS",
-			8 => "IS_HISTORICAL_LINE_OBJECT", 
+			8 => "IS_HISTORICAL_LINE_OBJECT",
 			9 => "",
 		),
 		"MESSAGE_404" => "",
@@ -122,7 +122,8 @@ $APPLICATION->SetTitle("Объекты");
 		),
 		"FILTER_PROPERTY_CODE" => array(
 			0 => "AVERAGE_CHECK",
-			1 => "",
+			1 => "CUISINE",
+			2 => "",
 		),
 		"TEMPLATE_THEME" => "blue",
 		"MEDIA_PROPERTY" => "",
