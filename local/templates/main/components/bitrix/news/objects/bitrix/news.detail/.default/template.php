@@ -22,6 +22,8 @@ $coefficient2 = $coefficient + 3;
 
 if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
+        // выбираем из общего списка исторических объектов предыдущий и следующий
+
         $arSelect = array("ID", "IBLOCK_ID", "NAME", "DETAIL_PAGE_URL", "PROPERTY_IS_HISTORICAL_LINE_OBJECT", "PROPERTY_HISTORICAL_LINE_ID", "CODE");
         $arFilter = array("IBLOCK_ID" => 4, "PROPERTY_IS_HISTORICAL_LINE_OBJECT_VALUE" => 'Да', "ACTIVE" => "Y");
         $res = CIBlockElement::GetList(array(), $arFilter, false, array(), $arSelect);
@@ -30,8 +32,6 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
         $cntNext = $historical_obj_id + 1;
         while ($ob = $res->GetNextElement()) {
             $arFields = $ob->GetFields();
-
-
             if (intval($arFields["PROPERTY_HISTORICAL_LINE_ID_VALUE"]) === $cntNext) {
                 $linkNext = $arFields["DETAIL_PAGE_URL"];
                 $titleNext = $arFields["NAME"];
@@ -40,10 +40,6 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                 $titlePrev = $arFields["NAME"];
             }
         }
-
-
-
-
 ?>
 
         <div class="historical-object__hero">
@@ -238,9 +234,7 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
             </div>
         </div>
 
-
-    <?
-    }
+    <? }
 else : ?>
 
     <div class="object">
@@ -409,7 +403,6 @@ else : ?>
                         <a href="<?= $arResult["DISPLAY_PROPERTIES"]["SITE"]["VALUE"] ?>" target="_blank"><?= $arResult["DISPLAY_PROPERTIES"]["SITE"]["VALUE"] ?></a>
                     </div>
                 <? endif; ?>
-
                 <div class="x3-object__soc">
                     <? if (!empty($arResult["DISPLAY_PROPERTIES"]["SOC_VK"]["VALUE"])) : ?>
                         <a href="<?= $arResult["DISPLAY_PROPERTIES"]["SOC_VK"]["VALUE"] ?>" target="_blank">

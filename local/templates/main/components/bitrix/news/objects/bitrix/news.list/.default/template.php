@@ -12,6 +12,7 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/objects-list.css"));
+
 ?>
 <div class="objects-list items-list">
     <? foreach ($arResult["ITEMS"] as $arItem) : ?>
@@ -91,7 +92,7 @@ $this->setFrameMode(true);
                     </span>
                 <? endif; ?>
 
-                <? if (!empty($arItem["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : ?> 
+                <? if (!empty($arItem["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : ?>
                     <div class="objects-list__historical_point">
                         <svg class="objects-list__historical_star" aria-hidden="true" width="100%" height="100%">
                             <use xlink:href="#starred-icon"></use>
