@@ -23,44 +23,77 @@ $this->setFrameMode(true);
 <? endif ?>
 
 <? if ($arParams["USE_SEARCH"] == "Y") : ?>
-	<?= GetMessage("SEARCH_LABEL") ?>
-	<? $APPLICATION->IncludeComponent(
-		"bitrix:search.form",
-		"flat",
-		array(
-			"PAGE" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["search"]
-		),
-		$component
-	); ?>
+	<?= GetMessage("SEARCH_LABEL") ?><? $APPLICATION->IncludeComponent(
+										"bitrix:search.form",
+										"flat",
+										array(
+											"PAGE" => $arResult["FOLDER"] . $arResult["URL_TEMPLATES"]["search"]
+										),
+										$component
+									); ?>
 	<br />
 <? endif ?>
 <? if ($arParams["USE_FILTER"] == "Y") : ?>
 	<? $APPLICATION->IncludeComponent(
-		"bitrix:catalog.smart.filter",
-		"new_smart_filter",
+		"bitrix:catalog.section.list",
+		"sections_filter",
+		array(
+			"ADD_SECTIONS_CHAIN" => "N",
+			"CACHE_FILTER" => "N",
+			"CACHE_GROUPS" => "Y",
+			"CACHE_TIME" => "36000000",
+			"CACHE_TYPE" => "A",
+			"COMPONENT_TEMPLATE" => "sections_filter",
+			"COUNT_ELEMENTS" => "Y",
+			"COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
+			"FILTER_NAME" => $arParams["FILTER_NAME"],
+			"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+			"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+			"SECTION_CODE" => $arParams["SECTION_CODE"],
+			"SECTION_FIELDS" => array(
+				0 => "",
+				1 => "",
+			),
+			"SECTION_ID" => $arParams["SECTION_ID"],
+			"SECTION_URL" => "",
+			"SECTION_USER_FIELDS" => array(
+				0 => "UF_ICONMAP",
+				1 => "",
+			),
+			"SHOW_PARENT_NAME" => "Y",
+			"TOP_DEPTH" => "2",
+			"VIEW_MODE" => "LINE"
+		),
+		false
+	); ?>
+
+	<? $APPLICATION->IncludeComponent(
+		"bitrix:catalog.filter",
+		"new_filter",
 		array(
 			"CACHE_GROUPS" => "Y",	// Учитывать права доступа
 			"CACHE_TIME" => "36000000",	// Время кеширования (сек.)
 			"CACHE_TYPE" => "A",	// Тип кеширования
-			"DISPLAY_ELEMENT_COUNT" => "Y",	// Показывать количество
+			"FIELD_CODE" => array(	// Поля
+				0 => "",
+				1 => "",
+			),
 			"FILTER_NAME" => "arrFilter",	// Имя выходящего массива для фильтрации
-			"FILTER_VIEW_MODE" => "vertical",	// Вид отображения
 			"IBLOCK_ID" => "4",	// Инфоблок
 			"IBLOCK_TYPE" => "data",	// Тип инфоблока
+			"LIST_HEIGHT" => "5",	// Высота списков множественного выбора
+			"NUMBER_WIDTH" => "5",	// Ширина полей ввода для числовых интервалов
 			"PAGER_PARAMS_NAME" => "arrPager",	// Имя массива с переменными для построения ссылок в постраничной навигации
-			"POPUP_POSITION" => "left",	// Позиция для отображения всплывающего блока с информацией о фильтрации
-			"PREFILTER_NAME" => "smartPreFilter",	// Имя входящего массива для дополнительной фильтрации элементов
-			"SAVE_IN_SESSION" => "Y",	// Сохранять установки фильтра в сессии пользователя
-			"SECTION_CODE" => "where_eat",	// Код раздела
-			"SECTION_CODE_PATH" => "",	// Путь из символьных кодов раздела
-			"SECTION_DESCRIPTION" => "-",	// Описание
-			"SECTION_ID" => $_REQUEST["SECTION_ID"],	// ID раздела инфоблока
-			"SECTION_TITLE" => "-",	// Заголовок
-			"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
-			"SEF_RULE" => "",	// Правило для обработки
-			"SMART_FILTER_PATH" => "",	// Блок ЧПУ умного фильтра
-			"TEMPLATE_THEME" => "blue",	// Цветовая тема
-			"XML_EXPORT" => "N",	// Включить поддержку Яндекс Островов
+			"PREFILTER_NAME" => "preFilter",	// Имя входящего массива для дополнительной фильтрации элементов
+			"PRICE_CODE" => "",	// Тип цены
+			"PROPERTY_CODE" => array(	// Свойства
+				0 => "AVERAGE_CHECK",
+				1 => "CUISINE",
+				2 => "",
+			),
+			"SAVE_IN_SESSION" => "N",	// Сохранять установки фильтра в сессии пользователя
+			"TEXT_WIDTH" => "20",	// Ширина однострочных текстовых полей ввода
+			"COMPONENT_TEMPLATE" => "bootstrap_v4"
 		),
 		false
 	); ?>

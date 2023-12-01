@@ -1,13 +1,10 @@
-div.news-detail
-{
-	word-wrap: break-word;
+.gallery-slider {
+    display: none;
+    opacity: 0;
+    transition: all .3s;
 }
-div.news-detail img.detail_picture
-{
-	float:left;
-	margin:0 8px 6px 1px;
-}
-.news-date-time
-{
-	color:#486DAA;
+
+.gallery-slider.showin {
+    display: block;
+    opacity: 1;
 }
