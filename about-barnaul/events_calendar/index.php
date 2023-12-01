@@ -40,22 +40,26 @@ while ($row = $rows->fetch()) {
 
 CIBlockElement::GetPropertyValuesArray($all_events, $filter['IBLOCK_ID'], $filter);
 
+console_log($all_events);
+
 unset($rows, $filter, $order);
 
-foreach ($all_events as $key => $arEvent) :
-	if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) :
-		$main_event['name'] = $arEvent['NAME'];
-		$main_event['preview_pic'] = CFile::ResizeImageGet($arEvent['PREVIEW_PICTURE'], array('width' => 190, 'height' => 130), BX_RESIZE_IMAGE_EXACT);
-	endif;
+if (!empty($all_events)) :
+	foreach ($all_events as $key => $arEvent) :
+		if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) :
+			$main_event['name'] = $arEvent['NAME'];
+			$main_event['preview_pic'] = CFile::ResizeImageGet($arEvent['PREVIEW_PICTURE'], array('width' => 190, 'height' => 130), BX_RESIZE_IMAGE_EXACT);
+		endif;
 
-	array_push(
-		$calendar_events,
-		[
-			'date' => date("Y-m-d", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM'])),
-			'title' => $arEvent['NAME']
-		]
-	);
-endforeach;
+		array_push(
+			$calendar_events,
+			[
+				'date' => date("Y-m-d", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM'])),
+				'title' => $arEvent['NAME']
+			]
+		);
+	endforeach;
+endif;
 ?>
 
 <section class="container">
@@ -126,227 +130,63 @@ endforeach;
 		</div>
 		<div class="cell-8 cell-6-lg cell-12-sm">
 			<div class="event-list grid">
+				<? if (!empty($all_events)) {
+					foreach ($all_events as $key => $arEvent) : ?>
+						<?
+						$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
 
-				<? foreach ($all_events as $key => $arEvent) : ?>
-					<?
-					$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
-
-					$interval = $now->diff(new DateTime($arEvent['DATE_ACTIVE_FROM']));
-					if ($interval->d > 1) {
-						$ev_time = FormatDate("H:i", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
-						if ($ev_time === '00:00') {
+						$interval = $now->diff(new DateTime($arEvent['DATE_ACTIVE_FROM']));
+						if ($interval->d > 1) {
+							$ev_time = FormatDate("H:i", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
+							if ($ev_time === '00:00') {
+								$ev_time = '';
+							}
+							$ev_date = FormatDate("d F", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
+						} else {
 							$ev_time = '';
-						}
-						$ev_date = FormatDate("d F", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
-					} else {
-						$ev_time = '';
-						$ev_date = FormatDate("x", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']) + CTimeZone::GetOffset(), mktime(23, 59, 59));
-					};
-					?>
-					<a class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> row" href="#event-dialog">
+							$ev_date = FormatDate("x", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']) + CTimeZone::GetOffset(), mktime(23, 59, 59));
+						};
+						?>
+						<a class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> row" href="#event-dialog">
 
-						<div class="cell-3 cell-12-m">
-							<div class="event-item__date_wrap">
-								<span class="event-item__time"><?= $ev_time ?></span>
-								<span class="event-item__date"><?= $ev_date ?></span>
-							</div>
-						</div>
-						<div class="cell-7 cell-12-m">
-							<div class="event-item__title_wrap">
-								<span class="event-item__type"><?= $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE'] ?></span>
-								<span class="event-item__title"><?= $arEvent['NAME'] ?></span>
-							</div>
-						</div>
-						<div class="cell-2 hide-m">
-							<div class="event__btn_wrap">
-								<div class="event-item__btn">
-									<svg aria-hidden="true" width="40" height="40">
-										<use xlink:href="#arrow-right3"></use>
-									</svg>
+							<div class="cell-3 cell-12-m">
+								<div class="event-item__date_wrap">
+									<span class="event-item__time"><?= $ev_time ?></span>
+									<span class="event-item__date"><?= $ev_date ?></span>
 								</div>
 							</div>
-						</div>
-						<?
-						//= $arEvent['ID'] 
-						?>
-						<? if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) : ?>
-							<div class="starred-event">
-								<svg class="starred-event__star" aria-hidden="true" width="100%" height="100%">
-									<use xlink:href="#starred-icon"></use>
-								</svg>
-								<span class="starred-event__text">Главное событие месяца</span>
+							<div class="cell-7 cell-12-m">
+								<div class="event-item__title_wrap">
+									<span class="event-item__type"><?= $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE'] ?></span>
+									<span class="event-item__title"><?= $arEvent['NAME'] ?></span>
+								</div>
 							</div>
-						<? endif; ?>
-					</a>
+							<div class="cell-2 hide-m">
+								<div class="event__btn_wrap">
+									<div class="event-item__btn">
+										<svg aria-hidden="true" width="40" height="40">
+											<use xlink:href="#arrow-right3"></use>
+										</svg>
+									</div>
+								</div>
+							</div>
+							<?
+							//= $arEvent['ID'] 
+							?>
+							<? if (!empty($arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"])) : ?>
+								<div class="starred-event">
+									<svg class="starred-event__star" aria-hidden="true" width="100%" height="100%">
+										<use xlink:href="#starred-icon"></use>
+									</svg>
+									<span class="starred-event__text">Главное событие месяца</span>
+								</div>
+							<? endif; ?>
+						</a>
 
-				<? endforeach; ?>
-				<!-- <a class="event-list__item event-item popup-with-zoom-anim event-competitions event-of-the-month row" href="#event-dialog">
-					<div class="starred-event">
-						<svg class="starred-event__star" aria-hidden="true" width="100%" height="100%">
-							<use xlink:href="#starred-icon"></use>
-						</svg>
-						<span class="starred-event__text">Главное событие месяца</span>
-					</div>
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time"> </span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Конкурсы</span>
-							<span class="event-item__title"> Национальный фотоконкурс</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a class="event-list__item event-item popup-with-zoom-anim event-holidays row" href="#event-dialog">
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time">14:00</span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Праздники</span>
-							<span class="event-item__title"> День фармацевта: первые аптеки Барнаула</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a class="event-list__item event-item popup-with-zoom-anim event-performances row" href="#event-dialog">
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time">14:00</span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Праздники</span>
-							<span class="event-item__title"> День фармацевта: первые аптеки Барнаула</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a class="event-list__item event-item popup-with-zoom-anim event-exhibitions row" href="#event-dialog">
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time">14:00</span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Праздники</span>
-							<span class="event-item__title"> День фармацевта: первые аптеки Барнаула</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a class="event-list__item event-item popup-with-zoom-anim event-excursions row" href="#event-dialog">
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time">14:00</span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Праздники</span>
-							<span class="event-item__title"> День фармацевта: первые аптеки Барнаула</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a class="event-list__item event-item popup-with-zoom-anim event-concerts row" href="#event-dialog">
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time">14:00</span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Праздники</span>
-							<span class="event-item__title"> Денис Мацуев предтавляет: диалог поколений</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a>
-				<a class="event-list__item event-item popup-with-zoom-anim event-sport row" href="#event-dialog">
-					<div class="cell-3 cell-12-m">
-						<div class="event-item__date_wrap">
-							<span class="event-item__time">12:00, 15:00</span>
-							<span class="event-item__date"> 5 октября</span>
-						</div>
-					</div>
-					<div class="cell-7 cell-12-m">
-						<div class="event-item__title_wrap">
-							<span class="event-item__type">Концерт</span>
-							<span class="event-item__title"> «Живые символы Барнаула»</span>
-						</div>
-					</div>
-					<div class="cell-2 hide-m">
-						<div class="event__btn_wrap">
-							<div class="event-item__btn">
-								<svg aria-hidden="true" width="40" height="40">
-									<use xlink:href="#arrow-right3"></use>
-								</svg>
-							</div>
-						</div>
-					</div>
-				</a> -->
+					<? endforeach;
+				} else { ?>
+					нет событий
+				<?  }  ?>
 			</div>
 		</div>
 	</div>
@@ -423,6 +263,30 @@ endforeach;
 ); ?>
 
 <script>
+	// filter-isotope 
+	$.getScript("/about-barnaul/events_calendar/ajax/filter.js");
+
+	function getEventsMonth(from, to, monthID) {
+
+		$.ajax({
+			type: 'POST',
+			dataType: 'html',
+			url: '/about-barnaul/events_calendar/ajax/getMonthEvents.php',
+			data: 'DateFrom=' + from + '&DateTo=' + to,
+			beforeSend: function() {
+				$('.event-list').html('Загрузка...');
+				$('.event-list').isotope('destroy')
+			},
+			success: function(response) {
+				$('.event-list').html(response);
+				console.log(response);
+
+				$.getScript("/about-barnaul/events_calendar/ajax/filter.js");
+				return response;
+			}
+		})
+	}
+
 	// календарь
 	if ($('#calendar').length > 0) {
 
@@ -430,12 +294,7 @@ endforeach;
 		var thisMonth = moment().format('YYYY-MM');
 		var backMonth = moment().add(1, 'M');
 
-
-		var currMonthNum = moment().month(); 
-		var DateFrom = '01.'+ moment().month(currMonthNum + 1).format("MM.YYYY"); 
-		var DateTo = '31.'+ moment().month(currMonthNum - 1).format("MM.YYYY"); 
-		console.log(DateFrom);
-		console.log(DateFrom);
+		var currMonthNum = moment().month();
 
 		// $DateFrom = "01." . $currentMonth . "." . $currentYear;
 		// $DateTo = "31." . $currentMonth . "." . $currentYear;
@@ -460,68 +319,24 @@ endforeach;
 				nextMonth: function() {
 					console.log('Calendar next month');
 
-					futureMonth = futureMonth.add(1, 'months');
-					console.log(futureMonth);
-					console.log(futureMonth.month());
+					var nexrMonth = currMonthNum + 1;
+					var DateFrom = '01.' + moment().month(nexrMonth).format("MM.YYYY");
+					var DateTo = '31.' + moment().month(nexrMonth).format("MM.YYYY");
+
+					getEventsMonth(DateFrom, DateTo);
+
+					currMonthNum = nexrMonth;
 				},
-
-				// <a class="event-list__item event-item popup-with-zoom-anim event-holidays row" href="#event-dialog">
-
-				// 		<div class="cell-3 cell-12-m">
-				// 			<div class="event-item__date_wrap">
-				// 				<span class="event-item__time"></span>
-				// 				<span class="event-item__date">сегодня, 12:00</span>
-				// 			</div>
-				// 		</div>
-				// 		<div class="cell-7 cell-12-m">
-				// 			<div class="event-item__title_wrap">
-				// 				<span class="event-item__type">Праздники</span>
-				// 				<span class="event-item__title">5 классных детских оздоровительных лагерей недалеко от Барнаула 1</span>
-				// 			</div>
-				// 		</div>
-				// 		<div class="cell-2 hide-m">
-				// 			<div class="event__btn_wrap">
-				// 				<div class="event-item__btn">
-				// 					<svg aria-hidden="true" width="40" height="40">
-				// 						<use xlink:href="#arrow-right3"></use>
-				// 					</svg>
-				// 				</div>
-				// 			</div>
-				// 		</div>
-				// 															<div class="starred-event">
-				// 				<svg class="starred-event__star" aria-hidden="true" width="100%" height="100%">
-				// 					<use xlink:href="#starred-icon"></use>
-				// 				</svg>
-				// 				<span class="starred-event__text">Главное событие месяца</span>
-				// 			</div>
-				// 							</a>
-
-				// 										<a class="event-list__item event-item popup-with-zoom-anim event-exhibitions row" href="#event-dialog">
-
-				// 		<div class="cell-3 cell-12-m">
-				// 			<div class="event-item__date_wrap">
-				// 				<span class="event-item__time">10:00</span>
-				// 				<span class="event-item__date">15 ноября</span>
-				// 			</div>
-				// 		</div>
-				// 		<div class="cell-7 cell-12-m">
-				// 			<div class="event-item__title_wrap">
-				// 				<span class="event-item__type">Выставки</span>
-				// 				<span class="event-item__title">Дайджест 15.11 - 27.11. (2)</span>
-				// 			</div>
-				// 		</div>
-				// 		<div class="cell-2 hide-m">
-				// 			<div class="event__btn_wrap">
-				// 				<div class="event-item__btn">
-				// 					<svg aria-hidden="true" width="40" height="40">
-				// 						<use xlink:href="#arrow-right3"></use>
-				// 					</svg>
-				// 				</div>
-				// 			</div>
-				// 		</div>
-				// 													</a>
 				previousMonth: function() {
 					console.log('Calendar previous month');
+
+					var prevMonth = currMonthNum - 1;
+					var DateFrom = '01.' + moment().month(prevMonth).format("MM.YYYY");
+					var DateTo = '31.' + moment().month(prevMonth).format("MM.YYYY");
+
+					getEventsMonth(DateFrom, DateTo);
+
+					currMonthNum = prevMonth;
 				},
 				onMonthChange: function() {
 					console.log('Calendar month changed');
@@ -553,69 +368,6 @@ endforeach;
 			// },
 			// showAdjacentMonths: true,
 			// adjacentDaysChangeMonth: false
-		});
-	}
-
-
-	// filter-isotope 
-	if ($('.iso-filter').length > 0) {
-		function getHashFilter() {
-			var hash = location.hash;
-			// get filter=filterName
-			var matches = location.hash.match(/filter=([^&]+)/i);
-			var hashFilter = matches && matches[1];
-			return hashFilter && decodeURIComponent(hashFilter);
-		}
-
-		function removeHash() {
-			history.pushState("", document.title, window.location.pathname +
-				window.location.search);
-		}
-
-		$(function() {
-
-			var $grid = $('.event-list');
-
-			// bind filter button click
-			var $filters = $('.iso-filter').on('click', '.iso-filter__btn', function() {
-				var filterAttr = $(this).attr('data-filter');
-				location.hash = 'filter=' + encodeURIComponent(filterAttr);
-			});
-
-			var isIsotopeInit = true;
-
-			function onHashchange() {
-				var hashFilter = getHashFilter();
-				// TODO переписать повторяющуюся грязь
-				if (hashFilter === '*') {
-					$grid.isotope({
-						itemSelector: '.event-list__item',
-						filter: hashFilter
-					});
-					$filters.find('.is-checked').removeClass('is-checked');
-					$filters.find('[data-filter="*"]').addClass('is-checked');
-					removeHash()
-					return;
-				}
-				if (!hashFilter && isIsotopeInit) {
-					return;
-				}
-				isIsotopeInit = true;
-				// filter isotope
-				$grid.isotope({
-					itemSelector: '.event-list__item',
-					filter: '.' + hashFilter
-				});
-				// set selected class on button
-				if (hashFilter) {
-					$filters.find('.is-checked').removeClass('is-checked');
-					$filters.find('[data-filter="' + hashFilter + '"]').addClass('is-checked');
-				}
-			}
-
-			$(window).on('hashchange', onHashchange);
-			// trigger event handler to init Isotope
-			onHashchange();
 		});
 	}
 </script>
