@@ -1,12 +1,15 @@
 <?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetPageProperty("title", "Туристическая карта гостя города Барнаула");
 $APPLICATION->SetPageProperty("BG", "/upload/bg/where-eat.jpg");
 $APPLICATION->SetTitle("Объекты");
 ?>
 
-<?$APPLICATION->IncludeComponent("bitrix:news", "with_new_filter", Array(
-	"ADD_ELEMENT_CHAIN" => "Y",	// Включать название элемента в цепочку навигации
+<? $APPLICATION->IncludeComponent(
+	"bitrix:news",
+	"with_new_filter",
+	array(
+		"ADD_ELEMENT_CHAIN" => "Y",	// Включать название элемента в цепочку навигации
 		"ADD_SECTIONS_CHAIN" => "Y",	// Включать раздел в цепочку навигации
 		"AJAX_MODE" => "N",	// Включить режим AJAX
 		"AJAX_OPTION_ADDITIONAL" => "",	// Дополнительный идентификатор
@@ -114,8 +117,7 @@ $APPLICATION->SetTitle("Объекты");
 		"POPULAR" => $_GET["popular"],
 		"FILTER_NAME" => "Фильтр1",	// Фильтр
 		"FILTER_FIELD_CODE" => array(	// Поля
-			0 => "IBLOCK_NAME",
-			1 => "",
+			0 =>   "",
 		),
 		"FILTER_PROPERTY_CODE" => array(	// Свойства
 			0 => "AVERAGE_CHECK",
@@ -140,10 +142,10 @@ $APPLICATION->SetTitle("Объекты");
 		)
 	),
 	false
-);?>
+); ?>
 
-<?if($_GET["popular"] == "y"):?>
-    <?$APPLICATION->SetTitle("Популярные объекты");?>
-<?endif;?>
+<? if ($_GET["popular"] == "y") : ?>
+    <? $APPLICATION->SetTitle("Популярные объекты"); ?>
+<? endif; ?>
 
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

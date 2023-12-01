@@ -12,33 +12,102 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 ?>
-<form name="<?echo $arResult["FILTER_NAME"]."_form"?>" action="<?echo $arResult["FORM_ACTION"]?>" method="get">
-	<?foreach($arResult["ITEMS"] as $arItem):
-		if(array_key_exists("HIDDEN", $arItem)):
-			echo $arItem["INPUT"];
-		endif;
-	endforeach;?>
-	<table class="data-table" cellspacing="0" cellpadding="2">
-	<thead>
-		<tr>
-			<td colspan="2" align="center"><?=GetMessage("IBLOCK_FILTER_TITLE")?></td>
-		</tr>
-	</thead>
-	<tbody>
-		<?foreach($arResult["ITEMS"] as $arItem):?>
-			<?if(!array_key_exists("HIDDEN", $arItem)):?>
-				<tr>
-					<td valign="top"><?=$arItem["NAME"]?>:</td>
-					<td valign="top"><?=$arItem["INPUT"]?></td>
-				</tr>
-			<?endif?>
-		<?endforeach;?>
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="2">
-				<input type="submit" name="set_filter" value="<?=GetMessage("IBLOCK_SET_FILTER")?>" /><input type="hidden" name="set_filter" value="Y" />&nbsp;&nbsp;<input type="submit" name="del_filter" value="<?=GetMessage("IBLOCK_DEL_FILTER")?>" /></td>
-		</tr>
-	</tfoot>
-	</table>
-</form>
+
+
+<!-- filter -->
+<div class="x3-sec-filter layout__filter hide-m">
+    <div class="filter-wrap">
+        <div class="filter-title">
+            <div class="filter-toggle">
+								<span class="filter-title-inner">
+									Вид кухни <i class="filter-count-selected"></i>
+								</span>
+                <svg aria-hidden="true" width="11" height="7">
+                    <use xlink:href="#arrow-down-svg"></use>
+                </svg>
+            </div>
+            <div class="filter-popup">
+                <ul class="curr_filter_values">
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk1" />
+                        <label title="Азиатская" for="chk1">Азиатская</label>
+                    </div>
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk2" />
+                        <label title="Русская" for="chk2">Русская</label>
+                    </div>
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk3" />
+                        <label title="Европейская" for="chk3">Европейская</label>
+                    </div>
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk4" />
+                        <label title="Азиатская" for="chk4">Азиатская</label>
+                    </div>
+                </ul>
+                <button class="btn-main filter-apply" type="button">
+                    Применить
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="filter-wrap">
+        <div class="filter-title">
+            <div class="filter-toggle">
+								<span class="filter-title-inner">
+									Cредний чек
+								</span>
+                <svg aria-hidden="true" width="11" height="7">
+                    <use xlink:href="#arrow-down-svg"></use>
+                </svg>
+            </div>
+            <div class="filter-popup">
+                <input value="0,100" type="range" multiple>
+                <div class="range-slider-input row is-grid flex-center">
+                    <div class="cell-6">
+                        <input class="input-field input-range" name="price_min" placeholder="500" value="500" data-range-from="">
+                    </div>
+                    <div class="cell-6">
+                        <input class="input-field input-range" name="price_max" placeholder="13000" value="13000" data-range-to="">
+                    </div>
+                </div>
+                <button class="btn-main filter-apply" type="button">
+                    Применить
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="filter-wrap">
+        <div class="filter-title">
+            <div class="filter-toggle">
+								<span class="filter-title-inner">
+									Особенности <i class="filter-count-selected"></i>
+								</span>
+                <svg aria-hidden="true" width="11" height="7">
+                    <use xlink:href="#arrow-down-svg"></use>
+                </svg>
+            </div>
+            <div class="filter-popup">
+                <ul class="curr_filter_values">
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk1-1" />
+                        <label title="Азиатская" for="chk1-1">Все</label>
+                    </div>
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk1-2" />
+                        <label title="Русская" for="chk1-2">Рестораны</label>
+                    </div>
+                    <div class="row filter-checbox-item">
+                        <input type="checkbox" id="chk1-3" />
+                        <label title="Европейская" for="chk1-3">Кафе</label>
+                    </div>
+                </ul>
+                <button class="btn-main filter-apply" type="button">
+                    Применить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end of filter -->
+
