@@ -114,8 +114,8 @@ $this->setFrameMode(true);
                 <? if (!empty($arItem["DISPLAY_PROPERTIES"]["ADDRESS"]["VALUE"])) : ?>
                     <li>Адрес: <span><?= $arItem["DISPLAY_PROPERTIES"]["ADDRESS"]["VALUE"] ?></span></li>
                 <? endif; ?>
-                <? if (!empty($arItem["DISPLAY_PROPERTIES"]["AVERAGE_CHECK"]["VALUE"])) : ?>
-                    <li>Средний чек: <span class="objects-list__price"><?= $arItem["DISPLAY_PROPERTIES"]["AVERAGE_CHECK"]["VALUE"] ?></span></li>
+                <? if (!empty($arItem["PROPERTIES"]["AVERAGE_CHECK_NUM"]["VALUE"])) : ?>
+                    <li>Средний чек: <span class="objects-list__price"><?= $arItem["PROPERTIES"]["AVERAGE_CHECK_NUM"]["VALUE"] ?> рублей</span></li>
                 <? endif; ?>
             </ul>
 

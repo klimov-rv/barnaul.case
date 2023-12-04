@@ -10,8 +10,7 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
-$this->setFrameMode(true);
-console_log($arParams);
+$this->setFrameMode(true); 
 
 $rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]));
 if ($arSection = $rsSections->GetNext()) {

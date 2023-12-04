@@ -85,6 +85,8 @@ JCSmartFilter.prototype.updateItem = function (PID, arItem) {
 
 		if (trackBar && arItem.VALUES) {
 			if (arItem.VALUES.MIN) {
+				currSliderUI = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter-title' }), { 'class': 'filter-title_info' }, true, false);
+
 				if (arItem.VALUES.MIN.FILTERED_VALUE)
 					trackBar.setMinFilteredValue(arItem.VALUES.MIN.FILTERED_VALUE);
 				else
@@ -92,6 +94,7 @@ JCSmartFilter.prototype.updateItem = function (PID, arItem) {
 			}
 
 			if (arItem.VALUES.MAX) {
+				currSliderUI = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter-title' }), { 'class': 'filter-title_info' }, true, false);
 				if (arItem.VALUES.MAX.FILTERED_VALUE)
 					trackBar.setMaxFilteredValue(arItem.VALUES.MAX.FILTERED_VALUE);
 				else
@@ -177,7 +180,7 @@ JCSmartFilter.prototype.postHandler = function (result, fromCache) {
 				}
 
 				if (this.viewMode == "VERTICAL") {
-					curProp = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'bx-filter-parameters-box' }), { 'class': 'bx-filter-container-modef' }, true, false);
+					curProp = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter-title' }), { 'class': 'bx-filter-container-modef' }, true, false);
 					curProp.appendChild(modef);
 				}
 
@@ -769,3 +772,79 @@ BX.Iblock.SmartFilter = (function () {
 
 
 jcf.replaceAll();
+
+
+var checkboxContainers = document.querySelectorAll('.curr_filter_values');
+
+checkboxContainers.forEach((item) => {
+	var countChecked = item.querySelectorAll('input[type="checkbox"]:checked').length;
+	var filterWraper = item.closest('.filter-title');
+	var insertCount = filterWraper.querySelector('.filter-count-selected');
+	if (insertCount) {
+		if (countChecked > 0) {
+			insertCount.innerHTML = countChecked;
+			filterWraper.classList.add('is-active');
+		} else {
+			insertCount.innerHTML = '';
+			filterWraper.classList.remove('is-active');
+		}
+	}
+});
+
+// var clickedChbxs = document.querySelectorAll('.filter-checbox-item');
+
+// clickedChbxs.forEach((item) => {
+// 	item.addEventListener('click', e => {
+// 		var thisEl = e.target.closest('.filter-popup');
+// 		var countChecked = thisEl.querySelectorAll('input[type="checkbox"]:checked').length;
+// 		var filterWraper = thisEl.closest('.filter-title');
+// 		var insertCount = filterWraper.querySelector('.filter-count-selected');
+// 		if (insertCount) {
+// 			if (countChecked > 0) {
+// 				insertCount.innerHTML = countChecked;
+// 				filterWraper.classList.add('is-active');
+// 			} else {
+// 				insertCount.innerHTML = '';
+// 				filterWraper.classList.remove('is-active');
+// 			}
+// 		}
+// 	});
+// });
+
+
+
+var inputMins = document.querySelectorAll('.min-price');
+inputMins.forEach((item) => {
+	if (item.value) {
+		var insertMin = item.value;
+		var filterWraper = item.closest('.filter-title');
+		var insertMinMax = filterWraper.querySelector('.filter-title_info');
+		if (!filterWraper.classList.contains('is-active')) {
+			filterWraper.classList.add('is-active');
+		}
+		insertMinMax.innerHTML = '<i class="bottom-price">' + insertMin + '</i>';
+	}
+});
+
+var inputMaxs = document.querySelectorAll('.max-price');
+inputMaxs.forEach((item) => {
+	if (item.value) {
+		var insertMin = item.value;
+		var filterWraper = item.closest('.filter-title');
+		var insertMinMax = filterWraper.querySelector('.filter-title_info');
+		if (!filterWraper.classList.contains('is-active')) {
+			filterWraper.classList.add('is-active');
+		}
+		insertMinMax.innerHTML += '<i class="top-price">' + insertMin + '</i>';
+	}
+});
+
+
+var clickedClearFilter = document.querySelectorAll('.exit-filter');
+
+clickedClearFilter.forEach((item) => {
+	item.addEventListener('click', e => {
+		e.stopPropagation();
+		document.getElementById('del_filter').click();
+	});
+});

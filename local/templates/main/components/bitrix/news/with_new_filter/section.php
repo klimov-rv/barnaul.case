@@ -11,6 +11,14 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+
+$rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]));
+if ($arSection = $rsSections->GetNext()) {
+	$sectionName = $arSection['NAME'];
+	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
+}
+
+
 ?>
 
 <? if ($arParams["USE_RSS"] == "Y") : ?>
@@ -34,38 +42,80 @@ $this->setFrameMode(true);
 	); ?>
 	<br />
 <? endif ?>
+
 <? if ($arParams["USE_FILTER"] == "Y") : ?>
-	<? $APPLICATION->IncludeComponent(
-		"bitrix:catalog.smart.filter",
-		"new_smart_filter",
-		array(
-			"CACHE_GROUPS" => "Y",	// Учитывать права доступа
-			"CACHE_TIME" => "36000000",	// Время кеширования (сек.)
-			"CACHE_TYPE" => "A",	// Тип кеширования
-			"DISPLAY_ELEMENT_COUNT" => "Y",	// Показывать количество
-			"FILTER_NAME" => "arrFilter",	// Имя выходящего массива для фильтрации
-			"FILTER_VIEW_MODE" => "vertical",	// Вид отображения
-			"IBLOCK_ID" => "4",	// Инфоблок
-			"IBLOCK_TYPE" => "data",	// Тип инфоблока
-			"PAGER_PARAMS_NAME" => "arrPager",	// Имя массива с переменными для построения ссылок в постраничной навигации
-			"POPUP_POSITION" => "left",	// Позиция для отображения всплывающего блока с информацией о фильтрации
-			"PREFILTER_NAME" => "smartPreFilter",	// Имя входящего массива для дополнительной фильтрации элементов
-			"SAVE_IN_SESSION" => "Y",	// Сохранять установки фильтра в сессии пользователя
-			"SECTION_CODE" => "where_eat",	// Код раздела
-			"SECTION_CODE_PATH" => "",	// Путь из символьных кодов раздела
-			"SECTION_DESCRIPTION" => "-",	// Описание
-			"SECTION_ID" => $_REQUEST["SECTION_ID"],	// ID раздела инфоблока
-			"SECTION_TITLE" => "-",	// Заголовок
-			"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
-			"SEF_RULE" => "",	// Правило для обработки
-			"SMART_FILTER_PATH" => "",	// Блок ЧПУ умного фильтра
-			"TEMPLATE_THEME" => "blue",	// Цветовая тема
-			"XML_EXPORT" => "N",	// Включить поддержку Яндекс Островов
-		),
-		false
-	); ?>
-	<br />
-<? endif ?>
+	<? if (
+		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_eat" ||
+		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_stay"
+	) : ?>
+		<!-- SECTION_CODE_PATH === where_stay, where_eat + news.php FOLDER === souvenirs -->
+		<? $APPLICATION->IncludeComponent(
+			"bitrix:catalog.smart.filter",
+			"new_smart_filter",
+			array(
+				"CACHE_GROUPS" => "Y",	// Учитывать права доступа
+				"CACHE_TIME" => "36000000",	// Время кеширования (сек.)
+				"CACHE_TYPE" => "A",	// Тип кеширования
+				"DISPLAY_ELEMENT_COUNT" => "N",	// Показывать количество
+				"FILTER_NAME" => "arrFilter",	// Имя выходящего массива для фильтрации
+				"FILTER_VIEW_MODE" => "vertical",	// Вид отображения
+				"IBLOCK_ID" => "4",	// Инфоблок
+				"IBLOCK_TYPE" => "data",	// Тип инфоблока
+				"PAGER_PARAMS_NAME" => "arrPager",	// Имя массива с переменными для построения ссылок в постраничной навигации
+				"POPUP_POSITION" => "left",	// Позиция для отображения всплывающего блока с информацией о фильтрации
+				"PREFILTER_NAME" => "smartPreFilter",	// Имя входящего массива для дополнительной фильтрации элементов
+				"SAVE_IN_SESSION" => "Y",	// Сохранять установки фильтра в сессии пользователя
+				"SECTION_CODE" => "where_eat",	// Код раздела
+				"SECTION_CODE_PATH" => "",	// Путь из символьных кодов раздела
+				"SECTION_DESCRIPTION" => "-",	// Описание
+				"SECTION_ID" => $_REQUEST["SECTION_ID"],	// ID раздела инфоблока
+				"SECTION_TITLE" => "-",	// Заголовок
+				"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
+				"SEF_RULE" => "",	// Правило для обработки
+				"SMART_FILTER_PATH" => "",	// Блок ЧПУ умного фильтра
+				"TEMPLATE_THEME" => "blue",	// Цветовая тема
+				"XML_EXPORT" => "N",	// Включить поддержку Яндекс Островов
+			),
+			false
+		); ?>
+		<br />
+	<? else :
+		if ($arParams["POPULAR"] != "y" && $arParams["OBJECTS_TYPE"] != "type2") :
+			$APPLICATION->IncludeComponent(
+				"bitrix:catalog.section.list",
+				"sections_filter",
+				array(
+					"ADD_SECTIONS_CHAIN" => "N",
+					"CACHE_FILTER" => "N",
+					"CACHE_GROUPS" => "Y",
+					"CACHE_TIME" => "36000000",
+					"CACHE_TYPE" => "A",
+					"COMPONENT_TEMPLATE" => "sections_filter",
+					"COUNT_ELEMENTS" => "Y",
+					"COUNT_ELEMENTS_FILTER" => "CNT_ACTIVE",
+					"FILTER_NAME" => $arParams["FILTER_NAME"],
+					"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+					"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+					"SECTION_CODE" => $arParams["SECTION_CODE"],
+					"SECTION_FIELDS" => array(
+						0 => "",
+						1 => "",
+					),
+					"SECTION_ID" => $parentSection,
+					"SECTION_URL" => "",
+					"SECTION_USER_FIELDS" => array(
+						0 => "UF_ICONMAP",
+						1 => "",
+					),
+					"SHOW_PARENT_NAME" => "Y",
+					"TOP_DEPTH" => "2",
+					"VIEW_MODE" => "LINE"
+				),
+				false
+			);
+		endif; 	 ?>
+	<? endif; ?>
+<? endif; ?>
 <? $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"",

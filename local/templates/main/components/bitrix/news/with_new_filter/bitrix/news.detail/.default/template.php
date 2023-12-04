@@ -19,7 +19,7 @@ $historical_obj_id = intval($arResult["PROPERTIES"]["HISTORICAL_LINE_ID"]["VALUE
 $legend = $arResult["PROPERTIES"]["LEGEND"]["VALUE"]["TEXT"];
 $coefficient = 5 * $historical_obj_id;
 $coefficient2 = $coefficient + 3;
-
+ 
 if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
         // выбираем из общего списка исторических объектов предыдущий и следующий
@@ -357,10 +357,10 @@ else : ?>
                         <? endforeach; ?>
                     </div>
                 <? endif; ?>
-                <? if (!empty($arResult["DISPLAY_PROPERTIES"]["AVERAGE_CHECK"]["VALUE"])) : ?>
+                <? if (!empty($arResult["PROPERTIES"]["AVERAGE_CHECK_NUM"]["VALUE"])) : ?>
                     <div class="x3-object__param x3-object__param--noicon">
                         <span class="x3-object__title">Средний чек: </span>
-                        <span class="x3-object__price"><?= $arResult["DISPLAY_PROPERTIES"]["AVERAGE_CHECK"]["VALUE"] ?></span>
+                        <span class="x3-object__price"><?= $arResult["PROPERTIES"]["AVERAGE_CHECK_NUM"]["VALUE"] ?> рублей</span>
                     </div>
                 <? endif; ?>
                 <? if (!empty($arResult["DISPLAY_PROPERTIES"]["ADDRESS"]["VALUE"])) : ?>

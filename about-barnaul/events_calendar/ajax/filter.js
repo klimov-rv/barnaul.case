@@ -1,10 +1,9 @@
 if ($('.iso-filter').length > 0) {
     $(function () {
 
-        // bind list of elems
         var $grid = $('.event-list');
 
-        // bind filter button click
+        // TODO дестрой события по подгрузке аякса
         var $filters = $('.iso-filter').on('click', '.iso-filter__btn', function () {
             var filterAttr = $(this).attr('data-filter');
             location.hash = 'filter=' + encodeURIComponent(filterAttr);

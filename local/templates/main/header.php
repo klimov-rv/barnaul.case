@@ -160,7 +160,7 @@
 
             </div>
         </header>
-        <div class="site-content  <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?> <? $APPLICATION->ShowProperty("page_template") ?>">
+        <div class="site-content <? if ($APPLICATION->GetCurPage(false) == '/') : ?>site-content--main<? endif; ?> <? $APPLICATION->ShowProperty("page_template") ?>">
             <?
 
 
