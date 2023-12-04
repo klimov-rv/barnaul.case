@@ -17,7 +17,7 @@ if ($arSection = $rsSections->GetNext()) {
 	$sectionName = $arSection['NAME'];
 	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
 }
-
+console_log($_REQUEST["SECTION_ID"]);
 
 ?>
 
@@ -47,8 +47,7 @@ if ($arSection = $rsSections->GetNext()) {
 	<? if (
 		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_eat" ||
 		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_stay"
-	) : ?>
-		<!-- SECTION_CODE_PATH === where_stay, where_eat + news.php FOLDER === souvenirs -->
+	) : ?><!--  where_stay, page_url === souvenirs -->
 		<? $APPLICATION->IncludeComponent(
 			"bitrix:catalog.smart.filter",
 			"new_smart_filter",

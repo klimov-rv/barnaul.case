@@ -64,7 +64,7 @@ $this->setFrameMode(true);
                 <?endif;?>
                 <?if(!empty($arResult["DISPLAY_PROPERTIES"]["PARTNER"]["VALUE"])):?>
                     <span class="x3-objects__partner">
-                    <svg aria-hidden="true" width="104" height="99">
+                    <svg aria-hidden="true" width="104" height="108">
                         <use xlink:href="#partner-icon-svg"></use>
                     </svg>
                 </span>
