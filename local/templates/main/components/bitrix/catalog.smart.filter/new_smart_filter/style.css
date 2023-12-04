@@ -13,6 +13,7 @@
 
 .site-content-wrap .bx-filter .bx-filter-section {
 	padding-top: 0;
+	position: relative;
 }
 
 .bx-filter .bx-filter-section>.row {
@@ -156,7 +157,7 @@ COLOR
 .bx-filter .bx-filter-button-box {
 	clear: both;
 	position: absolute;
-	top: -9000%;
+	top: -9000px;
 }
 
 /*

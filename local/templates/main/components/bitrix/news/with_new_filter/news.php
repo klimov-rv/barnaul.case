@@ -11,6 +11,14 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
+
+$rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]));
+if ($arSection = $rsSections->GetNext()) {
+	$sectionName = $arSection['NAME'];
+	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
+}
+console_log($arResult);
+
 ?>
 
 <? if ($arParams["USE_RSS"] == "Y") : ?>
@@ -46,16 +54,16 @@ if ($arResult['FOLDER'] ===  '/souvenirs/') {
 			"DISPLAY_ELEMENT_COUNT" => "N",	// Показывать количество
 			"FILTER_NAME" => "arrFilter",	// Имя выходящего массива для фильтрации
 			"FILTER_VIEW_MODE" => "vertical",	// Вид отображения
-			"IBLOCK_ID" => "4",	// Инфоблок
+			"IBLOCK_ID" => "8",	// Инфоблок
 			"IBLOCK_TYPE" => "data",	// Тип инфоблока
 			"PAGER_PARAMS_NAME" => "arrPager",	// Имя массива с переменными для построения ссылок в постраничной навигации
 			"POPUP_POSITION" => "left",	// Позиция для отображения всплывающего блока с информацией о фильтрации
 			"PREFILTER_NAME" => "smartPreFilter",	// Имя входящего массива для дополнительной фильтрации элементов
 			"SAVE_IN_SESSION" => "Y",	// Сохранять установки фильтра в сессии пользователя
-			"SECTION_CODE" => "where_eat",	// Код раздела
+			"SECTION_CODE" => "",	// Код раздела
 			"SECTION_CODE_PATH" => "",	// Путь из символьных кодов раздела
 			"SECTION_DESCRIPTION" => "-",	// Описание
-			"SECTION_ID" => $_REQUEST["SECTION_ID"],	// ID раздела инфоблока
+			"SECTION_ID" => 37,	// ID раздела инфоблока
 			"SECTION_TITLE" => "-",	// Заголовок
 			"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
 			"SEF_RULE" => "",	// Правило для обработки
@@ -101,7 +109,6 @@ if ($arResult['FOLDER'] ===  '/souvenirs/') {
 		);
 	endif;
 }
-console_log($arResult);
 ?>
 
 <? $APPLICATION->IncludeComponent(

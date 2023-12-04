@@ -1,8 +1,6 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty("title", "Туристическая карта гостя города Барнаула");
-$APPLICATION->SetPageProperty("BG", "/upload/bg/where-eat.jpg");
-$APPLICATION->SetTitle("Объекты");
+$APPLICATION->SetTitle("Сувениры");
 ?>
 
 <?$APPLICATION->IncludeComponent(
@@ -33,26 +31,25 @@ $APPLICATION->SetTitle("Объекты");
 		"DETAIL_PAGER_TEMPLATE" => "",
 		"DETAIL_PAGER_TITLE" => "Страница",
 		"DETAIL_PROPERTY_CODE" => array(
-			0 => "IN_TOP",
-			1 => "LOCATION_MAP",
-			2 => "ADDRESS",
-			3 => "PHONE",
-			4 => "WORK_TIME",
-			5 => "SITE",
-			6 => "EMAIL",
-			7 => "SOC_VK",
-			8 => "SOC_TG",
-			9 => "SOC_OK",
-			10 => "AVERAGE_CHECK_NUM",
-			11 => "CUISINE",
-			12 => "PARTNER",
-			13 => "DELIVERY",
-			14 => "TAKEAWEY",
-			15 => "SALE",
-			16 => "GIFT",
-			17 => "SOC_TM",
-			18 => "MORE_PHOTOS",
-			19 => "",
+			0 => "LOCATION_MAP",
+			1 => "ADDRESS",
+			2 => "PHONE",
+			3 => "WORK_TIME",
+			4 => "SITE",
+			5 => "EMAIL",
+			6 => "SOC_VK",
+			7 => "SOC_TM",
+			8 => "SOC_OK",
+			9 => "SALE",
+			10 => "GIFT",
+			11 => "PARTNER",
+			12 => "IN_TOP",
+			13 => "AVERAGE_CHECK_NUM",
+			14 => "CUISINE",
+			15 => "DELIVERY",
+			16 => "TAKEAWEY",
+			17 => "MORE_PHOTOS",
+			18 => "",
 		),
 		"DETAIL_SET_CANONICAL_URL" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
@@ -62,9 +59,9 @@ $APPLICATION->SetTitle("Объекты");
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"IBLOCK_ID" => "4",
+		"IBLOCK_ID" => "8",
 		"IBLOCK_TYPE" => "data",
-		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"LIST_ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"LIST_FIELD_CODE" => array(
 			0 => "",
@@ -72,20 +69,18 @@ $APPLICATION->SetTitle("Объекты");
 		),
 		"LIST_PROPERTY_CODE" => array(
 			0 => "ADDRESS",
-			1 => "AVERAGE_CHECK_NUM",
-			2 => "PARTNER",
-			3 => "DELIVERY",
-			4 => "TAKEAWEY",
-			5 => "SALE",
-			6 => "GIFT",
-			7 => "STARS",
-			8 => "IS_HISTORICAL_LINE_OBJECT",
-			9 => "",
+			1 => "SALE",
+			2 => "GIFT",
+			3 => "PARTNER",
+			4 => "AVERAGE_CHECK_NUM",
+			5 => "DELIVERY",
+			6 => "TAKEAWEY",
+			7 => "",
 		),
 		"MESSAGE_404" => "",
 		"META_DESCRIPTION" => "-",
 		"META_KEYWORDS" => "-",
-		"NEWS_COUNT" => "16",
+		"NEWS_COUNT" => "12",
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"PAGER_DESC_NUMBERING" => "N",
 		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
@@ -97,9 +92,9 @@ $APPLICATION->SetTitle("Объекты");
 		"SEF_MODE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_STATUS_404" => "N",
-		"SET_TITLE" => "N",
+		"SET_TITLE" => "Y",
 		"SHOW_404" => "N",
-		"SORT_BY1" => "PROPERTY_PARTNER",
+		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_BY2" => "SORT",
 		"SORT_ORDER1" => "DESC",
 		"SORT_ORDER2" => "ASC",
@@ -112,40 +107,17 @@ $APPLICATION->SetTitle("Объекты");
 		"USE_RSS" => "N",
 		"USE_SEARCH" => "N",
 		"USE_SHARE" => "N",
-		"COMPONENT_TEMPLATE" => "objects",
-		"SEF_FOLDER" => "/objects/",
+		"COMPONENT_TEMPLATE" => "with_new_filter",
+		"SEF_FOLDER" => "/souvenirs/",
 		"POPULAR" => $_GET["popular"],
-		"FILTER_NAME" => "",
-		"FILTER_FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"FILTER_PROPERTY_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"TEMPLATE_THEME" => "blue",
-		"MEDIA_PROPERTY" => "",
-		"SLIDER_PROPERTY" => "",
-		"TAGS_CLOUD_ELEMENTS" => "150",
-		"PERIOD_NEW_TAGS" => "",
-		"DISPLAY_AS_RATING" => "rating",
-		"FONT_MAX" => "50",
-		"FONT_MIN" => "10",
-		"COLOR_NEW" => "3E74E6",
-		"COLOR_OLD" => "C0C0C0",
-		"TAGS_CLOUD_WIDTH" => "100%",
+		"OBJECTS_TYPE" => "type2",
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "#SECTION_CODE_PATH#/",
-			"detail" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
+			"detail" => "#ELEMENT_CODE#/",
 		)
 	),
 	false
 );?>
-
-<?if($_GET["popular"] == "y"):?>
-    <?$APPLICATION->SetTitle("Популярные объекты");?>
-<?endif;?>
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

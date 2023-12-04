@@ -15,10 +15,9 @@ $this->setFrameMode(true);
 $rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]));
 if ($arSection = $rsSections->GetNext()) {
 	$sectionName = $arSection['NAME'];
+	$sSectionName = $arSection['NAME'];
 	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
 }
-console_log($_REQUEST["SECTION_ID"]);
-
 ?>
 
 <? if ($arParams["USE_RSS"] == "Y") : ?>
@@ -67,7 +66,7 @@ console_log($_REQUEST["SECTION_ID"]);
 				"SECTION_CODE" => "where_eat",	// Код раздела
 				"SECTION_CODE_PATH" => "",	// Путь из символьных кодов раздела
 				"SECTION_DESCRIPTION" => "-",	// Описание
-				"SECTION_ID" => $_REQUEST["SECTION_ID"],	// ID раздела инфоблока
+				"SECTION_ID" => $parentSection,	// ID раздела инфоблока
 				"SECTION_TITLE" => "-",	// Заголовок
 				"SEF_MODE" => "Y",	// Включить поддержку ЧПУ
 				"SEF_RULE" => "",	// Правило для обработки
@@ -129,7 +128,8 @@ console_log($_REQUEST["SECTION_ID"]);
 		"FIELD_CODE" => $arParams["LIST_FIELD_CODE"],
 		"PROPERTY_CODE" => $arParams["LIST_PROPERTY_CODE"],
 		"DISPLAY_PANEL" => $arParams["DISPLAY_PANEL"],
-		"SET_TITLE" => $arParams["SET_TITLE"],
+		"SET_TITLE" => 'N',
+		"SECTION_NAME" => $sectionName,
 		"SET_LAST_MODIFIED" => $arParams["SET_LAST_MODIFIED"],
 		"MESSAGE_404" => $arParams["MESSAGE_404"],
 		"SET_STATUS_404" => $arParams["SET_STATUS_404"],
