@@ -1,3 +1,4 @@
+
 if ($('.iso-filter').length > 0) {
     $(function () {
 
@@ -34,7 +35,7 @@ if ($('.iso-filter').length > 0) {
                 });
                 $filters.find('.is-checked').removeClass('is-checked');
                 $filters.find('[data-filter="*"]').addClass('is-checked');
-                removeHash()
+                removeHash();
                 return;
             }
             if (!hashFilter && isIsotopeInit) {
@@ -68,3 +69,4 @@ if ($('.iso-filter').length > 0) {
 
     });
 }
+

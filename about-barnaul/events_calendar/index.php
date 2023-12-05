@@ -3,27 +3,24 @@ require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
 $APPLICATION->SetTitle("Календарь событий");
 $APPLICATION->SetPageProperty("page_template", "is-container-fix is-page-calendar-events");
 
+include __DIR__ . '/event_types.php';
+
+$folder_path = \Bitrix\Main\IO\Path::getDirectory($_SERVER['SCRIPT_NAME']);
+
 $arr_all_events = [];
 $arr_month_events = [];
-$types_events = [
-	'' => 		['event_title' => '', 			'event_tag' => 'all', 			'btn_title' => 'Все события', 	'btn_filter' => '*',],
-	'141' => 	['event_title' => 'Праздники', 	'event_tag' => 'holidays', 		'btn_title' => 'Праздники', 	'btn_filter' => 'event-holidays',],
-	'142' => 	['event_title' => 'Конкурсы', 	'event_tag' => 'competitions', 	'btn_title' => 'Конкурсы', 		'btn_filter' => 'event-competitions',],
-	'143' => 	['event_title' => 'Спектакли', 	'event_tag' => 'performances', 	'btn_title' => 'Спектакли', 	'btn_filter' => 'event-performances',],
-	'144' => 	['event_title' => 'Выставки', 	'event_tag' => 'exhibitions', 	'btn_title' => 'Выставки', 		'btn_filter' => 'event-exhibitions',],
-	'145' => 	['event_title' => 'Экскурсии', 	'event_tag' => 'excursions', 	'btn_title' => 'Экскурсии', 	'btn_filter' => 'event-excursions',],
-	'146' => 	['event_title' => 'Концерты', 	'event_tag' => 'concerts', 		'btn_title' => 'Концерты', 		'btn_filter' => 'event-concerts',],
-	'147' => 	['event_title' => 'Спорт', 		'event_tag' => 'sport', 		'btn_title' => 'Спорт', 		'btn_filter' => 'event-sport',],
-];
 
 $calendar_events = [];
 $main_event = [];
 
-$now = new DateTime();
 $currentMonth = date('m');
 $currentYear = date('Y');
-$DateFrom = "01." . $currentMonth . "." . $currentYear;
-$DateTo = "31." . $currentMonth . "." . $currentYear;
+
+$DateFrom = "01.11." . $currentYear;
+$DateTo = "31.11." . $currentYear;
+// $DateFrom = "01." . $currentMonth . "." . $currentYear;
+// $DateTo = "31." . $currentMonth . "." . $currentYear;
+
 $order = ['SORT' => 'ASC'];
 $filter = [
 	"ACTIVE" => "Y",
@@ -59,6 +56,7 @@ while ($row = $rows->fetch()) {
 
 CIBlockElement::GetPropertyValuesArray($arr_month_events, $filter['IBLOCK_ID'], $filter);
 
+console_log($arr_month_events);
 
 if (!empty($arr_all_events)) :
 	foreach ($arr_all_events as $key => $arEvent) :
@@ -165,9 +163,10 @@ unset($rows, $filter, $order);
 				<? if (!empty($arr_month_events)) {
 					foreach ($arr_month_events as $key => $arEvent) : ?>
 						<?
-						$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
 
-						$interval = $now->diff(new DateTime($arEvent['DATE_ACTIVE_FROM']));
+						$ev_key = $arEvent['PROPERTIES']['EVENT_TYPE']['VALUE_ENUM_ID'];
+						$interval = (new DateTime())->diff(new DateTime($arEvent['DATE_ACTIVE_FROM']));
+
 						if ($interval->d > 1) {
 							$ev_time = FormatDate("H:i", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
 							if ($ev_time === '00:00') {
@@ -178,8 +177,9 @@ unset($rows, $filter, $order);
 							$ev_time = '';
 							$ev_date = FormatDate("x", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']) + CTimeZone::GetOffset(), mktime(23, 59, 59));
 						};
+
 						?>
-						<a class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> row" href="#event-dialog">
+						<a ev_id="<?= $arEvent['ID'] ?>" ev_is_main="<?= $arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"] ?>" class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> row" href="#event-dialog">
 
 							<div class="cell-3 cell-12-m">
 								<div class="event-item__date_wrap">
@@ -224,97 +224,29 @@ unset($rows, $filter, $order);
 	</div>
 </section>
 
-<? $APPLICATION->IncludeComponent(
-	"bitrix:news",
-	"gallery",
-	array(
-		"IBLOCK_ID" => "10",
-		"COMPONENT_TEMPLATE" => "gallery",
-		"IBLOCK_TYPE" => "data",
-		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
-		"ADD_ELEMENT_CHAIN" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"CACHE_FILTER" => "N",
-		"CACHE_GROUPS" => "Y",
-		"CACHE_TIME" => "36000000",
-		"CACHE_TYPE" => "A",
-		"CHECK_DATES" => "Y",
-		"DETAIL_ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"DETAIL_DISPLAY_BOTTOM_PAGER" => "Y",
-		"DETAIL_DISPLAY_TOP_PAGER" => "N",
-		"DETAIL_FIELD_CODE" => array(0 => "", 1 => "",),
-		"DETAIL_PAGER_SHOW_ALL" => "Y",
-		"DETAIL_PAGER_TEMPLATE" => "",
-		"DETAIL_PROPERTY_CODE" => array(0 => "", 1 => "",),
-		"DETAIL_SET_CANONICAL_URL" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"DISPLAY_DATE" => "Y",
-		"DISPLAY_NAME" => "Y",
-		"DISPLAY_PICTURE" => "Y",
-		"DISPLAY_PREVIEW_TEXT" => "Y",
-		"DISPLAY_TOP_PAGER" => "N",
-		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"LIST_ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"LIST_FIELD_CODE" => array(0 => "", 1 => "",),
-		"LIST_PROPERTY_CODE" => array(0 => "", 1 => "",),
-		"MESSAGE_404" => "",
-		"META_DESCRIPTION" => "-",
-		"META_KEYWORDS" => "-",
-		"NEWS_COUNT" => "6",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_TEMPLATE" => "more",
-		"PREVIEW_TRUNCATE_LEN" => "",
-		"SEF_MODE" => "N",
-		"SET_LAST_MODIFIED" => "N",
-		"SET_STATUS_404" => "N",
-		"SHOW_404" => "N",
-		"SORT_BY1" => "ACTIVE_FROM",
-		"SORT_BY2" => "SORT",
-		"SORT_ORDER1" => "DESC",
-		"SORT_ORDER2" => "ASC",
-		"STRICT_SECTION_CHECK" => "N",
-		"USE_CATEGORIES" => "N",
-		"USE_FILTER" => "N",
-		"USE_PERMISSIONS" => "N",
-		"USE_RATING" => "N",
-		"USE_REVIEW" => "N",
-		"USE_RSS" => "N",
-		"USE_SEARCH" => "N",
-		"USE_SHARE" => "N",
-		"VARIABLE_ALIASES" => array("SECTION_ID" => "SECTION_ID", "ELEMENT_ID" => "ELEMENT_ID",)
-	)
-); ?>
+
+
+<div id="event-dialog" class="event-modal modal-container zoom-anim-dialog mfp-hide">
+</div>
 
 <script>
 	// filter-isotope 
-	$.getScript("/about-barnaul/events_calendar/ajax/filter.js");
+	$.getScript('<?= $folder_path ?>/ajax/filter.js');
 
 	function updateEventsMonth(from, to, monthID) {
 
 		$.ajax({
 			type: 'POST',
 			dataType: 'html',
-			url: '/about-barnaul/events_calendar/ajax/getMonthEvents.php',
+			url: '<?= $folder_path ?>/ajax/getMonthEvents.php',
 			data: 'DateFrom=' + from + '&DateTo=' + to,
 			beforeSend: function() {
 				$(window).trigger('ajax-load-trigger');
 				$('.event-list').html('Загрузка...');
-				if (location.hash !== '') {
-					removeHash();
-				}
 			},
 			success: function(response) {
 				$('.event-list').html(response);
-				$.getScript("/about-barnaul/events_calendar/ajax/filter.js");
+				$.getScript('<?= $folder_path ?>/ajax/filter.js');
 				return response;
 			}
 		})
@@ -325,14 +257,13 @@ unset($rows, $filter, $order);
 		$.ajax({
 			type: 'POST',
 			dataType: 'html',
-			url: '/about-barnaul/events_calendar/ajax/getMainEvent.php',
+			url: '<?= $folder_path ?>/ajax/getMainEvent.php',
 			data: 'DateFrom=' + from + '&DateTo=' + to,
 			beforeSend: function() {
 				$('.widget_wrap').html('Загрузка...');
 			},
 			success: function(response) {
 				$('.widget_wrap').html(response);
-				console.log(response);
 				return response;
 			}
 		})
@@ -345,23 +276,15 @@ unset($rows, $filter, $order);
 
 		var currMonthNum = moment().month();
 
-		var events_data = '<?php echo json_encode($calendar_events); ?>';
+		var events_data = '<? echo json_encode($calendar_events); ?>';
 		var js_events_data = JSON.parse(events_data);
-		console.log(js_events_data);
 
 		var eventArray = js_events_data;
 
 		$('#calendar').clndr({
 			events: eventArray,
 			clickEvents: {
-				click: function(target) {
-					console.log('Calendar clicked: ', target);
-				},
-				today: function() {
-					console.log('Calendar today');
-				},
 				nextMonth: function() {
-					console.log('Calendar next month');
 
 					var nexrMonth = currMonthNum + 1;
 					var DateFrom = '01.' + moment().month(nexrMonth).format("MM.YYYY");
@@ -373,7 +296,6 @@ unset($rows, $filter, $order);
 					currMonthNum = nexrMonth;
 				},
 				previousMonth: function() {
-					console.log('Calendar previous month');
 
 					var prevMonth = currMonthNum - 1;
 					var DateFrom = '01.' + moment().month(prevMonth).format("MM.YYYY");
@@ -384,37 +306,44 @@ unset($rows, $filter, $order);
 
 					currMonthNum = prevMonth;
 				},
-				onMonthChange: function() {
-					console.log('Calendar month changed');
-				},
-				nextYear: function() {
-					console.log('Calendar next year');
-				},
-				previousYear: function() {
-					console.log('Calendar previous year');
-				},
-				onYearChange: function() {
-					console.log('Calendar year changed');
-				},
-				nextInterval: function() {
-					console.log('Calendar next interval');
-				},
-				previousInterval: function() {
-					console.log('Calendar previous interval');
-				},
-				onIntervalChange: function() {
-					console.log('Calendar interval changed');
-				}
 			},
 			template: $('#template-calendar').html(),
-			// multiDayEvents: {
-			//     singleDay: 'date',
-			//     endDate: 'endDate',
-			//     startDate: 'startDate'
-			// },
-			// showAdjacentMonths: true,
-			// adjacentDaysChangeMonth: false
 		});
 	}
+
+	function popupEventBind() {
+		var evItems = document.querySelectorAll('.popup-with-zoom-anim');
+		console.log('triggered');
+		evItems.forEach((item, idx) => {
+			item.addEventListener('click', e => {
+				var eventID = e.target.closest('.event-list__item').getAttribute('ev_id');
+				var eventIsMain = e.target.closest('.event-list__item').getAttribute('ev_is_main');
+
+				if (!e.target.closest('.filter-popup')) {
+					$.ajax({
+						type: 'POST',
+						dataType: 'html',
+						url: '<?= $folder_path ?>/ajax/getPopupEvent.php',
+						data: 'eventID=' + eventID + '&eventIsMain=' + eventIsMain,
+						beforeSend: function() {
+							$('#event-dialog').html('Загрузка...');
+						},
+						success: function(response) {
+							$('#event-dialog').html(response); 
+							return response;
+						}
+					})
+					$('#event-dialog').html('Загрузка...');
+				};
+			});
+		});
+	}
+	popupEventBind();
+
+	// trigger destroy ?
+	$(window).on('ajax-load-trigger', function() {
+		popupEventBind();
+	});
 </script>
+
 <? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

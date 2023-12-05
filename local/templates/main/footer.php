@@ -80,14 +80,11 @@ Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/vendor.min.js");
 Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/common.js");
 ?>
 <? CJSCore::Init(array("jquery3")); ?>
-<script>
-    $(function() {
-        $('.common-svg-icons').load('<?= SITE_TEMPLATE_PATH ?>/svg.html');
-    });
-</script>
 
 <a id="x3Top" title="Наверх" href="#">&#10148;</a>
-<div class="common-svg-icons"></div>
+<div class="common-svg-icons">
+    <? include __DIR__ . '/svg.html'; ?>
+</div>
 
 </body>
 
