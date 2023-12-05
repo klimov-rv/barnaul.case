@@ -16,8 +16,8 @@ $main_event = [];
 $currentMonth = date('m');
 $currentYear = date('Y');
 
-$DateFrom = "01.11." . $currentYear;
-$DateTo = "31.11." . $currentYear;
+$DateFrom = "01." . $currentMonth . $currentYear;
+$DateTo = "31." . $currentMonth . $currentYear;
 // $DateFrom = "01." . $currentMonth . "." . $currentYear;
 // $DateTo = "31." . $currentMonth . "." . $currentYear;
 
@@ -225,6 +225,76 @@ unset($rows, $filter, $order);
 </section>
 
 
+<? $APPLICATION->IncludeComponent(
+	"bitrix:news",
+	"gallery",
+	array(
+		"IBLOCK_ID" => "10",
+		"COMPONENT_TEMPLATE" => "gallery",
+		"IBLOCK_TYPE" => "data",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+		"ADD_ELEMENT_CHAIN" => "N",
+		"ADD_SECTIONS_CHAIN" => "N",
+		"AJAX_MODE" => "N",
+		"AJAX_OPTION_ADDITIONAL" => "",
+		"AJAX_OPTION_HISTORY" => "N",
+		"AJAX_OPTION_JUMP" => "N",
+		"AJAX_OPTION_STYLE" => "Y",
+		"CACHE_FILTER" => "N",
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "36000000",
+		"CACHE_TYPE" => "A",
+		"CHECK_DATES" => "Y",
+		"DETAIL_ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"DETAIL_DISPLAY_BOTTOM_PAGER" => "Y",
+		"DETAIL_DISPLAY_TOP_PAGER" => "N",
+		"DETAIL_FIELD_CODE" => array(0 => "", 1 => "",),
+		"DETAIL_PAGER_SHOW_ALL" => "Y",
+		"DETAIL_PAGER_TEMPLATE" => "",
+		"DETAIL_PROPERTY_CODE" => array(0 => "", 1 => "",),
+		"DETAIL_SET_CANONICAL_URL" => "N",
+		"DISPLAY_BOTTOM_PAGER" => "Y",
+		"DISPLAY_DATE" => "Y",
+		"DISPLAY_NAME" => "Y",
+		"DISPLAY_PICTURE" => "Y",
+		"DISPLAY_PREVIEW_TEXT" => "Y",
+		"DISPLAY_TOP_PAGER" => "N",
+		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
+		"LIST_ACTIVE_DATE_FORMAT" => "d.m.Y",
+		"LIST_FIELD_CODE" => array(0 => "", 1 => "",),
+		"LIST_PROPERTY_CODE" => array(0 => "", 1 => "",),
+		"MESSAGE_404" => "",
+		"META_DESCRIPTION" => "-",
+		"META_KEYWORDS" => "-",
+		"NEWS_COUNT" => "6",
+		"PAGER_BASE_LINK_ENABLE" => "N",
+		"PAGER_DESC_NUMBERING" => "N",
+		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
+		"PAGER_SHOW_ALL" => "N",
+		"PAGER_SHOW_ALWAYS" => "N",
+		"PAGER_TEMPLATE" => "more",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"SEF_MODE" => "N",
+		"SET_LAST_MODIFIED" => "N",
+		"SET_STATUS_404" => "N",
+		"SHOW_404" => "N",
+		"SORT_BY1" => "ACTIVE_FROM",
+		"SORT_BY2" => "SORT",
+		"SORT_ORDER1" => "DESC",
+		"SORT_ORDER2" => "ASC",
+		"STRICT_SECTION_CHECK" => "N",
+		"USE_CATEGORIES" => "N",
+		"USE_FILTER" => "N",
+		"USE_PERMISSIONS" => "N",
+		"USE_RATING" => "N",
+		"USE_REVIEW" => "N",
+		"USE_RSS" => "N",
+		"USE_SEARCH" => "N",
+		"USE_SHARE" => "N",
+		"VARIABLE_ALIASES" => array("SECTION_ID" => "SECTION_ID", "ELEMENT_ID" => "ELEMENT_ID",)
+	)
+); ?>
+
 
 <div id="event-dialog" class="event-modal modal-container zoom-anim-dialog mfp-hide">
 </div>
@@ -241,12 +311,13 @@ unset($rows, $filter, $order);
 			url: '<?= $folder_path ?>/ajax/getMonthEvents.php',
 			data: 'DateFrom=' + from + '&DateTo=' + to,
 			beforeSend: function() {
-				$(window).trigger('ajax-load-trigger');
+				$(window).trigger('before-ajax-load-trigger');
 				$('.event-list').html('Загрузка...');
 			},
 			success: function(response) {
 				$('.event-list').html(response);
 				$.getScript('<?= $folder_path ?>/ajax/filter.js');
+				$(window).trigger('after-ajax-load-trigger');
 				return response;
 			}
 		})
@@ -312,8 +383,24 @@ unset($rows, $filter, $order);
 	}
 
 	function popupEventBind() {
+
+		$('.popup-with-zoom-anim').magnificPopup({
+			type: 'inline',
+
+			fixedContentPos: false,
+			fixedBgPos: true,
+
+			overflowY: 'auto',
+
+			closeBtnInside: true,
+			preloader: false,
+
+			midClick: true,
+			removalDelay: 300,
+			mainClass: 'my-mfp-zoom-in'
+		});
+
 		var evItems = document.querySelectorAll('.popup-with-zoom-anim');
-		console.log('triggered');
 		evItems.forEach((item, idx) => {
 			item.addEventListener('click', e => {
 				var eventID = e.target.closest('.event-list__item').getAttribute('ev_id');
@@ -329,7 +416,7 @@ unset($rows, $filter, $order);
 							$('#event-dialog').html('Загрузка...');
 						},
 						success: function(response) {
-							$('#event-dialog').html(response); 
+							$('#event-dialog').html(response);
 							return response;
 						}
 					})
@@ -341,7 +428,7 @@ unset($rows, $filter, $order);
 	popupEventBind();
 
 	// trigger destroy ?
-	$(window).on('ajax-load-trigger', function() {
+	$(window).on('after-ajax-load-trigger', function() {
 		popupEventBind();
 	});
 </script>

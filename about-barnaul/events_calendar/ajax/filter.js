@@ -54,7 +54,7 @@ if ($('.iso-filter').length > 0) {
             }
 
             // trigger destroy iso on ajax load
-            $(window).on('ajax-load-trigger', function () {
+            $(window).on('before-ajax-load-trigger', function () {
                 $grid.isotope('destroy');
                 $filters.find('.is-checked').removeClass('is-checked');
                 $filters.find('[data-filter="*"]').addClass('is-checked');
