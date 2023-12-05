@@ -214,9 +214,9 @@
                                 </svg>
                             </button>
                             <div class="bubble_card__wrap">
-                                <div class="bubble_card__card">
+                                <a href="/#card-info" class="bubble_card__card">
                                     <img src="/upload/cart_guest.png" alt="Карта гостя">
-                                </div>
+                                </a>
                             </div>
                             <div class="bubble_card__right">
                                 <div class="bubble_card__question">Что такое карта гостя?</div>

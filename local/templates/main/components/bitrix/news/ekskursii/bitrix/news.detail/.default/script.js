@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('.js-tabs-controls').dataTabs({
         event: 'click',
         initOpenTab: false,
+        pauseVideoAudio: false,
         state: 'accordion',
         jqMethodOpen: 'slideDown',
         jqMethodClose: 'slideUp',
@@ -83,6 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // доп кнопка "свернуть"
+    var closeTabs = document.querySelectorAll('.tabs-close-btn');
+
+    closeTabs.forEach((item, idx) => {
+        item.addEventListener('click', e => {
+            if (e.target.closest('.tabs-item')) {
+                var currTab = e.target.closest('.tabs-item');
+                currTab.querySelector('.js-accordion-item').click();
+            }
+        });
+    });
 
     if ($('.image-slider').length > 0) {
 
