@@ -6,37 +6,76 @@ const empty = (mixed_var) => {
     return (mixed_var === "" || mixed_var === 0 || mixed_var === "0" || mixed_var === null || mixed_var === false || (is_array(mixed_var) && mixed_var.length === 0) || mixed_var === undefined);
 };
 
-var map;
-var placemarks = [];
-var clusterer;
+var map, placemarks, clusterer,
+    points,
+    spoints,
 
-ymaps.ready(init);
+    way_on_map = null,
+    sel_way = 0,
+    sel_region = 0,
+    clusterer = null,
+    params = [],
+    search_length = 0;
 
-function init() {
-    map = new ymaps.Map('x3-map-wrap', {
-        center: [53.35451615083649, 83.72724894482427],
-        zoom: 12
-    });
-    clusterer = new ymaps.Clusterer({
-        gridSize: 50, // Размер кластерной сетки (объекты попавшие в данную сетку будут кластеризоваться)
-        clusterBalloonWidth: 900, // Ширина блока с контентом в балуне
-        balloonMinWidth: 300, // Ширина балуна
-        clusterBalloonHeight: 350, // Высота балуна
-        clusterBalloonSidebarWidth: 300, // Ширина правой стороны балуна (список меток)
-        clusterIconLayout: 'default#pieChart',
-        // Ширина линий-разделителей секторов и внешней обводки диаграммы.
-        clusterIconPieChartStrokeWidth: 0,
-    });
-    
-    getPointsData(); // assume this function fetches the points data
-    function handleResponse(response) {
-        var allPoints = [];
+
+function MyMap() {
+}
+MyMap.prototype = {
+
+    init: function () {
+        this.map = new ymaps.Map('x3-map-wrap', {
+            center: [53.35451615083649, 83.72724894482427],
+            zoom: 12
+        });
+    },
+    getPoints: function (param) {
+        $.getJSON('/map/getMap.php', function (json, status) {
+            this.cpoints = this.handlePoints(json);
+        });
+    },
+
+
+    handlePoints: function (response) {
+        var points = [];
         for (const property in response) {
-            allPoints.push(response[property]);
+            points.push(response[property]);
         }
-        console.log(allPoints);
+        return points;
+    },
 
-        var geoObjects = allPoints.map(function (point) {
+    setPoints: function (id_rub, insearch, init) {
+        this.map.balloon.close();
+        if (id_rub != 0) {
+            sel_way = 0;
+            sel_region = 0;
+            params[id_rub] = (params[id_rub] == 0) ? id_rub : 0;
+        }
+
+        if (clusterer !== null) { // clear marker clusterer
+            clusterer.removeAll();
+            this.map.geoObjects.remove(clusterer);
+            yPoint = [];
+        }
+
+        if (way_on_map !== null && sel_way == 0) {
+            this.map.geoObjects.remove(way_on_map);
+        }
+
+        clusterer = new ymaps.Clusterer({
+            gridSize: 50, // Размер кластерной сетки (объекты попавшие в данную сетку будут кластеризоваться)
+            clusterBalloonWidth: 900, // Ширина блока с контентом в балуне
+            balloonMinWidth: 300, // Ширина балуна
+            clusterBalloonHeight: 350, // Высота балуна
+            clusterBalloonSidebarWidth: 300, // Ширина правой стороны балуна (список меток)
+            clusterIconLayout: 'default#pieChart',
+            // Ширина линий-разделителей секторов и внешней обводки диаграммы.
+            clusterIconPieChartStrokeWidth: 0,
+        });
+
+        points = (insearch) ? spoints : this.cpoints;
+
+
+        var geoObjects = points.map(function (point) {
             var image, ph, partner;
             if (!empty(point) && !empty(point.ir) && !empty(rubs[point.ir]) && !empty(rubs[point.ir]['i'])) {
                 var image = '/upload/' + rubs[point.ir]['i'];
@@ -89,34 +128,90 @@ function init() {
                 iconImageOffset: [-16, -37], // смещение картинки
                 iconColor: iconColorForCluster,
             });
-
-            // placemark.events.add('mapchange', function () {
-            //     if (clusterer.has(placemark)) {
-            //         console.log('point enter clusterer');
-            //         placemark.options.set('iconColor', iconColorForCluster);
-            //     } else {
-            //         console.log('point leave clusterer');
-            //         placemark.options.set('iconImageHref', image);
-            //     }
-            // });
-
-
             return placemark;
         });
 
         clusterer.add(geoObjects);
-        map.geoObjects.add(clusterer);
-        map.setBounds(map.geoObjects.getBounds(), {
-            checkZoomRange: true
-        });
-    }
+        this.map.geoObjects.add(clusterer);
 
-    // Sample function to fetch points from the server
-    function getPointsData() {
-        // Assuming this is your previous getPoints function
-        $.getJSON('/map/getMap.php', function (json, status) {
-            handleResponse(json);
+
+    },
+
+    goSearch: function (val) {
+        se_len = val.length;
+        if (se_len != search_length && se_len > 2) {
+
+            if (way_on_map !== null && sel_way != 0) {
+                this.map.geoObjects.remove(way_on_map);
+            }
+
+            $('#help-visibility').click();
+            $("#al_rubs").hide();
+            $("#search_result").show();
+
+            $("#search_result").html('<img src="/map/img/ajax.gif" alt="загрузка" style="margin: 5px 0 0 80px;" />');
+            $.post(
+                "/map/getSearch.php",
+                {
+                    'act': 'search',
+                    'w': val
+                }).done(function (sp) {
+                    MapHelp(1);
+                    sp = JSON.parse(sp);
+                    spoints = sp;
+                    this.setPoints(0, 1);
+                    li = '';
+
+                    for (p in sp) {
+                        li += '<li class="r_' + sp[p].ir + '" rel="' + p + '"><a href="' + sp[p].nur + '">' + sp[p].n + '</a></li>';
+                    }
+
+                    if (li == '') {
+                        $("#search_result").html('<h4 style="text-align: center; margin-top: 30px;">По вашему запросу ничего не найдено<br /><br /> <a href="javascript: void(0);" onclick="$(\'#search_field\').focus();$(\'#search_field\').val(\'\');">искать заново</a></h4>');
+                    } else {
+                        $("#search_result").html('<ul>' + li + '</ul>');
+                        $("#search_result a").click(function () {
+                            MapHelp(1);
+                            i = $(this).parent().attr('rel');
+                            this.map.setCenter([points[i].lo, points[i].la], 12, {
+                                duration: 100,
+                                checkZoomRange: true,
+                                callback: function () {
+                                    var projection = this.map.options.get('projection');
+                                    var position = yPoint[i].geometry.getCoordinates();
+                                    var pc = this.map.converter.globalToPage(projection.toGlobalPixels(position, this.map.getZoom()));
+                                    this.showInfo(true, this.eq(i), pc);
+                                }
+                            });
+                            return false;
+                        });
+                    }
+                },
+                    'json'
+                );
+        } else if (se_len != 1) {
+            $("#search_result").hide();
+            $("#al_rubs").show();
+
+            this.setPoints(0);
+        }
+    },
+
+    initSearch: function () {
+        $("#search_field").keyup(function (e) {
+
+            this.goSearch($(this).val());
+
         });
-    }
+
+    },
 }
+
+
+$(document).ready(function () {
+    ymaps.ready(MyMap.init);
+});
+
+
+
 
