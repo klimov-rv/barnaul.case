@@ -19,7 +19,7 @@ function init() {
     });
     clusterer = new ymaps.Clusterer({
         gridSize: 50, // Размер кластерной сетки (объекты попавшие в данную сетку будут кластеризоваться)
-        clusterBalloonWidth: 600, // Ширина блока с контентом в балуне
+        clusterBalloonWidth: 900, // Ширина блока с контентом в балуне
         balloonMinWidth: 300, // Ширина балуна
         clusterBalloonHeight: 350, // Высота балуна
         clusterBalloonSidebarWidth: 300, // Ширина правой стороны балуна (список меток)
@@ -27,6 +27,7 @@ function init() {
         // Ширина линий-разделителей секторов и внешней обводки диаграммы.
         clusterIconPieChartStrokeWidth: 0,
     });
+    
     getPointsData(); // assume this function fetches the points data
     function handleResponse(response) {
         var allPoints = [];
@@ -82,21 +83,22 @@ function init() {
                 hideIconOnBalloonOpen: true,
                 balloonMaxWidth: 260,
                 balloonMinWidth: 260, // Ширина балуна
+                iconLayout: 'default#image',
                 iconImageHref: image, // картинка иконки
                 iconImageSize: [32, 37], // размеры картинки
                 iconImageOffset: [-16, -37], // смещение картинки
                 iconColor: iconColorForCluster,
             });
 
-            placemark.events.add('mapchange', function () {
-                if (clusterer.has(placemark)) {
-                    console.log('point enter clusterer');
-                    placemark.options.set('iconColor', iconColorForCluster);
-                } else {
-                    console.log('point leave clusterer');
-                    placemark.options.set('iconImageHref', image);
-                }
-            });
+            // placemark.events.add('mapchange', function () {
+            //     if (clusterer.has(placemark)) {
+            //         console.log('point enter clusterer');
+            //         placemark.options.set('iconColor', iconColorForCluster);
+            //     } else {
+            //         console.log('point leave clusterer');
+            //         placemark.options.set('iconImageHref', image);
+            //     }
+            // });
 
 
             return placemark;
