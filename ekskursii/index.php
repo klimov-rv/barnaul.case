@@ -8,6 +8,7 @@ $ekskursiiFilter = array(
 	"SECTION_ID" => 36 //ekskursii
 );
 
+
 $APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"excursions",
@@ -78,7 +79,4 @@ $APPLICATION->IncludeComponent(
 		"USE_SHARE" => "N"
 	),
 	false
-); ?>
-
-
-<? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>
+); ?><? require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

@@ -17,7 +17,8 @@ if ($arSection = $rsSections->GetNext()) {
 	$sectionName = $arSection['NAME'];
 	$sSectionName = $arSection['NAME'];
 	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
-}
+} 
+
 ?>
 
 <? if ($arParams["USE_RSS"] == "Y") : ?>
