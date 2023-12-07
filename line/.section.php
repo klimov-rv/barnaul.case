@@ -1,0 +1,6 @@
+<?
+$sSectionName = "line";
+$arDirProperties = Array(
+
+);
+?>

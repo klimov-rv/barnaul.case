@@ -1,7 +1,7 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Экскурсии", 
+		"Экскурсии по городу", 
 		"/ekskursii/", 
 		Array(), 
 		Array(), 
@@ -13,13 +13,6 @@ $aMenuLinks = Array(
 		Array(), 
 		Array(), 
 		"" 
-	),
-	/*Array(
-		"Аудиогид", 
-		"/audio-guide/", 
-		Array(), 
-		Array(), 
-		"" 
-	)*/
+	)
 );
 ?>
