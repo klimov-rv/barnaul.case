@@ -22,7 +22,7 @@ console_log($arResult);
 ?>
 
 
-<section class="audio-tours__obzor container row">
+<section class="audio-tours__obzor row">
     <div class="cell-5 cell-12-lg ">
         <div class="audio-tours__player">
             <div class="audio-player-slot">
@@ -68,7 +68,7 @@ console_log($arResult);
             <?= $arResult["DETAIL_TEXT"] ?>
         </div>
         <div class="audio-tours__tabs">
-            <div class="tabs-controls js-tabs-controls" data-tabs-container> 
+            <div class="tabs-controls js-tabs-controls" data-tabs-container>
 
                 <? foreach ($arResult["AUDIO_POINTS"] as $key => $arItem) : ?>
                     <div class="tabs-item">

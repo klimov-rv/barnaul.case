@@ -15,6 +15,7 @@ $(function () {
 document.addEventListener('DOMContentLoaded', () => {
 
     const pageHavePlayer = document.querySelector('.audio-player');
+    // var extPlaylist = []
 
     if (pageHavePlayer) {// плейлист со страницы "Аудиоэкскурсий"
         var tabItems = document.querySelectorAll('.tabs-item');
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (tabItem.querySelector('AUDIO')) {
                     var audioItem = tabItem.querySelector('AUDIO');
                     playlist.push({
-                        title: "audio in tab " + (parseInt(id) + 1),
+                        title: "[tab " + (parseInt(id) + 1) + "]" + audioItem.currentSrc,
                         file: audioItem.currentSrc,
                         howl: null
                     });
@@ -41,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         var player = new Player(playlist);
+        console.log(playlist);
+        // extPlaylist = playlist;
     }
 
     $('.js-tabs-controls').dataTabs({
@@ -52,34 +55,45 @@ document.addEventListener('DOMContentLoaded', () => {
         jqMethodClose: 'slideUp',
 
         onTab: (self, $anchor, $target) => {
-            // выключаем все видео в закрытых вкладках
+
+            // выключаем все видео и аудио в закрытых вкладках
             self.$targets.each(function (index, el) {
-                if (el.classList.contains('is-tab-close') && el.querySelector('IFRAME')) {
-                    var iframePrev = el.querySelector('IFRAME');
-                    var fullSrc = iframePrev.getAttribute('srcfull');
-                    var srcWithoutQuery = fullSrc.split('?')[0];
-                    iframePrev.setAttribute("src", srcWithoutQuery + "?&amp;autoplay=0");
-                };
+                if (el.classList.contains('is-tab-close')) {
 
-                if (el.classList.contains('is-tab-active') && el.querySelector('IFRAME')) {
-                    var iframeActive = el.querySelector('IFRAME');
-                    var fullSrc = iframeActive.getAttribute('srcfull');
-                    var srcWithoutQuery = fullSrc.split('?')[0]
-                    console.log(srcWithoutQuery);
-                    iframeActive.setAttribute("src", srcWithoutQuery + "?si=fDHed4vNyCrfZOGD&amp;autoplay=1");
-                }
+                    if (el.querySelector('IFRAME')) {
 
-                if (el.classList.contains('is-tab-close') && el.querySelector('AUDIO')) {
-                    player.pause();
-                }
-                if (el.classList.contains('is-tab-active') && el.querySelector('AUDIO')) {
-                    player.pause();
-                    player.skipTo(self.states.activeIndex);
+                        var iframePrev = el.querySelector('IFRAME');
+                        var fullSrc = iframePrev.getAttribute('srcfull');
+                        var srcWithoutQuery = fullSrc.split('?')[0];
+
+                        iframePrev.setAttribute("src", srcWithoutQuery + "?&amp;autoplay=0");
+
+                    }
+
+                    if (el.querySelector('AUDIO')) {
+
+                        // TODO check if audio playing
+                        player.pause();
+                    }
                 }
             });
-            // var isAudio = skip.find((i) => i === self.states.activeIndex + 1 /* +1 потому что в индексе 0 - аудио по умолчанию */) === undefined;
 
-            // player.pause(); 
+            // включаем медиа на активной 
+            self.$targets.each(function (index, el) {
+                if (el.classList.contains('is-tab-active')) {
+
+                    if (el.querySelector('IFRAME')) {
+                        var iframeActive = el.querySelector('IFRAME');
+                        var fullSrc = iframeActive.getAttribute('srcfull');
+                        var srcWithoutQuery = fullSrc.split('?')[0];
+
+                        iframeActive.setAttribute("src", srcWithoutQuery + "?si=fDHed4vNyCrfZOGD&amp;autoplay=1");
+                    }
+                    if (el.querySelector('AUDIO')) {
+                        player.skipTo(parseInt(el.getAttribute('data-tab-target')) - 1);
+                    }
+                }
+            });
         },
     });
 

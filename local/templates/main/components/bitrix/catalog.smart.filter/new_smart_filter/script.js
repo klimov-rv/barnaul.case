@@ -13,6 +13,7 @@ function JCSmartFilter(ajaxURL, viewMode, params) {
 	if (params && params.SEF_DEL_FILTER_URL) {
 		this.bindUrlToButton('del_filter', params.SEF_DEL_FILTER_URL);
 	}
+	console.log(params);
 }
 
 JCSmartFilter.prototype.keyup = function (input) {
@@ -85,7 +86,7 @@ JCSmartFilter.prototype.updateItem = function (PID, arItem) {
 
 		if (trackBar && arItem.VALUES) {
 			if (arItem.VALUES.MIN) {
-				currSliderUI = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter-title' }), { 'class': 'filter-title_info' }, true, false);
+				currSliderUI = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter_wrapper' }), { 'class': 'filter-title_info' }, true, false);
 
 				if (arItem.VALUES.MIN.FILTERED_VALUE)
 					trackBar.setMinFilteredValue(arItem.VALUES.MIN.FILTERED_VALUE);
@@ -94,7 +95,7 @@ JCSmartFilter.prototype.updateItem = function (PID, arItem) {
 			}
 
 			if (arItem.VALUES.MAX) {
-				currSliderUI = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter-title' }), { 'class': 'filter-title_info' }, true, false);
+				currSliderUI = BX.findChild(BX.findParent(this.curFilterinput, { 'class': 'filter_wrapper' }), { 'class': 'filter-title_info' }, true, false);
 				if (arItem.VALUES.MAX.FILTERED_VALUE)
 					trackBar.setMaxFilteredValue(arItem.VALUES.MAX.FILTERED_VALUE);
 				else
@@ -214,7 +215,6 @@ JCSmartFilter.prototype.bindUrlToButton = function (buttonId, url) {
 
 		if (button.type == 'submit')
 			button.type = 'button';
-
 		BX.bind(button, 'click', proxy(url, function (url) {
 			window.location.href = url;
 			return false;
@@ -770,81 +770,120 @@ BX.Iblock.SmartFilter = (function () {
 	return SmartFilter;
 })();
 
+document.addEventListener('DOMContentLoaded', () => {
+	jcf.replaceAll();
 
-jcf.replaceAll();
 
+	var checkboxContainers = document.querySelectorAll('.curr_filter_values');
 
-var checkboxContainers = document.querySelectorAll('.curr_filter_values');
-
-checkboxContainers.forEach((item) => {
-	var countChecked = item.querySelectorAll('input[type="checkbox"]:checked').length;
-	var filterWraper = item.closest('.filter-title');
-	var insertCount = filterWraper.querySelector('.filter-count-selected');
-	if (insertCount) {
-		if (countChecked > 0) {
-			insertCount.innerHTML = countChecked;
-			filterWraper.classList.add('is-active');
-		} else {
-			insertCount.innerHTML = '';
-			filterWraper.classList.remove('is-active');
+	checkboxContainers.forEach((item) => {
+		var countChecked = item.querySelectorAll('input[type="checkbox"]:checked').length;
+		var filterWraper = item.closest('.filter_wrapper');
+		var insertCount = filterWraper.querySelector('.filter-count-selected');
+		if (insertCount) {
+			if (countChecked > 0) {
+				insertCount.innerHTML = countChecked;
+				filterWraper.classList.add('is-active');
+			} else {
+				insertCount.innerHTML = '';
+				filterWraper.classList.remove('is-active');
+			}
 		}
-	}
-});
-
-// var clickedChbxs = document.querySelectorAll('.filter-checbox-item');
-
-// clickedChbxs.forEach((item) => {
-// 	item.addEventListener('click', e => {
-// 		var thisEl = e.target.closest('.filter-popup');
-// 		var countChecked = thisEl.querySelectorAll('input[type="checkbox"]:checked').length;
-// 		var filterWraper = thisEl.closest('.filter-title');
-// 		var insertCount = filterWraper.querySelector('.filter-count-selected');
-// 		if (insertCount) {
-// 			if (countChecked > 0) {
-// 				insertCount.innerHTML = countChecked;
-// 				filterWraper.classList.add('is-active');
-// 			} else {
-// 				insertCount.innerHTML = '';
-// 				filterWraper.classList.remove('is-active');
-// 			}
-// 		}
-// 	});
-// });
-
-
-
-var inputMins = document.querySelectorAll('.min-price');
-inputMins.forEach((item) => {
-	if (item.value) {
-		var insertMin = item.value;
-		var filterWraper = item.closest('.filter-title');
-		var insertMinMax = filterWraper.querySelector('.filter-title_info');
-		if (!filterWraper.classList.contains('is-active')) {
-			filterWraper.classList.add('is-active');
-		}
-		insertMinMax.innerHTML = '<i class="bottom-price">' + insertMin + '</i>';
-	}
-});
-
-var inputMaxs = document.querySelectorAll('.max-price');
-inputMaxs.forEach((item) => {
-	if (item.value) {
-		var insertMin = item.value;
-		var filterWraper = item.closest('.filter-title');
-		var insertMinMax = filterWraper.querySelector('.filter-title_info');
-		if (!filterWraper.classList.contains('is-active')) {
-			filterWraper.classList.add('is-active');
-		}
-		insertMinMax.innerHTML += '<i class="top-price">' + insertMin + '</i>';
-	}
-});
-
-
-var clickedClearFilter = document.querySelectorAll('.exit-filter');
-
-clickedClearFilter.forEach((item) => {
-	item.addEventListener('click', e => {
-		e.stopPropagation();
-		document.getElementById('del_filter').click();
 	});
-});
+
+
+	var inputMins = document.querySelectorAll('.min-price');
+	inputMins.forEach((item) => {
+		if (item.value) {
+			var insertMin = item.value;
+			var filterWraper = item.closest('.filter_wrapper');
+			var insertMinMax = filterWraper.querySelector('.filter-title_info');
+			if (!filterWraper.classList.contains('is-active')) {
+				filterWraper.classList.add('is-active');
+			}
+			insertMinMax.innerHTML = '<i class="bottom-price">' + insertMin + '</i>';
+		}
+	});
+
+	var inputMaxs = document.querySelectorAll('.max-price');
+	inputMaxs.forEach((item) => {
+		if (item.value) {
+			var insertMin = item.value;
+			var filterWraper = item.closest('.filter_wrapper');
+			var insertMinMax = filterWraper.querySelector('.filter-title_info');
+			if (!filterWraper.classList.contains('is-active')) {
+				filterWraper.classList.add('is-active');
+			}
+			insertMinMax.innerHTML += '<i class="top-price">' + insertMin + '</i>';
+		}
+	});
+
+
+	var clickedClearFilter = document.querySelectorAll('.exit-filter');
+
+	clickedClearFilter.forEach((item) => {
+		item.addEventListener('click', e => {
+			e.stopPropagation();
+			document.getElementById('del_filter').click();
+		});
+	});
+
+	var clickedApplyFilter = document.querySelectorAll('.submit-filter');
+
+	clickedApplyFilter.forEach((item) => {
+		item.addEventListener('click', e => {
+			e.stopPropagation();
+			document.getElementById('set_filter').click();
+		});
+	});
+
+
+	var clickedDoubleFilters = document.querySelectorAll('.fake-click');
+
+	clickedDoubleFilters.forEach((item) => {
+		item.addEventListener('click', e => {
+			e.stopPropagation();
+			e.target.classList.toggle('is-active-fake');
+		});
+	});
+
+	// mmenu  
+	if ($('#mmenu').length > 0) {
+
+		const menu = new MmenuLight(
+			document.querySelector("#mmenu"),
+			"(max-width: 900px)"
+		);
+		const navigator = menu.navigation({
+			// options
+		});
+		const drawer = menu.offcanvas({
+			// options
+		});
+		document.querySelector("a[href='#mmenu']").addEventListener("click", (event) => {
+			event.preventDefault();
+			drawer.open();
+		});
+		document.querySelector(".btn-close").addEventListener("click", (event) => {
+			event.preventDefault();
+			drawer.close();
+		});
+		menu.menu.setAttribute('data-mm-spn-title', 'Фильтр');
+
+
+		$('.js-mm-filter').dataTabs({
+			event: 'click',
+			initOpenTab: false,
+			state: 'accordion',
+			activeIndex: null,
+			jqMethodOpen: 'slideDown',
+			jqMethodClose: 'slideUp',
+
+			onTab: (self, $anchor, $target) => {
+
+
+			},
+		});
+
+	}
+})

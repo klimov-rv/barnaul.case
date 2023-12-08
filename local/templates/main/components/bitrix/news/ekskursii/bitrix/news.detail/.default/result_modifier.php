@@ -29,7 +29,7 @@ if (is_array($arResult["PROPERTIES"]["AUDIO_POINTS"]["VALUE"])) {
             $arProps = $ob->GetProperties();
 
             if ($arProps["MEDIA_SRC"]["VALUE"] !== '') {
-                $wrap1 = '<audio src="';
+                $wrap1 = '<audio preload="metadata" src="';
                 $wrap2 = '" controls="" loop=""><p>Ваш браузер не поддерживает аудио</p></audio>';
                 $media_src = $arProps["MEDIA_SRC"]["VALUE"];
                 $media_to_include = $wrap1 . $media_src . $wrap2;

@@ -850,6 +850,10 @@ COLOR
 	display: none;
 }
 
+.bx-filter-param-label.disabled {
+	opacity: .3;
+}
+
 @media (max-width: 767px) {
 	.bx-touch .bx-filter .bx-filter-popup-result {
 		font-size: 12px;

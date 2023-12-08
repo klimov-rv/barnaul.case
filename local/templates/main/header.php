@@ -202,7 +202,6 @@
                         <h1 class="page-title"><? $APPLICATION->ShowTitle(false) ?></h1>
                         <div class="site-content-wrap">
                         <? endif; ?>
-
                         <!-- на всех страницах кроме главной -->
                         <? Bitrix\Main\Page\Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/app.min.js"); ?>
 
