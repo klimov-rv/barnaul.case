@@ -77,26 +77,22 @@ Bitrix\Main\Page\Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/js/ion.range
 									?>
 											<?
 											console_log($arItem["VALUES"]);
-											// oninput="setRangeVal(this.value)" 
 											?>
-											<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>,<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>
-
-											<p>
-												<label for="amount">Price range:</label>
-												<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-											</p>
-
-											<input type="text" class="fake-range" name="fake-range" value="" 
-												data-type="double" 
-												data-grid="false" 
-												data-min="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" 
-												data-max="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" 
-												data-from="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" 
-												data-to="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" 
-											/>
-
+											<input type="text" class="fake-range" value="" data-type="double" data-grid="false" data-min="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" data-max="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" data-from="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" data-to="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" data-hide-min-max="true" data-hide-from-to="true" />
+											<div class="range-slider-input row is-grid flex-center">
+												<div class="cell-6">
+													<input class="input-field input-range" id="input-range_from" data-copy-value-to="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"] ?>" placeholder="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" value="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" onkeyup="updateBXfilter(this, <?= $arItem['VALUES']['MIN']['CONTROL_ID'] ?>)">
+												</div>
+												<div class="cell-6">
+													<input class="input-field input-range" id="input-range_to" data-copy-value-to="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"] ?>" name="price_max" placeholder="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" value="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" onkeyup="updateBXfilter(this, <?= $arItem['VALUES']['MIN']['CONTROL_ID'] ?>)">
+												</div>
+											</div>
 											<script>
-												// кастомный рендж слайдер 
+												function updateBXfilter(input, filterID) {
+													console.log(input);
+													console.log(smartFilter.keyup(filterID));
+													// document.getElementById(filterID).value = input.value
+												}
 											</script>
 										<?
 											break;

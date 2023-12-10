@@ -885,5 +885,16 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 	}
-	$(".fake-range").ionRangeSlider();
+	$(".fake-range").ionRangeSlider({
+
+		onChange: function (data) {
+			var copyFromRef = document.getElementById('input-range_from');
+			var copyToRef = document.getElementById('input-range_to');
+			var copyFrom = document.getElementById(copyFromRef.getAttribute('data-copy-value-to'));
+			var copyTo = document.getElementById(copyToRef.getAttribute('data-copy-value-to'));
+
+			copyFrom.value = copyFromRef.value = data.from;
+			copyTo.value = copyToRef.value = data.to;
+		},
+	});
 })
