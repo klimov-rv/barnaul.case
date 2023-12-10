@@ -882,3 +882,7 @@ COLOR
 		display: none;
 	}
 }
+
+.ui-widget.ui-widget-content {
+	width: 100%;
+}

@@ -773,7 +773,6 @@ BX.Iblock.SmartFilter = (function () {
 document.addEventListener('DOMContentLoaded', () => {
 	jcf.replaceAll();
 
-
 	var checkboxContainers = document.querySelectorAll('.curr_filter_values');
 
 	checkboxContainers.forEach((item) => {
@@ -847,7 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	// mmenu  
+	// mmenu сайдбар для мобильной версии фильтров
 	if ($('#mmenu').length > 0) {
 
 		const menu = new MmenuLight(
@@ -886,4 +885,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 
 	}
+	$(".fake-range").ionRangeSlider();
 })

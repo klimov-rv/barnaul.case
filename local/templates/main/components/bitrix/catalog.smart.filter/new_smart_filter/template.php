@@ -11,7 +11,9 @@
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
-
+$APPLICATION->SetTitle("Главная");
+\Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/ion.rangeSlider.min.css"));
+Bitrix\Main\Page\Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/js/ion.rangeSlider.min.js');
 ?>
 <div class="bx-filter">
 	<div class="bx-filter-section">
@@ -75,16 +77,27 @@ $this->setFrameMode(true);
 									?>
 											<?
 											console_log($arItem["VALUES"]);
+											// oninput="setRangeVal(this.value)" 
 											?>
-											<input value="0,100" type="range" multiple>
-											<div class="range-slider-input row is-grid flex-center">
-												<div class="cell-6">
-													<input class="input-field input-range" name="price_min" placeholder="<? echo $arItem["VALUES"]["MIN"]["VALUE"] ?>" value="" data-range-from="">
-												</div>
-												<div class="cell-6">
-													<input class="input-field input-range" name="price_max" placeholder="<? echo $arItem["VALUES"]["MAX"]["VALUE"] ?>" value="" data-range-to="">
-												</div>
-											</div>
+											<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>,<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>
+
+											<p>
+												<label for="amount">Price range:</label>
+												<input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+											</p>
+
+											<input type="text" class="fake-range" name="fake-range" value="" 
+												data-type="double" 
+												data-grid="false" 
+												data-min="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" 
+												data-max="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" 
+												data-from="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" 
+												data-to="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" 
+											/>
+
+											<script>
+												// кастомный рендж слайдер 
+											</script>
 										<?
 											break;
 										case "B": //NUMBERS
