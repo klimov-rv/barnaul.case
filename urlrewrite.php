@@ -24,7 +24,15 @@ $arUrlRewrite=array (
     'PATH' => '/historical_line/index.php',
     'SORT' => 100,
   ),
-  9 => 
+  10 => 
+  array (
+    'CONDITION' => '#^/ekskursii/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/ekskursii/audioekskursii/index.php',
+    'SORT' => 100,
+  ),
+  13 => 
   array (
     'CONDITION' => '#^/souvenirs/#',
     'RULE' => '',
@@ -32,7 +40,7 @@ $arUrlRewrite=array (
     'PATH' => '/souvenirs/index.php',
     'SORT' => 100,
   ),
-  7 => 
+  12 => 
   array (
     'CONDITION' => '#^/objects/#',
     'RULE' => '',
@@ -46,6 +54,14 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/events/index.php',
+    'SORT' => 100,
+  ),
+  11 => 
+  array (
+    'CONDITION' => '#^\\??(.*)#',
+    'RULE' => '&$1',
+    'ID' => 'bitrix:catalog.smart.filter',
+    'PATH' => '/objects/index.php',
     'SORT' => 100,
   ),
 );
