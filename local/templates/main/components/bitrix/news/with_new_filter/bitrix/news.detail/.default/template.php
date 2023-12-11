@@ -168,7 +168,7 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
                     </div>
                     <div class="hero__body_right push-1 cell-4 push-0-lg cell-5-md cell-12-s">
-                        <div class="page-hero-block<?= ($legend !== '') ? '' : ' hidden' ?>">
+                        <div class="page-hero-block <?= ($legend !== '') ? '' : 'hidden' ?> ">
                             <div class="page-hero-block__legend-title">легенда</div>
                             <span class="page-hero-block__legend">
                                 <?= $legend ?>
