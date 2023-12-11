@@ -12,6 +12,13 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 
+if (
+	$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_eat" ||
+	$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_stay"
+) 
+
+
+
 $rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]));
 if ($arSection = $rsSections->GetNext()) {
 	$sectionName = $arSection['NAME'];
