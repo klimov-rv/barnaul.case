@@ -19,7 +19,7 @@ $historical_obj_id = intval($arResult["PROPERTIES"]["HISTORICAL_LINE_ID"]["VALUE
 $legend = $arResult["PROPERTIES"]["LEGEND"]["VALUE"]["TEXT"];
 $coefficient = 5 * $historical_obj_id;
 $coefficient2 = $coefficient + 3;
- 
+
 if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
         // выбираем из общего списка исторических объектов предыдущий и следующий
@@ -168,15 +168,12 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
                     </div>
                     <div class="hero__body_right push-1 cell-4 push-0-lg cell-5-md cell-12-s">
-                        <? if ($legend !== '') : ?>
-                            <div class="page-hero-block">
-
-                                <div class="page-hero-block__legend-title">легенда</div>
-                                <span class="page-hero-block__legend">
-                                    <?= $legend ?>
-                                </span>
-                            </div>
-                        <? endif; ?>
+                        <div class="page-hero-block<?= ($legend !== '') ? '' : ' hidden' ?>">
+                            <div class="page-hero-block__legend-title">легенда</div>
+                            <span class="page-hero-block__legend">
+                                <?= $legend ?>
+                            </span>
+                        </div>
                         <div class="page-hero__btn-gallery">
                             <a class="white-btn popup-with-zoom-anim" href="#hero-gallery">
                                 <span>

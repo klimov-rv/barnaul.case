@@ -36,9 +36,11 @@ if (CModule::IncludeModule("iblock")) {
 			if ($ev_time === '00:00') {
 				$ev_time = '';
 			}
-			$ev_date = FormatDate("d F", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM'])); ?>
+			$ev_date = FormatDate("d F", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM']));
 
-			<a ev_id="<?= $arEvent['ID'] ?>" ev_is_main="<?= $arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"] ?>" class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> row" href="#event-dialog">
+			$ev_filter_date = FormatDate("Y-m-d", MakeTimeStamp($arEvent['DATE_ACTIVE_FROM'])); ?>
+
+			<a ev_id="<?= $arEvent['ID'] ?>" ev_is_main="<?= $arEvent["PROPERTIES"]["IS_EVENT_MAIN"]["VALUE"] ?>" class="event-list__item event-item popup-with-zoom-anim event-<?= $types_events[$ev_key]['event_tag'] ?> event-<?= $ev_filter_date ?> row" href="#event-dialog">
 
 				<div class="cell-3 cell-12-m">
 					<div class="event-item__date_wrap">

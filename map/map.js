@@ -4,6 +4,8 @@ function is_array(mixed_var) {
 function empty(mixed_var) {
   return (mixed_var === "" || mixed_var === 0 || mixed_var === "0" || mixed_var === null || mixed_var === false || (is_array(mixed_var) && mixed_var.length === 0) || mixed_var === undefined);
 }
+
+console.log('imhere123');
 var map = null,
   points,
   cpoints,
@@ -172,6 +174,10 @@ MyMap.prototype = {
     }
 
 
+
+    var color = 'green';
+
+
     group = new ymaps.Clusterer();
     group.options.set({
       gridSize: 50, // Размер кластерной сетки (объекты попавшие в данную сетку будут кластеризоваться)
@@ -329,8 +335,6 @@ MyMap.prototype = {
 
 
     MyMap.getPoints('');
-    
-    this.setPoints(0, 0, 1);
     MyMap.initSearch();
 
   }

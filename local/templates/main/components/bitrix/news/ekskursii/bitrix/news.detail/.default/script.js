@@ -14,10 +14,9 @@ $(function () {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const pageHavePlayer = document.querySelector('.audio-player');
-    // var extPlaylist = []
+    const pageHavePlayer = document.querySelector('.audio-player'); 
 
-    if (pageHavePlayer) {// плейлист со страницы "Аудиоэкскурсий"
+    if (pageHavePlayer) {   // плейлист со страницы "Аудиоэкскурсий"
         var tabItems = document.querySelectorAll('.tabs-item');
 
         var playlist = []
@@ -42,8 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
         var player = new Player(playlist);
-        console.log(playlist);
-        // extPlaylist = playlist;
+        console.log(playlist); 
     }
 
     $('.js-tabs-controls').dataTabs({

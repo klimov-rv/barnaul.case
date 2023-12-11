@@ -74,26 +74,20 @@ Bitrix\Main\Page\Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . '/js/ion.range
 									$arCur = current($arItem["VALUES"]);
 									switch ($arItem["DISPLAY_TYPE"]) {
 										case "A": //NUMBERS_WITH_SLIDER
-									?>
-											<?
-											console_log($arItem["VALUES"]);
-											?>
-											<input type="text" class="fake-range" value="" data-type="double" data-grid="false" data-min="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" data-max="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" data-from="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" data-to="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" data-hide-min-max="true" data-hide-from-to="true" />
-											<div class="range-slider-input row is-grid flex-center">
-												<div class="cell-6">
-													<input class="input-field input-range" id="input-range_from" data-copy-value-to="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"] ?>" placeholder="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" value="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" onkeyup="updateBXfilter(this, <?= $arItem['VALUES']['MIN']['CONTROL_ID'] ?>)">
-												</div>
-												<div class="cell-6">
-													<input class="input-field input-range" id="input-range_to" data-copy-value-to="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"] ?>" name="price_max" placeholder="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" value="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" onkeyup="updateBXfilter(this, <?= $arItem['VALUES']['MIN']['CONTROL_ID'] ?>)">
-												</div>
-											</div>
-											<script>
-												function updateBXfilter(input, filterID) {
-													console.log(input);
-													console.log(smartFilter.keyup(filterID));
-													// document.getElementById(filterID).value = input.value
-												}
-											</script>
+									?> 
+											<input type="text" 
+												class="fake-range" 
+												value="" 
+												data-type="double" 
+												data-grid="false" 
+												data-min="<?= $arItem["VALUES"]["MIN"]["VALUE"] ?>" 
+												data-max="<?= $arItem["VALUES"]["MAX"]["VALUE"] ?>" 
+												data-from="<?= $arItem["VALUES"]["MIN"]["HTML_VALUE"] ?>" 
+												data-to="<?= $arItem["VALUES"]["MAX"]["HTML_VALUE"] ?>" 
+												data-hide-min-max="true" 
+												data-copy-min-value-to="<?= $arItem["VALUES"]["MIN"]["CONTROL_ID"] ?>"
+												data-copy-max-value-to="<?= $arItem["VALUES"]["MAX"]["CONTROL_ID"] ?>"
+											/> 
 										<?
 											break;
 										case "B": //NUMBERS

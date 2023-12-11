@@ -133,7 +133,7 @@ MyMap.prototype = {
                     }
 
                     if (!empty(this_point.pr)) {
-                        partner = '<img class="map_img_partner" width="75" height="75" src="/map/img/partner.png" alt="" />';
+                        partner = '<img class="map_img_partner" width="75" height="75" src="/map/img/partner_new.png" alt="" />';
                     }
 
                     var placemark = new ymaps.Placemark([this_point.lo, this_point.la], {

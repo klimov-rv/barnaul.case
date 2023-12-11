@@ -30,19 +30,8 @@ $this->setFrameMode(true);
                         <?endif;?>
                         <a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
                             <img loading="lazy" src="<?=$arItem["PREVIEW_PICTURE"]["src"]?>" alt="<?=$arItem["PREVIEW_PICTURE"]["ALT"]?>" />
-                            <?if($arParams["BLOCK_TYPE"]=="TOP"):?>
-                                <?if(!empty($arItem["PROPERTIES"]["SALE"]["VALUE"])):?>
-                                    <span class="x3-b-slide__sale">
-                                        <span>
-                                            <span>
-                                                <?=$arItem["PROPERTIES"]["SALE"]["VALUE"]?>
-                                            </span>
-                                        </span>
-                                        <span class="x3-b-slide__sale-text">
-                                            скидка
-                                        </span>
-                                    </span>
-                                <?elseif(!empty($arItem["PROPERTIES"]["PARTNER"]["VALUE"])):?>
+                            <?if($arParams["BLOCK_TYPE"]=="TOP"):?> 
+                                <?if(!empty($arItem["PROPERTIES"]["PARTNER"]["VALUE"])):?>
                                     <span class="x3-b-slide__partner">
                                         <svg aria-hidden="true" width="104" height="99">
                                             <use xlink:href="#partner-icon-svg"></use>

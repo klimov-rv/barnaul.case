@@ -1,71 +1,67 @@
 
 if ($('.iso-filter').length > 0) {
     $(function () {
+        // Найти все элементы с классом "day" внутри элемента "days"
+        const days = document.querySelectorAll('.days .day');
 
-        var $grid = $('.event-list');
+        // Создаем пустой фрагмент для добавления кнопок фильтра
+        const fragment = document.createDocumentFragment();
 
-        // TODO дестрой события по подгрузке аякса
-        var $filters = $('.iso-filter').on('click', '.iso-filter__btn', function () {
-            var filterAttr = $(this).attr('data-filter');
-            location.hash = 'filter=' + encodeURIComponent(filterAttr);
+        // Перебираем все найденные элементы "day" и создаем соответствующие кнопки фильтра
+        days.forEach(day => {
+            // Проверяем, содержит ли класс "day" дополнительный класс "event" и отсекаем смежные месяцы по классу "adjacent-month"
+            if (day.classList.contains('event') && !day.classList.contains('adjacent-month')) {
+                // Получаем дату из класса элемента "day"
+                day.classList.forEach(function (сlass) {
+                    if (сlass.startsWith("calendar-day-")) {
+
+                        const dateArray = сlass.split('-').slice(2); // Получаем массив ['2023', '11', '09']
+                        const date = dateArray.join('-'); // Преобразуем массив в строку формата: "2023-11-09"  
+                        console.log(date);
+                        // Создаем новый элемент для кнопки фильтра
+                        const filterButton = document.createElement('div');
+                        filterButton.classList.add('iso-filter__btn', 'iso-filter__btn_date', `iso-filter__btn_date${date}`);
+                        filterButton.setAttribute('data-filter', `event-${date}`);
+                        filterButton.innerHTML = `<div class="iso-filter-title">Фильтр по дате ${date}</div>`;
+
+                        // Добавляем созданный элемент во временный фрагмент
+                        fragment.appendChild(filterButton);
+
+                        day.addEventListener('click', e => {
+                            const eventButton = document.querySelector(`.iso-filter .iso-filter__btn_date${date}`);
+                            if (eventButton) {
+                                eventButton.click();
+                            }
+                        });
+                    }
+                });
+            }
         });
 
-        var isIsotopeInit = true;
+        const isoFilter = document.querySelector('.iso-filter');
 
-        function getHashFilter() {
-            var hash = location.hash;
-            // get filter=filterName
-            var matches = location.hash.match(/filter=([^&]+)/i);
-            var hashFilter = matches && matches[1];
-            return hashFilter && decodeURIComponent(hashFilter);
-        }
+        // Вставляем созданные кнопки фильтра в ".iso-filter"
+        isoFilter.appendChild(fragment);
 
-        function removeHash() {
-            history.pushState("", document.title, window.location.pathname +
-                window.location.search);
-        }
+        var $types_filter = $('.event-list');
 
-        function onHashchange() {
-            var hashFilter = getHashFilter();
-            // TODO переписать повторяющуюся грязь
-            if (hashFilter === '*') {
-                $grid.isotope({
-                    itemSelector: '.event-list__item',
-                    filter: hashFilter
-                });
-                $filters.find('.is-checked').removeClass('is-checked');
-                $filters.find('[data-filter="*"]').addClass('is-checked');
-                removeHash();
-                return;
-            }
-            if (!hashFilter && isIsotopeInit) {
-                return;
-            }
-            isIsotopeInit = true;
-            // filter isotope
-            $grid.isotope({
-                itemSelector: '.event-list__item',
-                filter: '.' + hashFilter
+        // filter isotope
+        $types_filter.isotope({
+            itemSelector: '.event-list__item',
+        });
+        var $filters = $('.iso-filter').on('click', '.iso-filter__btn', function () {
+            var filterAttr = $(this).attr('data-filter');
+            $types_filter.isotope({
+                filter: '.' + filterAttr,
             });
-            // set selected class on button
-            if (hashFilter) {
-                $filters.find('.is-checked').removeClass('is-checked');
-                $filters.find('[data-filter="' + hashFilter + '"]').addClass('is-checked');
-            }
+            $('.iso-filter__btn').removeClass('is-checked');
+            $(this).addClass('is-checked');
+        });
 
-            // trigger destroy iso on ajax load
-            $(window).on('before-ajax-load-trigger', function () {
-                $grid.isotope('destroy');
-                $filters.find('.is-checked').removeClass('is-checked');
-                $filters.find('[data-filter="*"]').addClass('is-checked');
-                removeHash();
-            });
-
-        }
-
-        $(window).on('hashchange', onHashchange);
-        // trigger event handler to init Isotope
-        onHashchange();
+        // trigger destroy iso on ajax load
+        $(window).on('before-ajax-load-trigger', function () {
+            $types_filter.isotope('destroy');
+        });
 
     });
 }

@@ -887,14 +887,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	$(".fake-range").ionRangeSlider({
 
-		onChange: function (data) {
-			var copyFromRef = document.getElementById('input-range_from');
-			var copyToRef = document.getElementById('input-range_to');
-			var copyFrom = document.getElementById(copyFromRef.getAttribute('data-copy-value-to'));
-			var copyTo = document.getElementById(copyToRef.getAttribute('data-copy-value-to'));
+		onChange: function (data) { 
+			document.getElementById(data.input[0].getAttribute('data-copy-min-value-to')).value = data.from;
+			document.getElementById(data.input[0].getAttribute('data-copy-max-value-to')).value = data.to;
+			// var copyFromRef = document.getElementById('input-range_from');
+			// var copyToRef = document.getElementById('input-range_to');
+			// var copyFrom = document.getElementById(copyFromRef.getAttribute('data-copy-min-value-to'));
+			// var copyTo = document.getElementById(copyToRef.getAttribute('data-copy-max-value-to'));
 
-			copyFrom.value = copyFromRef.value = data.from;
-			copyTo.value = copyToRef.value = data.to;
+			// copyFrom.value = copyFromRef.value = data.from;
+			// copyTo.value = copyToRef.value = data.to;
 		},
 	});
 })

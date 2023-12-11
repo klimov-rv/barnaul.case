@@ -13,17 +13,24 @@
 $this->setFrameMode(true);
 // \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/objects-detail.css"));
 // \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/main-slider.css"));
-// \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/objects-slider.css"));
-
-// $historical_obj_id = intval($arResult["PROPERTIES"]["HISTORICAL_LINE_ID"]["VALUE"]);
-// $legend = $arResult["PROPERTIES"]["LEGEND"]["VALUE"]["TEXT"]; 
-console_log($arResult);
+// \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/objects-slider.css")); 
 
 ?>
 
 
 <section class="audio-tours__obzor row">
     <div class="cell-5 cell-12-lg ">
+        <? $APPLICATION->IncludeComponent(
+            "bitrix:main.include",
+            "",
+            array(
+                "AREA_FILE_SHOW" => "file",
+                "AREA_FILE_SUFFIX" => "inc",
+                "EDIT_TEMPLATE" => "",
+                "PATH" => SITE_TEMPLATE_PATH . "/include/player.php"
+            )
+        );
+        ?>
         <div class="audio-tours__player">
             <div class="audio-player-slot">
                 <div class="audio-player headline__player">
