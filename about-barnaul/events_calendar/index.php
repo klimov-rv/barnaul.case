@@ -17,9 +17,7 @@ $currentMonth = date('m');
 $currentYear = date('Y');
 
 $DateFrom = "01." . $currentMonth . $currentYear;
-$DateTo = "31." . $currentMonth . $currentYear;
-// $DateFrom = "01." . $currentMonth . "." . $currentYear;
-// $DateTo = "31." . $currentMonth . "." . $currentYear;
+$DateTo = "31." . $currentMonth . $currentYear; 
 
 $order = ['SORT' => 'ASC'];
 $filter = [
@@ -54,9 +52,7 @@ while ($row = $rows->fetch()) {
 	unset($row);
 }
 
-CIBlockElement::GetPropertyValuesArray($arr_month_events, $filter['IBLOCK_ID'], $filter);
-
-console_log($arr_month_events);
+CIBlockElement::GetPropertyValuesArray($arr_month_events, $filter['IBLOCK_ID'], $filter); 
 
 if (!empty($arr_all_events)) :
 	foreach ($arr_all_events as $key => $arEvent) :

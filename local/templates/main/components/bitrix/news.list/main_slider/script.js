@@ -3,7 +3,7 @@ $(function(){
         speed: 2000,
         effect: "fade",
         autoplay: {
-            delay: 50000,
+            delay: 5000,
         },
         loop:true,
         pagination: {
@@ -22,7 +22,7 @@ $(function(){
         $(".x3-slider__total").text( PrependZeros(this.el.childElementCount-2, 2) );
     });
 
-    // Добавление ведущего нуля
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     var PrependZeros = function (str, len, seperator) {
         if (typeof str === 'number' || Number(str)) {
             str = str.toString();

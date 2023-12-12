@@ -168,8 +168,6 @@ MyMap.prototype = {
         for (const el in objPoints) {
             arPoints.push(objPoints[el]);
         }
-        console.log(objPoints);
-        console.log(MyMap.points);
         return arPoints;
     },
 

@@ -20,7 +20,7 @@
   font-weight: bold;
 }
 
-.x3-slider__panel > .container {
+.x3-slider__panel>.container {
   display: flex;
   justify-content: flex-end;
   padding: 0;
@@ -72,6 +72,10 @@
   line-height: 0;
 }
 
+.x3-slider__item.swiper-slide-active {
+  z-index: 10;
+}
+
 .x3-slider__img {
   max-width: 100%;
 }
@@ -98,12 +102,22 @@
   font-size: 50px;
   line-height: 66px;
   font-family: "PT Serif", "Times New Roman", Times, serif;
+  color: #1F2E19;
+  font-weight: 700;
+  text-align: center;
+}
+
+.x3-slide__info {
+  display: flex;
+  flex-direction: column;
 }
 
 .x3-slide__btn {
-  width: 270px;
   height: 80px;
   margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 25px;
   font-size: 22px;
   line-height: 80px;
 }
@@ -119,13 +133,16 @@
 .x3-slider__controls {
   display: flex;
 }
+
 .x3-slider__controls .x3-slider__prev,
 .x3-slider__controls .x3-slider__next {
   cursor: pointer;
 }
+
 .x3-slider__controls .x3-slider__prev {
   margin-right: 57px;
 }
+
 .x3-slider__controls svg {
   stroke: #fff;
 }
@@ -139,30 +156,37 @@
     max-width: 380px;
   }
 }
+
 @media (max-width: 980px) {
   .x3-slide__card {
     bottom: 77px;
   }
+
   .x3-slide__card img {
     max-width: 290px;
   }
+
   .x3-slider__item img {
     max-width: none;
     width: auto;
     height: 435px;
     margin-left: -80px;
   }
+
   .x3-slide__name {
     font-size: 30px;
     line-height: 40px;
   }
+
   .x3-slide__data {
     align-items: flex-start;
   }
+
   .x3-slide__data .container {
     padding-top: 95px;
     text-align: center;
   }
+
   .x3-slide__btn {
     min-width: 0;
     width: 180px;
@@ -172,6 +196,7 @@
     line-height: 54px;
     border-radius: 5px;
   }
+
   /*-- pagination --*/
   .x3-slider__panel {
     position: relative;
@@ -185,19 +210,23 @@
     background: transparent;
     justify-content: space-between;
   }
+
   .x3-slider__controls svg {
     stroke: #737373;
   }
 }
+
 @media (max-width: 480px) {
   .x3-slider .swiper-pagination-bullet {
     width: 35px;
   }
 }
+
 @media (max-width: 385px) {
   .x3-slider__prev {
     margin-right: 25px;
   }
+
   .x3-slider .swiper-pagination-bullet {
     width: 25px;
   }

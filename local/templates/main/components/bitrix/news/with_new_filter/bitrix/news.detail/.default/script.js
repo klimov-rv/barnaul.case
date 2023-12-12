@@ -67,11 +67,11 @@ $(function () {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    //popup gallery
     $('.popup-with-zoom-anim').click(function () {
         if ($('.gallery-slider').length > 0) {
 
-            // фикс инициализации по клику на magnific 
-            // TODO: проверить может легче инитить попап иначе, что бы свайпер был готов до открытия попапа
+            // TODO: пофиксить слайдер по первому открытию попапа magnific (не всегда инициализируется верно)
 
             function lazyInitSwiper() {
                 var setPagination = function (e) {
@@ -114,16 +114,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 function waitSwiper() {
                     gallerySwiper.init();
                     gallerySwiper.pagination.update();
-                    if (!gallerySwiper.$el[0].classList.contains("showin")) {
+                    if (!gallerySwiper.$el[0].classList.contains('showin')) {
                         gallerySwiper.$el[0].classList.add('showin');
                     }
                 }
-
-                setTimeout(waitSwiper, 150);
-
+                setTimeout(waitSwiper, 350);
             }
-
-            setTimeout(lazyInitSwiper, 150);
+            setTimeout(lazyInitSwiper, 350);
         }
     });
+
+    // audio player
+    var elms = ['track', 'timer', 'duration', 'playBtn', 'pauseBtn', 'prevBtn', 'nextBtn', 'playlistBtn', 'volumeBtn', 'progress', 'startbar', 'wave', 'loading', 'playlist', 'list', 'volume', 'barEmpty', 'barFull', 'sliderBtn'];
+    elms.forEach(function (elm) {
+        window[elm] = document.getElementById(elm);
+    });
+    
+    var audioSrc = document.querySelector('.data-audio-src').getAttribute('data-audio-src');
+    var player = new Player([
+        {
+            title: 'audio',
+            file: audioSrc,
+            howl: null
+        },
+    ]);
+
+    // Bind our player controls.
+    playBtn.addEventListener('click', function () {
+        player.play();
+    });
+    startbar.addEventListener('click', function () {
+        player.play();
+    });
+    pauseBtn.addEventListener('click', function () {
+        player.pause();
+    });
+
 });

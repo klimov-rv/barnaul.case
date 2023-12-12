@@ -12,20 +12,23 @@
 /** @var CBitrixComponent $component */
 $this->setFrameMode(true);
 
-if (
-	$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_eat" ||
-	$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_stay"
-) 
-
-
-
 $rsSections = CIBlockSection::GetList(array(), array('IBLOCK_ID' => $arParams["IBLOCK_ID"], 'ID' => $arResult["VARIABLES"]["SECTION_ID"]));
 if ($arSection = $rsSections->GetNext()) {
 	$sectionName = $arSection['NAME'];
 	$sSectionName = $arSection['NAME'];
 	$parentSection = (!empty($arSection['IBLOCK_SECTION_ID'])) ? $arSection['IBLOCK_SECTION_ID'] : $arResult["VARIABLES"]["SECTION_ID"];
-} 
+}
 
+$arSections = CIBlockSection::GetNavChain(false, $arResult["VARIABLES"]["SECTION_ID"], ['ID', 'NAME', 'DEPTH_LEVEL'], true);
+
+if ($arSections[0]["ID"] == 1)
+	$sectionImg = "/upload/bg/eat.png";
+elseif ($arSections[0]["ID"] == 2)
+	$sectionImg = "/upload/bg/stay.png";
+elseif ($arSections[0]["ID"] == 3)
+	$sectionImg = "/upload/bg/visit.png";
+
+$APPLICATION->SetPageProperty("BG", $sectionImg);
 ?>
 
 <? if ($arParams["USE_RSS"] == "Y") : ?>
@@ -53,7 +56,8 @@ if ($arSection = $rsSections->GetNext()) {
 <? if ($arParams["USE_FILTER"] == "Y") : ?>
 	<? if (
 		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_eat" ||
-		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_stay"
+		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_stay"  ||
+		$arResult["VARIABLES"]["SECTION_CODE_PATH"] === "where_visit"
 	) : ?><!--  where_stay, page_url === souvenirs -->
 		<? $APPLICATION->IncludeComponent(
 			"bitrix:catalog.smart.filter",
