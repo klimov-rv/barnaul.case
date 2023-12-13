@@ -26,7 +26,7 @@ $this->setFrameMode(true);
                     <div class="x3-slide__data">
                         <div class="container">
                             <div class="row">
-                                <div class="x3-slide__info cell-6 push-6">
+                                <div class="x3-slide__info cell-6 push-6 ">
                                     <div class="x3-slide__name"><?= $arItem["NAME"] ?></div>
                                     <a href="<?= $arItem["PROPERTIES"]["SLIDER_LINK"]["VALUE"] ?>" class="x3-slide__btn x3-btn"><?= $arItem["PROPERTIES"]["BUTTON_TITLE"]["VALUE"] ?></a>
                                 </div>

@@ -13,7 +13,7 @@
 $this->setFrameMode(true);
 \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/search.css"));
 ?>
-<div class="x3-search__icon <? if ($APPLICATION->GetCurPage(false) == '/'): ?>x3-search__icon--white<?endif;?> svg-rotate">
+<div class="x3-search__icon svg-rotate">
     <svg aria-hidden="true" width="21" height="20">
         <use xlink:href="#search-svg"></use>
     </svg>

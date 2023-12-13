@@ -96,9 +96,9 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                             );
                             ?>
                             <div class="data-audio-src hide" data-audio-src="<?= $arResult['MEDIA_SRC']['VALUE'] ?>">
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
                 <? if ($linkNext) : ?>
                     <a href="<?= $linkNext ?>" class="hero__headline_btn btn_next">
@@ -124,9 +124,24 @@ if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
                                 <span class="page-hero-description">
                                     <?= $arResult["PREVIEW_TEXT"] ?>
                                 </span>
-                                <? $APPLICATION->IncludeFile($templateFolder . '/include_facts/facts_point_' . $historical_obj_id . '.php');
-                                // $APPLICATION->IncludeFile($templateFolder . '/include_facts/fact1-1.php', Array( "settings" => $settingsList )); 
-                                ?>
+                                <div class="page-hero-fastfacts row">
+                                    <?
+                                    foreach ($arResult['FAST_FACTS'] as $fact) { ?>
+
+                                        <div class="cell-5 cell-11-md fastfacts__item">
+                                            <div class="fastfacts__item_wrap">
+                                                <span class="fastfacts__icon">
+                                                    <img src="<?= $fact['ICON'] ?>" alt="">
+
+                                                </span>
+                                                <div class="fastfact-info">
+                                                    <?= $fact['DISPLAY_HTML'] ?>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <? } ?>
+                                </div>
                             </div>
                         </div>
 

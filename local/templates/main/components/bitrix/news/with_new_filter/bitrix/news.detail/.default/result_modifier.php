@@ -15,13 +15,6 @@ if (is_array($arResult["PROPERTIES"]["MORE_PHOTOS"]["VALUE"])) {
     }
 }
 
-//foreach($arResult["DISPLAY_PROPERTIES"]["MORE_PHOTOS"]["VALUE"] as &$photo) {
-//    $photo = array(
-//        "FULL" => CFile::GetPath($photo),
-//        "PREVIEW" => CFile::ResizeImageGet($photo, array('width'=>276,'height'=>166), BX_RESIZE_IMAGE_EXACT),
-//    );
-//}
-
 $SectionRes = CIBlockSection::GetList(array("SORT" => "ASC"), array("IBLOCK_ID" => $arResult["IBLOCK_ID"], "ID" => $arResult["IBLOCK_SECTION_ID"]), false, array("UF_ICONMAP"));
 if ($arSection = $SectionRes->GetNext()) {
     $arResult["ICON_MAP"] = CFile::GetPath($arSection["UF_ICONMAP"]);
@@ -32,6 +25,20 @@ if ($audio_ID) {
     $elProps = CIBlockElement::GetByID($audio_ID)->GetNextElement()->GetProperties();
     $arResult['MEDIA_SRC'] = $elProps['MEDIA_SRC'];
 }
+
+$fast_facts = [];
+$facts = $arResult["PROPERTIES"]["HISTORICAL_LINE_POINT_FACTS"];
+$res = CIBlockElement::GetList(array("SORT" => "ASC"), array("ID" => $facts['VALUE'], "ACTIVE" => "Y"));
+while ($ar_fields = $res->GetNext()) {
+    console_log($ar_fields);
+    array_push($fast_facts, [
+        "ICON" => CFile::GetPath($ar_fields['PREVIEW_PICTURE']),
+        "DISPLAY_HTML" => strip_tags(trim($ar_fields["PREVIEW_TEXT"]), '<div><span>'),
+    ]);
+}
+
+console_log($fast_facts);
+$arResult['FAST_FACTS'] = $fast_facts;
 
 if (!in_array($arElement["WF_STATUS_ID"], $arParams["STATUS"])) {
     echo ShowError(GetMessage("IBLOCK_ADD_ACCESS_DENIED"));

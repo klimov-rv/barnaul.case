@@ -105,9 +105,9 @@ $APPLICATION->AddChainItem("Историческая линия");
             console_log($arFields);
         ?>
             <div data-audio-id="<?= $arFields["PROPERTY_HISTORICAL_LINE_ID_VALUE"] ?>" class="audio-list-cell cell-fifth cell-3-lg cell-4-md cell-6-sm cell-12-xs">
-                <div class="point__img">
+                <a href="<?= $arFields["DETAIL_PAGE_URL"] ?>" class="point__img">
                     <img src="<?= CFile::GetPath($arFields["PROPERTY_HISTORICAL_LINE_POINT_IMG_VALUE"]) ?>" alt="">
-                </div>
+                </a>
                 <div class="point__number_wrap">
                     <div class="point__number">
                         <div class="point__number_current"><?= $arFields["PROPERTY_HISTORICAL_LINE_ID_VALUE"] ?></div>
@@ -216,20 +216,6 @@ $APPLICATION->AddChainItem("Историческая линия");
                     }
                 });
             });
-
-            // var mapPointsPlayBtns = document.querySelectorAll('.duplicate_point_el');
-
-            // mapPointsPlayBtns.forEach((item, idx) => {
-            //     item.addEventListener('click', e => {
-            //         var btnId = e.target.getAttribute('data-point-id')
-            //         audioBtns.forEach((item, idx) => {
-
-            //             var el = item.closest('.audio-list-cell');
-            //             var audioID = el.getAttribute('data-audio-id');
-            //             console.log(audioID === btnId);
-            //         })
-            //     })
-            // })
         }
     });
 </script>

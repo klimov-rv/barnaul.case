@@ -115,7 +115,7 @@
             <div class="container">
                 <div class="x3-header">
                     <div class="x3-header__logo">
-                        <a href="/" class="x3-logo <? if ($APPLICATION->GetCurPage(false) == '/') : ?>x3-logo--white<? endif; ?>">
+                        <a href="/" class="x3-logo">
                             <span class="x3-logo__img">
                                 <svg aria-hidden="true" width="43" height="51">
                                     <use xlink:href="#logo-svg"></use>

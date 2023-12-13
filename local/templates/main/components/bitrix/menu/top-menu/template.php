@@ -3,7 +3,7 @@
 <? \Site\Main\Css::showInlineCssBlock(array(SITE_TEMPLATE_PATH . "/css/top-menu.css")); ?>
 
 <? if (!empty($arResult)) : ?>
-    <div class="x3-tmenu <? if ($APPLICATION->GetCurPage(false) == '/') : ?>x3-tmenu--white<? endif; ?>">
+    <div class="x3-tmenu">
         <div class="x3-tmenu__icon">
             <svg aria-hidden="true" width="20" height="15">
                 <use xlink:href="#menu-svg"></use>

@@ -20,6 +20,7 @@ $legend = $arResult["PROPERTIES"]["LEGEND"]["VALUE"]["TEXT"];
 $coefficient = 5 * $historical_obj_id;
 $coefficient2 = $coefficient + 3;
 
+console_log($arResult["PROPERTIES"]);
 if (!empty($arResult["PROPERTIES"]["IS_HISTORICAL_LINE_OBJECT"]["VALUE"])) : {
 
         // выбираем из общего списка исторических объектов предыдущий и следующий
